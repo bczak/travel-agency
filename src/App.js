@@ -1,10 +1,21 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import "date-fns";
+import { Checkbox } from "@material-ui/core";
+import tour1 from "./assets/tour1.jpg";
+import tour2 from "./assets/tour2.jpg";
+import tour3 from "./assets/tour3.jpg";
+import DateRangePicker from "react-daterange-picker";
+import "react-daterange-picker/dist/css/react-calendar.css";
+import originalMoment from "moment";
+import { extendMoment } from "moment-range";
+const moment = extendMoment(originalMoment);
 
 class App extends React.Component {
   state = {
-    tags: []
+    tags: [],
+    isSearchClicked: false
   };
 
   onAddTag = tag => {
@@ -17,12 +28,74 @@ class App extends React.Component {
     this.setState({ tags: newTags });
   };
 
+  handleOpenResult = () => {
+    this.setState({ isSearchClicked: true });
+  };
+
   render() {
     return (
       <div id="App">
+        <Calendar />
         <TagFilter tags={this.state.tags} addTag={this.onAddTag} />
         <TagContainer tags={this.state.tags} removeTag={this.onDeleteTag} />
-        <Result />
+        <SearchButton handleOpenResult={this.handleOpenResult} />
+        {this.state.isSearchClicked ? <Result /> : null}
+      </div>
+    );
+  }
+}
+
+class Calendar extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    const today = moment();
+
+    this.state = {
+      isOpen: false,
+      value: moment.range(today.clone().subtract(7, "days"), today.clone())
+    };
+  }
+
+  onSelect = (value, states) => {
+    this.setState({ value, states });
+  };
+
+  onToggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
+
+  renderSelectionValue = () => {
+    return (
+      <div className='calendarDateRange'>
+        <div>Choose date range, please</div>
+        {this.state.value.start.format("YYYY-MM-DD")}
+        {" - "}
+        {this.state.value.end.format("YYYY-MM-DD")}
+      </div>
+    );
+  };
+
+  render() {
+    return (
+      <div className='calendarWrapper'>
+        <div>{this.renderSelectionValue()}</div>
+
+        <div>
+          <input className='calendarButton'
+            type="button"
+            value="Choose"
+            onClick={this.onToggle}
+          />
+        </div>
+
+        {this.state.isOpen && (
+          <DateRangePicker 
+            value={this.state.value}
+            onSelect={this.onSelect}
+            singleDateRange={true}
+          />
+        )}
       </div>
     );
   }
@@ -42,8 +115,6 @@ class TagFilter extends React.Component {
             <TextField {...params} label="Filters" variant="outlined" />
           )}
         />
-       
-        
       </div>
     );
   }
@@ -62,7 +133,8 @@ class TagContainer extends React.Component {
                 className="removeTagCross"
                 onClick={() => {
                   this.props.removeTag(elem);
-                }}>
+                }}
+              >
                 ✗
               </div>
             </div>
@@ -75,14 +147,57 @@ class TagContainer extends React.Component {
   }
 }
 
+class SearchButton extends React.Component {
+  state = {
+    isChecked: false
+  };
+  render() {
+    return (
+      <div className="searchButtonWrapper">
+        <button
+          className="searchButton"
+          onClick={() => {
+            this.props.handleOpenResult();
+          }}
+        >
+          Search
+        </button>
+        <div className="emailCheckboxWrapper">
+          <Checkbox id="emailCheckbox" style={{ color: "#515151" }} onChange={(event)=>{
+            this.setState({isChecked: event.target.checked});
+          }}/>
+          <label htmlFor="emailCheckbox" className="emailCheckboxLabel">
+            I want to receive new offers
+          </label>
+        </div>
+        {this.state.isChecked ? <TextField
+          id="outlined-email-input"
+          label="Email"
+          type="email"
+          name="email"
+          autoComplete="email"
+          margin="normal"
+          variant="outlined"
+          style={{width:350}}
+        /> : null}
+      </div>
+    );
+  }
+}
+
 class Result extends React.Component {
   render() {
     return (
       <div className="resultWrapper">
         <div className="resultHeader">Results</div>
-        <div className='sortElements'>
-        <div className='sortByDate'>Sort by end date ⇅</div>
-        <div className='sortByDate'>Sort by price ⇅</div>
+        <div className="sortElements">
+          <div className="sortByDate">Sort by end date ⇅</div>
+          <div className="sortByDate">Sort by price ⇅</div>
+        </div>
+        <div className="resultElementsWrapper">
+          <img src={tour1} />
+          <img src={tour2} />
+          <img src={tour3} />
         </div>
       </div>
     );

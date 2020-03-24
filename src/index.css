@@ -4,13 +4,14 @@ html, body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    background-image: url('./assets/travel1.jpg');
+    background-image: url('./assets/travel1.png');
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 100;
+    font-family: 'Josefin Slab', sans-serif;
+    font-weight: 400;
     
 }
 
@@ -23,8 +24,28 @@ html, body {
     flex-direction: column;
 }
 
+.calendarWrapper{
+    margin-top: 50px;
+    font-size: 30px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+
+.calendarDateRange{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    
+}
+
 .tagFilterWraper{
-    margin-top: 100px;
+    margin-top: 70px;
     color: rgb(0, 0, 0);
     text-align: center;
     font-size: 35px;
@@ -40,6 +61,7 @@ html, body {
 .tagContainerWrapper{
     width: 500px;
     margin-top: 50px;
+    margin-bottom: 70px;
     font-size: 35px;
 }
 
@@ -49,10 +71,12 @@ html, body {
 
 .tagContainer{
     display:flex;
+    margin-top: 10px;
 }
 
 .tag{
     margin-right: 5px;
+    font-weight: 300;
     
 }
 
@@ -62,10 +86,79 @@ html, body {
     background-color: #fdaea9a1;
 }
 
-.sortElements{
+.calendarButton{
+    width: 150px;
+    height: 50px;
+    font-family: 'Josefin Slab', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.calendarButton:hover{
+    background-color: #f7b1ace0;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.searchButtonWrapper{
+    width: 500px;
+    display: list-item;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchButton {
+    width: 150px;
+    height: 50px;
+    font-family: 'Josefin Slab', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    }
+  
+.searchButton:hover {
+    background-color: #f7b1ace0;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+.emailCheckboxWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emailCheckboxLabel{
     font-size: 20px;
+}
+
+.sortElements{
+    font-size: 25px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 50px;
+    background: #f7b1ace0;
+
+    
 }
 
 .resultHeader{
@@ -73,9 +166,18 @@ html, body {
     margin-top: 70px;
     margin-bottom: 30px;
     font-size: 35px;
+    background: #f7b1ace0;
 }
 
 .resultWrapper{
+    width: 700px;
+}
+
+/* .resultElementsWrapper{
     width: 500px;
+} */
+
+img{
+    width: 700px;
 }
 
