@@ -35,7 +35,7 @@ html, body {
     font-size: 35px;
 }
 
-.calendarDateRange{
+.calendarDateRangeText{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,6 +43,7 @@ html, body {
     margin-bottom: 20px;
     
 }
+
 
 .tagFilterWraper{
     margin-top: 70px;
@@ -100,6 +101,7 @@ html, body {
     transition: all 0.3s ease 0s;
     cursor: pointer;
     outline: none;
+    margin-bottom: 10px;
 }
 
 .calendarButton:hover{

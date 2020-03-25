@@ -53,7 +53,7 @@ class Calendar extends React.Component {
 
     this.state = {
       isOpen: false,
-      value: moment.range(today.clone().subtract(7, "days"), today.clone())
+      value: ""
     };
   }
 
@@ -67,30 +67,34 @@ class Calendar extends React.Component {
 
   renderSelectionValue = () => {
     return (
-      <div className='calendarDateRange'>
-        <div>Choose date range, please</div>
-        {this.state.value.start.format("YYYY-MM-DD")}
-        {" - "}
-        {this.state.value.end.format("YYYY-MM-DD")}
+      <div className="calendarDateRangeText">
+        <div>Choose a date range, please</div>
       </div>
     );
   };
 
   render() {
     return (
-      <div className='calendarWrapper'>
+      <div className="calendarWrapper">
         <div>{this.renderSelectionValue()}</div>
 
         <div>
-          <input className='calendarButton'
+          <input
+            className="calendarButton"
             type="button"
             value="Choose"
             onClick={this.onToggle}
           />
         </div>
-
+        {this.state.value.length !== 0 ? (
+          <div className='calendarDateRange'>
+            {this.state.value.start.format("YYYY-MM-DD")}
+            {" - "}
+            {this.state.value.end.format("YYYY-MM-DD")}
+          </div>
+        ) : null}
         {this.state.isOpen && (
-          <DateRangePicker 
+          <DateRangePicker
             value={this.state.value}
             onSelect={this.onSelect}
             singleDateRange={true}
@@ -105,7 +109,7 @@ class TagFilter extends React.Component {
   render() {
     return (
       <div className="tagFilterWraper">
-        <div className="tagFilterHeader">Choose the tags, please</div>
+        <div className="tagFilterHeader">Choose tags, please</div>
         <Autocomplete
           options={filters}
           getOptionLabel={option => option.title}
@@ -163,23 +167,29 @@ class SearchButton extends React.Component {
           Search
         </button>
         <div className="emailCheckboxWrapper">
-          <Checkbox id="emailCheckbox" style={{ color: "#515151" }} onChange={(event)=>{
-            this.setState({isChecked: event.target.checked});
-          }}/>
+          <Checkbox
+            id="emailCheckbox"
+            style={{ color: "#515151" }}
+            onChange={event => {
+              this.setState({ isChecked: event.target.checked });
+            }}
+          />
           <label htmlFor="emailCheckbox" className="emailCheckboxLabel">
             I want to receive new offers
           </label>
         </div>
-        {this.state.isChecked ? <TextField
-          id="outlined-email-input"
-          label="Email"
-          type="email"
-          name="email"
-          autoComplete="email"
-          margin="normal"
-          variant="outlined"
-          style={{width:350}}
-        /> : null}
+        {this.state.isChecked ? (
+          <TextField
+            id="outlined-email-input"
+            label="Email"
+            type="email"
+            name="email"
+            autoComplete="email"
+            margin="normal"
+            variant="outlined"
+            style={{ width: 350 }}
+          />
+        ) : null}
       </div>
     );
   }
