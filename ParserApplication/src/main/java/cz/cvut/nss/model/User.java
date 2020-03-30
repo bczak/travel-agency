@@ -15,67 +15,73 @@ public class User extends AbstractEntity
     @Column
     private String password;
     @Column
-    private boolean blocked;
-    @Column
-    private String role;
-    @Embedded
-    private PersonalData personalData;
+    private String email;
+    @ManyToMany
+    private List<Trip> trips;
 
-    public String getUsername()
-    {
-        return username;
-    }
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<TripCriteria> tripCriteria;
 
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public void erasePassword()
     {
         this.password = null;
     }
 
-    public boolean isBlocked()
-    {
-        return blocked;
+    public Role getRole() {
+        return role;
     }
 
-    public void setBlocked(boolean blocked)
-    {
-        this.blocked = blocked;
-    }
-
-    public PersonalData getPersonalData()
-    {
-        if(personalData == null)
-            personalData = new PersonalData();
-        return personalData;
-    }
-
-    public void setPersonalData(PersonalData personalData)
-    {
-        this.personalData = personalData;
-    }
-
-    public void setRole(String role)
-    {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public String getRole()
-    {
-        return role;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<Trip> getTrips() {
+        if(trips == null){
+            setTrips(new ArrayList<>());
+        }
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
+
+    public List<TripCriteria> getTripCriteria() {
+        if(tripCriteria == null){
+            setTripCriteria(new ArrayList<>());
+        }
+        return tripCriteria;
+    }
+
+    public void setTripCriteria(List<TripCriteria> tripCriteria) {
+        this.tripCriteria = tripCriteria;
     }
 }
 

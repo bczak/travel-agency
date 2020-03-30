@@ -33,7 +33,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     private void addUserRole()
     {
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+        authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
     }
 
     @Override
