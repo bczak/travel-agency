@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <start-class>cz.cvut.nss.ParserApplicationBackend</start-class>
+        <start-class>RSP.ParserApplicationBackend</start-class>
         <!-- <org.eclipse.persistence.version>2.7.4</org.eclipse.persistence.version> -->
     </properties>
 

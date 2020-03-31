@@ -2,14 +2,64 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e4a3468-68dc-40e5-b073-2c2f70e08249" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/RSP/rest/Rest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/PersonalData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/model/UserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/model/UserDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/generator/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/generator/Generator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/ParserApplicationBackend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/ParserApplicationBackend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/config/PersistenceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/config/PersistenceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/AbstractDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/AbstractDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/TagDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/TagDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/TripCriteriaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/TripCriteriaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/TripDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/TripDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/AbstractEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/AbstractEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/Tag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/Trip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/TripCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/TripCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/rest/Rest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/AuthenticationFailure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/AuthenticationFailure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/AuthenticationSuccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/AuthenticationSuccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/DefaultAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/DefaultAuthenticationProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/SecurityConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/SecurityConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/SecurityUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/SessionTimeoutManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/SessionTimeoutManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/model/AuthenticationToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/model/AuthenticationToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/model/LoginStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/model/LoginStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/model/UserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/model/UserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/service/security/UserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/service/security/UserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/ParserApplicationBackend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/config/AppConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/config/PersistenceConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/config/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/AbstractDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/TagDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/TripCriteriaDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/TripDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/UserDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/AbstractEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/Tag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/Trip.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/TripCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/rest/Rest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/AuthenticationFailure.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/AuthenticationSuccess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/DefaultAuthenticationProvider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/SecurityConstants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/SecurityUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/SessionTimeoutManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/model/AuthenticationToken.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/model/LoginStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/model/UserDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/service/security/UserDetailsService.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,10 +95,17 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../NSS-SEMESTRALKA/nss-semestral-project/project/back-end" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.IssueTracker">
     <configuration name="IssueTracker" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="ParserApplication" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cz.cvut.nss.ParserApplicationBackend" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ParserApplicationBackend" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ParserApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="RSP.ParserApplicationBackend" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -81,7 +138,8 @@
       <workItem from="1584916085028" duration="59000" />
       <workItem from="1584968452979" duration="30000" />
       <workItem from="1584968828191" duration="104000" />
-      <workItem from="1585569137941" duration="2262000" />
+      <workItem from="1585569137941" duration="3291000" />
+      <workItem from="1585660345083" duration="685000" />
     </task>
     <servers />
   </component>
