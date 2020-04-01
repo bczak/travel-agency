@@ -2,64 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e4a3468-68dc-40e5-b073-2c2f70e08249" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/RSP/rest/Rest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/RSP/REST/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/ParserApplicationBackend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/ParserApplicationBackend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/config/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/config/PersistenceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/config/PersistenceConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/AbstractDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/AbstractDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/TagDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/TagDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/TripCriteriaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/TripCriteriaDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/TripDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/TripDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/AbstractEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/AbstractEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/Tag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/Trip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/TripCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/TripCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/rest/Rest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/AuthenticationFailure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/AuthenticationFailure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/AuthenticationSuccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/AuthenticationSuccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/DefaultAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/DefaultAuthenticationProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/SecurityConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/SecurityConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/SecurityUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/SessionTimeoutManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/SessionTimeoutManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/model/AuthenticationToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/model/AuthenticationToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/model/LoginStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/model/LoginStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/security/model/UserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/security/model/UserDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/nss/service/security/UserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/service/security/UserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/ParserApplicationBackend.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/config/AppConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/config/PersistenceConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/config/SecurityConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/AbstractDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/TagDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/TripCriteriaDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/TripDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/dao/UserDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/AbstractEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/Tag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/Trip.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/TripCriteria.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/rest/Rest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/AuthenticationFailure.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/AuthenticationSuccess.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/DefaultAuthenticationProvider.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/SecurityConstants.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/SecurityUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/SessionTimeoutManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/model/AuthenticationToken.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/model/LoginStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/security/model/UserDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/cvut/nss/service/security/UserDetailsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RSP/model/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/model/Trip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RSP/rest/Rest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RSP/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RSP/service/security/UserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RSP/service/security/UserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/RSP/model/Trip.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/RSP/model/Trip.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/RSP/rest/Rest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/RSP/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/RSP/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -93,9 +46,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../NSS-SEMESTRALKA/nss-semestral-project/project/back-end" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../pejsaond/semestral-project" />
   </component>
-  <component name="RunManager" selected="Spring Boot.IssueTracker">
+  <component name="RunManager" selected="Spring Boot.ParserApplicationBackend">
     <configuration name="IssueTracker" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="ParserApplication" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cz.cvut.nss.ParserApplicationBackend" />
@@ -139,7 +92,8 @@
       <workItem from="1584968452979" duration="30000" />
       <workItem from="1584968828191" duration="104000" />
       <workItem from="1585569137941" duration="3291000" />
-      <workItem from="1585660345083" duration="685000" />
+      <workItem from="1585660345083" duration="1509000" />
+      <workItem from="1585767506033" duration="3670000" />
     </task>
     <servers />
   </component>
@@ -147,45 +101,53 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="97" key="#com.intellij.ide.util.MemberChooser" timestamp="1585571241933">
+    <state x="574" y="97" key="#com.intellij.ide.util.MemberChooser" timestamp="1585769662712">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="97" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585571241933" />
-    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1585569156729">
+    <state x="574" y="97" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585769662712" />
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1585769959899">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585569156729" />
-    <state width="1493" height="100" key="GridCell.Tab.0.bottom" timestamp="1584916144158">
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585769959899" />
+    <state width="1493" height="93" key="GridCell.Tab.0.bottom" timestamp="1585771185232">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584916144158" />
-    <state width="1493" height="100" key="GridCell.Tab.0.center" timestamp="1584916144158">
+    <state width="1493" height="93" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585771185232" />
+    <state width="1493" height="93" key="GridCell.Tab.0.center" timestamp="1585771185232">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1584916144158" />
-    <state width="1493" height="100" key="GridCell.Tab.0.left" timestamp="1584916144158">
+    <state width="1493" height="93" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585771185232" />
+    <state width="1493" height="93" key="GridCell.Tab.0.left" timestamp="1585771185231">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1584916144158" />
-    <state width="1493" height="100" key="GridCell.Tab.0.right" timestamp="1584916144158">
+    <state width="1493" height="93" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585771185231" />
+    <state width="1493" height="93" key="GridCell.Tab.0.right" timestamp="1585771185232">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1584916144158" />
-    <state width="1493" height="100" key="GridCell.Tab.1.bottom" timestamp="1584916144158">
+    <state width="1493" height="93" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585771185232" />
+    <state width="1493" height="93" key="GridCell.Tab.1.bottom" timestamp="1585771185232">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584916144158" />
-    <state width="1493" height="100" key="GridCell.Tab.1.center" timestamp="1584916144158">
+    <state width="1493" height="93" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585771185232" />
+    <state width="1493" height="93" key="GridCell.Tab.1.center" timestamp="1585771185232">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1584916144158" />
-    <state width="1493" height="100" key="GridCell.Tab.1.left" timestamp="1584916144158">
+    <state width="1493" height="93" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585771185232" />
+    <state width="1493" height="93" key="GridCell.Tab.1.left" timestamp="1585771185232">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1584916144158" />
-    <state width="1493" height="100" key="GridCell.Tab.1.right" timestamp="1584916144158">
+    <state width="1493" height="93" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585771185232" />
+    <state width="1493" height="93" key="GridCell.Tab.1.right" timestamp="1585771185232">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1584916144158" />
+    <state width="1493" height="93" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585771185232" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1585768422464">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1585768422464" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1585770353057">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585770353057" />
   </component>
 </project>

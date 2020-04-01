@@ -11,6 +11,10 @@ import java.util.List;
 public class Trip extends  AbstractEntity{
     @Column
     private String location;
+
+    @Column
+    private String Name;
+
     @Column
     private Date startDate;
     @Column
@@ -20,6 +24,14 @@ public class Trip extends  AbstractEntity{
 
     @ManyToMany
     private List<Tag> tags;
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
 
     public String getLocation() {
         return location;
