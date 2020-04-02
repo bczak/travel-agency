@@ -27,8 +27,9 @@ public class SecurityConstants
      */
     public static final int SESSION_TIMEOUT = 30 * 60;
 
-    public final static String USER = "User";
-    public final static String ADMIN = "Admin";
+    public final static String USER = "ROLE_USER";
+    public final static String ADMIN = "ROLE_ADMIN";
+    public final static String ABAS = "ROLE_ABAS";
 }
 
 

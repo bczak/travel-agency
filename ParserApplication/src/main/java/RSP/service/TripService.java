@@ -4,6 +4,7 @@ import RSP.dao.TripDao;
 import RSP.dao.UserDao;
 import RSP.model.Trip;
 import RSP.model.User;
+import org.hibernate.annotations.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class TripService {
     {
         if(trip == null)
             throw new NullPointerException("Trip can not be Null.");
-        if(alreadyExists(trip.getId()))
+        if(alreadyExists(trip.getId()) || getByName(trip.getName()) != null)
             return false;
         tripDao.add(trip);
         return true;
@@ -59,13 +60,7 @@ public class TripService {
 
     public Trip getByName(String name)
     {
-        for(Trip t : tripDao.getAll())
-        {
-            if(t.getName().equals(name)){
-                return t;
-            }
-        }
-        return null;
+        return tripDao.getByName(name);
     }
 
 }

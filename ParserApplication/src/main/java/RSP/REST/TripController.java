@@ -49,7 +49,7 @@ public class TripController {
 
     //DELETE REQUESTS
     @DeleteMapping(value = "/{id}")
-    //@PreAuthorize("hasRole('Admin')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     ResponseEntity<Void> remove(@PathVariable int id)
     {
         if(tripService.remove(id))

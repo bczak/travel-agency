@@ -1,6 +1,7 @@
 package RSP.model;
 
 public enum Role {
-    Admin,
-    User
+    ROLE_ADMIN,
+    ROLE_USER,
+    ROLE_ABAS
 }

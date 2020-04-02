@@ -25,7 +25,7 @@ public class UserService
     {
         if(user == null)
             throw new NullPointerException("User can not be Null.");
-        if(alreadyExists(user.getId()))
+        if(alreadyExists(user.getId()) || getByUsername(user.getUsername()) != null)
             return false;
         userDao.add(user);
         return true;

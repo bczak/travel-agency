@@ -7,7 +7,13 @@ import java.util.List;
 
 @Table(name = "trip_table")
 @Entity
-@NamedQuery(name = "Trip.getAll",query = "SELECT c FROM Trip c")
+@NamedQueries({
+        @NamedQuery(name = "Trip.getAll",query = "SELECT c FROM Trip c"),
+        @NamedQuery(
+                name = "Trip.getByName",
+                query = "SELECT c FROM Trip c WHERE c.Name = :Name")
+})
+
 public class Trip extends  AbstractEntity{
     @Column
     private String location;
