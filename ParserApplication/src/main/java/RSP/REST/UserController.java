@@ -51,7 +51,7 @@ public class UserController
 
     //DELETE REQUESTS
     @DeleteMapping(value = "/remove/{id}")
-    @PreAuthorize("hasRole('Admin')")
+    //@PreAuthorize("hasRole('Admin')")
     ResponseEntity<Void> remove(@PathVariable int id)
     {
         if(userService.remove(id))

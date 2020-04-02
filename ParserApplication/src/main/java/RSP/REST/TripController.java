@@ -5,6 +5,7 @@ import RSP.service.TripService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -38,7 +39,7 @@ public class TripController {
         return tripService.getByName(name);
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping
     ResponseEntity<Void> add(@RequestBody Trip trip)
     {
         if(tripService.add(trip))
@@ -47,7 +48,7 @@ public class TripController {
     }
 
     //DELETE REQUESTS
-    @DeleteMapping(value = "/remove/{id}")
+    @DeleteMapping(value = "/{id}")
     //@PreAuthorize("hasRole('Admin')")
     ResponseEntity<Void> remove(@PathVariable int id)
     {

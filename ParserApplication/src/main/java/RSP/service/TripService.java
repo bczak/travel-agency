@@ -39,15 +39,10 @@ public class TripService {
         Trip trip = tripDao.get(id);
         if(trip == null)
             throw new NullPointerException("Trip can not be Null.");
-        if(!alreadyExists(trip))
+        if(!alreadyExists(trip.getId()))
             return false;
         tripDao.remove(trip);
         return true;
-    }
-
-    public boolean alreadyExists(Trip trip)
-    {
-        return tripDao.getAll().contains(trip);
     }
 
     public Trip get(int id)
