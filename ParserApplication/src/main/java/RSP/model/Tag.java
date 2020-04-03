@@ -1,13 +1,14 @@
 package RSP.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Table(name = "tag_table")
 @Entity
 @NamedQuery(name = "Tag.getAll",query = "SELECT c FROM Tag c")
 public class Tag extends AbstractEntity {
+
+    private static final long serialVersionUID = 1L;
+
     @Column
     private String name;
 
@@ -18,5 +19,4 @@ public class Tag extends AbstractEntity {
     public void setName(String name) {
         this.name = name;
     }
-
 }

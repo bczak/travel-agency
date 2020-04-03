@@ -8,13 +8,15 @@ import java.util.List;
 @Table(name = "trip_table")
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Trip.getAll",query = "SELECT c FROM Trip c"),
+        @NamedQuery(name = "Trip.getAll", query = "SELECT c FROM Trip c"),
         @NamedQuery(
                 name = "Trip.getByName",
                 query = "SELECT c FROM Trip c WHERE c.Name = :Name")
 })
+public class Trip extends AbstractEntity {
 
-public class Trip extends  AbstractEntity{
+    private static final long serialVersionUID = 1L;
+
     @Column
     private String location;
 
@@ -23,8 +25,10 @@ public class Trip extends  AbstractEntity{
 
     @Column
     private Date startDate;
+
     @Column
     private Date endDate;
+
     @ManyToMany
     private List<User> users;
 
@@ -75,7 +79,7 @@ public class Trip extends  AbstractEntity{
     }
 
     public List<Tag> getTags() {
-        if(tags == null){
+        if(tags == null) {
             setTags(new ArrayList<>());
         }
         return tags;

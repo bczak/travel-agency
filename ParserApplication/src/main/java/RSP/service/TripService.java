@@ -1,66 +1,67 @@
 package RSP.service;
 
 import RSP.dao.TripDao;
-import RSP.dao.UserDao;
 import RSP.model.Trip;
-import RSP.model.User;
-import org.hibernate.annotations.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
 public class TripService {
+
     private TripDao tripDao;
+
     @Autowired
-    public TripService(TripDao tripDao)
-    {
+    public TripService(TripDao tripDao) {
         this.tripDao = tripDao;
     }
 
-    public boolean add(Trip trip)
-    {
-        if(trip == null)
-            throw new IllegalArgumentException("Trip can not be Null.");
-        if(alreadyExists(trip.getId()) || getByName(trip.getName()) != null)
+    public boolean add(Trip trip) {
+        Objects.requireNonNull(trip, "trip must not be null");
+        if(idExists(trip.getId()) || nameExists(trip.getName())) {
             return false;
+        }
         tripDao.add(trip);
         return true;
     }
 
-    public boolean alreadyExists(int id) {
+    public boolean idExists(int id) {
         return tripDao.get(id) != null;
     }
 
-    public boolean remove(int id)
-    {
+    public boolean nameExists(String name) {
+        return tripDao.getByName(name) != null;
+    }
+
+    public void remove(int id) throws TripNotFoundException {
         Trip trip = tripDao.get(id);
-        if(trip == null)
-            throw new IllegalArgumentException("Trip can not be Null.");
-        if(!alreadyExists(trip.getId()))
-            return false;
+        if (trip == null) {
+            throw new TripNotFoundException(id);
+        }
         tripDao.remove(trip);
-        return true;
     }
 
-    public Trip get(int id)
-    {
-        if(!alreadyExists(id))
-            throw new IllegalArgumentException("Trip can not be Null.");
-        return tripDao.get(id);
+    public Trip get(int id) throws TripNotFoundException {
+        Trip trip = tripDao.get(id);
+        if (trip == null) {
+            throw new TripNotFoundException(id);
+        }
+        return trip;
     }
 
-    public List<Trip> getAll()
-    {
+    public List<Trip> getAll() {
         return tripDao.getAll();
     }
 
-    public Trip getByName(String name)
-    {
-        return tripDao.getByName(name);
+    public Trip getByName(String name) throws TripNotFoundException {
+        Trip trip = tripDao.getByName(name);
+        if (trip == null) {
+            throw new TripNotFoundException(name);
+        }
+        return trip;
     }
-
 }

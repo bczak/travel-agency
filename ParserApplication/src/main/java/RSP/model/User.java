@@ -6,26 +6,30 @@ import javax.persistence.*;
 
 @Table(name = "user_table")
 @Entity
-@NamedQuery(name = "User.getAll",query = "SELECT c FROM User c")
-public class User extends AbstractEntity
-{
+@NamedQuery(name = "User.getAll", query = "SELECT c FROM User c")
+public class User extends AbstractEntity {
+
+    private static final long serialVersionUID = 1L;
+
     @Column
     private String username;
+
     @Column
     private String password;
+
     @Column
     private String email;
+
     @ManyToMany
     private List<Trip> trips;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TripCriteria> tripCriteria;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public void erasePassword()
-    {
+    public void erasePassword() {
         this.password = null;
     }
 
@@ -62,7 +66,7 @@ public class User extends AbstractEntity
     }
 
     public List<Trip> getTrips() {
-        if(trips == null){
+        if(trips == null) {
             setTrips(new ArrayList<>());
         }
         return trips;
@@ -73,7 +77,7 @@ public class User extends AbstractEntity
     }
 
     public List<TripCriteria> getTripCriteria() {
-        if(tripCriteria == null){
+        if(tripCriteria == null) {
             setTripCriteria(new ArrayList<>());
         }
         return tripCriteria;
@@ -83,5 +87,3 @@ public class User extends AbstractEntity
         this.tripCriteria = tripCriteria;
     }
 }
-
-

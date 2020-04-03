@@ -15,12 +15,10 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @Configuration
-public class AppConfig
-{
+public class AppConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -29,8 +27,7 @@ public class AppConfig
      * href="http://www.baeldung.com/rest-template">http://www.baeldung.com/rest-template</a>.
      */
     @Bean
-    public RestTemplate restTemplate()
-    {
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
@@ -38,8 +35,7 @@ public class AppConfig
      * {@link MultipartResolver} is used to support file upload.
      */
     @Bean(name = "multipartResolver")
-    public MultipartResolver multipartResolver()
-    {
+    public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
 
@@ -54,8 +50,7 @@ public class AppConfig
      */
     @Bean
     @Primary    // Override the default instance created by Spring Boot
-    public ObjectMapper objectMapper()
-    {
+    public ObjectMapper objectMapper() {
         final ObjectMapper objectMapper = new ObjectMapper();
         // Support for Java 8 Date/Time API
         objectMapper.registerModule(new JavaTimeModule());

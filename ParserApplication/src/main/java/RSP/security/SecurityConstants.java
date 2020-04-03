@@ -1,10 +1,8 @@
 package RSP.security;
 
-public class SecurityConstants
-{
+public class SecurityConstants {
 
-    private SecurityConstants()
-    {
+    private SecurityConstants() {
         throw new AssertionError();
     }
 
@@ -30,5 +28,3 @@ public class SecurityConstants
     public final static String USER = "ROLE_USER";
     public final static String ADMIN = "ROLE_ADMIN";
 }
-
-

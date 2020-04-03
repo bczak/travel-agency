@@ -10,19 +10,16 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserService
-{
+public class UserService {
 //     JEN KOSTRA
     private UserDao userDao;
 
     @Autowired
-    public UserService(UserDao userDao)
-    {
+    public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
 
-    public boolean add(User user)
-    {
+    public boolean add(User user) {
         if(user == null)
             throw new IllegalArgumentException("User can not be Null.");
         if(alreadyExists(user.getId()) || getByUsername(user.getUsername()) != null)
@@ -31,8 +28,7 @@ public class UserService
         return true;
     }
 
-    public boolean remove(int id)
-    {
+    public boolean remove(int id) {
         User user = userDao.get(id);
         if(user == null)
             throw new IllegalArgumentException("User can not be Null.");
@@ -42,36 +38,30 @@ public class UserService
         return true;
     }
 
-    public User get(int id)
-    {
+    public User get(int id) {
         if(!alreadyExists(id))
             throw new IllegalArgumentException("User can not be Null.");
         return userDao.get(id);
     }
 
-    public List<User> getAll()
-    {
+    public List<User> getAll() {
         return userDao.getAll();
     }
 
-    public User getByUsername(String username)
-    {
-        for(User user : userDao.getAll())
-        {
-            if(user.getUsername().equals(username)){
+    public User getByUsername(String username) {
+        for(User user : userDao.getAll()) {
+            if(user.getUsername().equals(username)) {
                 return user;
             }
         }
         return null;
     }
 
-    public boolean alreadyExists(User user)
-    {
+    public boolean alreadyExists(User user) {
         return userDao.getAll().contains(user);
     }
 
-    public boolean alreadyExists(int id)
-    {
+    public boolean alreadyExists(int id) {
         return userDao.get(id) != null;
     }
 }

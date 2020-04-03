@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class TagDao extends AbstractDao<Tag>{
+public class TagDao extends AbstractDao<Tag> {
     TagDao(EntityManager em) {
         super(em);
     }
@@ -20,7 +20,7 @@ public class TagDao extends AbstractDao<Tag>{
 
     @Override
     public List<Tag> getAll() {
-        return em.createNamedQuery("Tag.getAll").getResultList();
+        return em.createNamedQuery("Tag.getAll", Tag.class).getResultList();
     }
 
     @Override

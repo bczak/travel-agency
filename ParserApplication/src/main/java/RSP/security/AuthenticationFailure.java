@@ -17,23 +17,23 @@ import java.io.IOException;
  * Returns info about authentication failure.
  */
 @Service
-public class AuthenticationFailure implements AuthenticationFailureHandler
-{
+public class AuthenticationFailure implements AuthenticationFailureHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuthenticationFailure.class);
 
     private final ObjectMapper mapper;
 
     @Autowired
-    public AuthenticationFailure(ObjectMapper mapper)
-    {
+    public AuthenticationFailure(ObjectMapper mapper) {
         this.mapper = mapper;
     }
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-                                        AuthenticationException e) throws IOException
-    {
+    public void onAuthenticationFailure(
+            HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse,
+            AuthenticationException e) throws IOException {
+
         LOG.debug("Login failed for user {}.", httpServletRequest.getParameter(SecurityConstants.USERNAME_PARAM));
         final LoginStatus status = new LoginStatus(false, false, null, e.getMessage());
         mapper.writeValue(httpServletResponse.getOutputStream(), status);

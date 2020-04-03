@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class TripCriteriaDao extends AbstractDao<TripCriteria>{
+public class TripCriteriaDao extends AbstractDao<TripCriteria> {
     TripCriteriaDao(EntityManager em) {
         super(em);
     }
@@ -20,7 +20,7 @@ public class TripCriteriaDao extends AbstractDao<TripCriteria>{
 
     @Override
     public List<TripCriteria> getAll() {
-        return em.createNamedQuery("TripCriteria.getAll").getResultList();
+        return em.createNamedQuery("TripCriteria.getAll", TripCriteria.class).getResultList();
     }
 
     @Override

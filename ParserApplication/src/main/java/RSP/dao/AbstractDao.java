@@ -4,13 +4,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public abstract class AbstractDao<T>
-{
+public abstract class AbstractDao<T> {
     @PersistenceContext
     protected EntityManager em;
 
-    AbstractDao(EntityManager em)
-    {
+    AbstractDao(EntityManager em) {
         this.em = em;
     }
 

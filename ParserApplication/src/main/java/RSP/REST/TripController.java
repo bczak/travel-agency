@@ -1,14 +1,13 @@
 package RSP.REST;
 
 import RSP.model.Trip;
+import RSP.service.TripNotFoundException;
 import RSP.service.TripService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -16,32 +15,27 @@ import java.util.List;
 public class TripController {
     TripService tripService;
 
-    TripController(TripService tripService)
-    {
+    TripController(TripService tripService) {
         this.tripService = tripService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getAll()
-    {
+    List<Trip> getAll() {
         return tripService.getAll();
     }
 
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    Trip get(@PathVariable int id)
-    {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Trip get(@PathVariable int id) throws TripNotFoundException {
         return tripService.get(id);
     }
 
-    @GetMapping(value = "/name/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
-    Trip get(@PathVariable String name)
-    {
+    @GetMapping(value = "/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Trip get(@PathVariable String name) throws TripNotFoundException {
         return tripService.getByName(name);
     }
 
     @PostMapping
-    ResponseEntity<Void> add(@RequestBody Trip trip)
-    {
+    ResponseEntity<Void> add(@RequestBody Trip trip) {
         if(tripService.add(trip))
             return new ResponseEntity<Void>(HttpStatus.CREATED);
         return new ResponseEntity<Void>(HttpStatus.CONFLICT);
@@ -49,11 +43,9 @@ public class TripController {
 
     //DELETE REQUESTS
     @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    ResponseEntity<Void> remove(@PathVariable int id)
-    {
-        if(tripService.remove(id))
-            return new ResponseEntity<Void>(HttpStatus.OK);
-        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+    void remove(@PathVariable int id) throws TripNotFoundException {
+        tripService.remove(id);
     }
 }

@@ -8,7 +8,10 @@ import java.util.List;
 @Table(name = "TripCriteria_table")
 @Entity
 @NamedQuery(name = "TripCriteria.getAll",query = "SELECT c FROM TripCriteria c")
-public class TripCriteria extends  AbstractEntity{
+public class TripCriteria extends AbstractEntity {
+
+    private static final long serialVersionUID = 1L;
+
     @Column
     private String notifactionEmail;
 
@@ -17,6 +20,7 @@ public class TripCriteria extends  AbstractEntity{
 
     @Column
     private Date startDate;
+
     @Column
     private Date endDate;
 
@@ -68,7 +72,7 @@ public class TripCriteria extends  AbstractEntity{
     }
 
     public List<Tag> getTags() {
-        if(tags == null){
+        if(tags == null) {
             setTags(new ArrayList<>());
         }
         return tags;
