@@ -19,10 +19,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public class ParserApplicationBackend
-{
-    static public void main(String[] args)
-    {
-        SpringApplication.run(ParserApplicationBackend.class,args);
+public class ParserApplicationBackend {
+    static public void main(String[] args) {
+        SpringApplication.run(ParserApplicationBackend.class, args);
     }
 }

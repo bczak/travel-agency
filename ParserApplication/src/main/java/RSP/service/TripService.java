@@ -15,14 +15,13 @@ import java.util.List;
 @Transactional
 public class TripService {
     private TripDao tripDao;
+
     @Autowired
-    public TripService(TripDao tripDao)
-    {
+    public TripService(TripDao tripDao) {
         this.tripDao = tripDao;
     }
 
-    public boolean add(Trip trip)
-    {
+    public boolean add(Trip trip) {
         if(trip == null)
             throw new IllegalArgumentException("Trip can not be Null.");
         if(alreadyExists(trip.getId()) || getByName(trip.getName()) != null)
@@ -35,8 +34,7 @@ public class TripService {
         return tripDao.get(id) != null;
     }
 
-    public boolean remove(int id)
-    {
+    public boolean remove(int id) {
         Trip trip = tripDao.get(id);
         if(trip == null)
             throw new IllegalArgumentException("Trip can not be Null.");
@@ -46,21 +44,17 @@ public class TripService {
         return true;
     }
 
-    public Trip get(int id)
-    {
+    public Trip get(int id) {
         if(!alreadyExists(id))
             throw new IllegalArgumentException("Trip can not be Null.");
         return tripDao.get(id);
     }
 
-    public List<Trip> getAll()
-    {
+    public List<Trip> getAll() {
         return tripDao.getAll();
     }
 
-    public Trip getByName(String name)
-    {
+    public Trip getByName(String name) {
         return tripDao.getByName(name);
     }
-
 }

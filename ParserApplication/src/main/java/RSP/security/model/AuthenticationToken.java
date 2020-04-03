@@ -6,13 +6,13 @@ import org.springframework.security.core.GrantedAuthority;
 import java.security.Principal;
 import java.util.Collection;
 
-public class AuthenticationToken extends AbstractAuthenticationToken implements Principal
-{
+public class AuthenticationToken extends AbstractAuthenticationToken implements Principal {
 
     private UserDetails userDetails;
 
-    public AuthenticationToken(Collection<? extends GrantedAuthority> authorities, UserDetails userDetails)
-    {
+    public AuthenticationToken(
+            Collection<? extends GrantedAuthority> authorities, UserDetails userDetails) {
+
         super(authorities);
         this.userDetails = userDetails;
         super.setAuthenticated(true);
@@ -20,14 +20,12 @@ public class AuthenticationToken extends AbstractAuthenticationToken implements 
     }
 
     @Override
-    public String getCredentials()
-    {
+    public String getCredentials() {
         return userDetails.getPassword();
     }
 
     @Override
-    public UserDetails getPrincipal()
-    {
+    public UserDetails getPrincipal() {
         return userDetails;
     }
 }

@@ -1,7 +1,6 @@
 package generator;
 
 
-public class Generator
-{
+public class Generator {
 
 }

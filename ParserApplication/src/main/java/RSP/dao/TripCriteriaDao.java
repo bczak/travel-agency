@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class TripCriteriaDao extends AbstractDao<TripCriteria>{
+public class TripCriteriaDao extends AbstractDao<TripCriteria> {
     TripCriteriaDao(EntityManager em) {
         super(em);
     }

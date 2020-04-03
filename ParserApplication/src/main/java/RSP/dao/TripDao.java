@@ -47,10 +47,10 @@ public class TripDao extends AbstractDao<Trip> {
     public Trip getByName(String name) {
         TypedQuery<Trip> query = em.createNamedQuery("Trip.getByName", Trip.class);
         query.setParameter("Name", name);
-        try{
+        try {
             Trip t = query.getSingleResult();
             return t;
-        }catch (NoResultException ex){
+        } catch (NoResultException ex) {
             return null;
         }
     }

@@ -13,8 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DefaultAuthenticationProvider implements AuthenticationProvider
-{
+public class DefaultAuthenticationProvider implements AuthenticationProvider {
     //private static final Logger LOG = LoggerFactory.getLogger(DefaultAuthenticationProvider.class);
 
     private final UserDetailsService userDetailsService;
@@ -22,15 +21,17 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DefaultAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder)
-    {
+    public DefaultAuthenticationProvider(
+            UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException
-    {
+    public Authentication authenticate(
+            Authentication authentication) throws AuthenticationException {
+
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
 
@@ -43,8 +44,7 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider
     }
 
     @Override
-    public boolean supports(Class<?> aClass)
-    {
+    public boolean supports(Class<?> aClass) {
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(aClass) ||
                 AuthenticationToken.class.isAssignableFrom(aClass);
     }

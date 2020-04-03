@@ -7,16 +7,14 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 
-public class SecurityUtils
-{
+public class SecurityUtils {
 
     /**
      * Gets the currently authenticated user.
      *
      * @return Current user
      */
-    public static User getCurrentUser()
-    {
+    public static User getCurrentUser() {
         final SecurityContext context = SecurityContextHolder.getContext();
         assert context != null;
         final UserDetails userDetails = (UserDetails) context.getAuthentication().getDetails();
@@ -28,10 +26,10 @@ public class SecurityUtils
      *
      * @return Currently authenticated user details or null, if no one is currently authenticated
      */
-    public static UserDetails getCurrentUserDetails()
-    {
+    public static UserDetails getCurrentUserDetails() {
         final SecurityContext context = SecurityContextHolder.getContext();
-        if (context.getAuthentication() != null && context.getAuthentication().getDetails() instanceof UserDetails) {
+        if (context.getAuthentication() != null
+                && context.getAuthentication().getDetails() instanceof UserDetails) {
             return (UserDetails) context.getAuthentication().getDetails();
         } else {
             return null;
@@ -45,9 +43,9 @@ public class SecurityUtils
      * @param userDetails Details of the user to set as current
      * @return The generated authentication token
      */
-    public static AuthenticationToken setCurrentUser(UserDetails userDetails)
-    {
-        final AuthenticationToken token = new AuthenticationToken(userDetails.getAuthorities(), userDetails);
+    public static AuthenticationToken setCurrentUser(UserDetails userDetails) {
+        final AuthenticationToken token
+                = new AuthenticationToken(userDetails.getAuthorities(), userDetails);
         token.setAuthenticated(true);
 
         final SecurityContext context = new SecurityContextImpl();
@@ -61,8 +59,7 @@ public class SecurityUtils
      *
      * @return Whether current authentication is anonymous
      */
-    public static boolean isAuthenticatedAnonymously()
-    {
+    public static boolean isAuthenticatedAnonymously() {
         return getCurrentUserDetails() == null;
     }
 }

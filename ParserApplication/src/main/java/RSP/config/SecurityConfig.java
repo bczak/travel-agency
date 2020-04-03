@@ -19,14 +19,13 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)// Allow methods to be secured using annotation
-public class SecurityConfig extends WebSecurityConfigurerAdapter
-{
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) // Allow methods to be secured using annotation
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] COOKIES_TO_DESTROY =
     {
-            SecurityConstants.SESSION_COOKIE_NAME,
-            SecurityConstants.REMEMBER_ME_COOKIE_NAME
+        SecurityConstants.SESSION_COOKIE_NAME,
+        SecurityConstants.REMEMBER_ME_COOKIE_NAME
     };
 
     private final AuthenticationFailureHandler authenticationFailureHandler;
@@ -41,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     public SecurityConfig(AuthenticationFailureHandler authenticationFailureHandler,
                           AuthenticationSuccessHandler authenticationSuccessHandler,
                           LogoutSuccessHandler logoutSuccessHandler,
-                          AuthenticationProvider authenticationProvider)
-    {
+                          AuthenticationProvider authenticationProvider) {
+
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.logoutSuccessHandler = logoutSuccessHandler;
@@ -50,21 +49,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-    {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider);
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception
-    {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().permitAll().and()
                 .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and().headers().frameOptions().sameOrigin()
