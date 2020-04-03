@@ -14,6 +14,9 @@ import java.util.List;
                 query = "SELECT c FROM Trip c WHERE c.Name = :Name")
 })
 public class Trip extends AbstractEntity {
+
+    private static final long serialVersionUID = 1L;
+
     @Column
     private String location;
 

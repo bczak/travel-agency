@@ -6,6 +6,9 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name = "Tag.getAll",query = "SELECT c FROM Tag c")
 public class Tag extends AbstractEntity {
+
+    private static final long serialVersionUID = 1L;
+
     @Column
     private String name;
 

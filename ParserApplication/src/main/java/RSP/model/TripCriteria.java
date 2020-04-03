@@ -9,6 +9,9 @@ import java.util.List;
 @Entity
 @NamedQuery(name = "TripCriteria.getAll",query = "SELECT c FROM TripCriteria c")
 public class TripCriteria extends AbstractEntity {
+
+    private static final long serialVersionUID = 1L;
+
     @Column
     private String notifactionEmail;
 

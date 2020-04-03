@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name = "User.getAll", query = "SELECT c FROM User c")
 public class User extends AbstractEntity {
+
+    private static final long serialVersionUID = 1L;
+
     @Column
     private String username;
 

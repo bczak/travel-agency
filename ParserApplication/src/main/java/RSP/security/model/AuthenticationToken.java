@@ -8,6 +8,8 @@ import java.util.Collection;
 
 public class AuthenticationToken extends AbstractAuthenticationToken implements Principal {
 
+    private static final long serialVersionUID = 1L;
+
     private UserDetails userDetails;
 
     public AuthenticationToken(
