@@ -1,6 +1,7 @@
 package RSP.REST;
 
 import RSP.model.Trip;
+import RSP.service.TripNotFoundException;
 import RSP.service.TripService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,12 +25,12 @@ public class TripController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Trip get(@PathVariable int id) {
+    Trip get(@PathVariable int id) throws TripNotFoundException {
         return tripService.get(id);
     }
 
     @GetMapping(value = "/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Trip get(@PathVariable String name) {
+    Trip get(@PathVariable String name) throws TripNotFoundException {
         return tripService.getByName(name);
     }
 
@@ -42,10 +43,9 @@ public class TripController {
 
     //DELETE REQUESTS
     @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    ResponseEntity<Void> remove(@PathVariable int id) {
-        if(tripService.remove(id))
-            return new ResponseEntity<Void>(HttpStatus.OK);
-        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+    void remove(@PathVariable int id) throws TripNotFoundException {
+        tripService.remove(id);
     }
 }
