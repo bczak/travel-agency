@@ -24,7 +24,7 @@ public class UserService
     public boolean add(User user)
     {
         if(user == null)
-            throw new NullPointerException("User can not be Null.");
+            throw new IllegalArgumentException("User can not be Null.");
         if(alreadyExists(user.getId()) || getByUsername(user.getUsername()) != null)
             return false;
         userDao.add(user);
@@ -35,7 +35,7 @@ public class UserService
     {
         User user = userDao.get(id);
         if(user == null)
-            throw new NullPointerException("User can not be Null.");
+            throw new IllegalArgumentException("User can not be Null.");
         if(!alreadyExists(user))
             return false;
         userDao.remove(user);
@@ -45,7 +45,7 @@ public class UserService
     public User get(int id)
     {
         if(!alreadyExists(id))
-            throw new NullPointerException("User can not be Null.");
+            throw new IllegalArgumentException("User can not be Null.");
         return userDao.get(id);
     }
 

@@ -24,7 +24,7 @@ public class TripService {
     public boolean add(Trip trip)
     {
         if(trip == null)
-            throw new NullPointerException("Trip can not be Null.");
+            throw new IllegalArgumentException("Trip can not be Null.");
         if(alreadyExists(trip.getId()) || getByName(trip.getName()) != null)
             return false;
         tripDao.add(trip);
@@ -39,7 +39,7 @@ public class TripService {
     {
         Trip trip = tripDao.get(id);
         if(trip == null)
-            throw new NullPointerException("Trip can not be Null.");
+            throw new IllegalArgumentException("Trip can not be Null.");
         if(!alreadyExists(trip.getId()))
             return false;
         tripDao.remove(trip);
@@ -49,7 +49,7 @@ public class TripService {
     public Trip get(int id)
     {
         if(!alreadyExists(id))
-            throw new NullPointerException("Trip can not be Null.");
+            throw new IllegalArgumentException("Trip can not be Null.");
         return tripDao.get(id);
     }
 
