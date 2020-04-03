@@ -1,8 +1,6 @@
 package RSP.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Table(name = "tag_table")
 @Entity

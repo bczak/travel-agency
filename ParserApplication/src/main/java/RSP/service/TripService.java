@@ -1,10 +1,7 @@
 package RSP.service;
 
 import RSP.dao.TripDao;
-import RSP.dao.UserDao;
 import RSP.model.Trip;
-import RSP.model.User;
-import org.hibernate.annotations.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
