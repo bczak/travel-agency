@@ -8,6 +8,8 @@ import java.util.*;
 
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
+    private static final long serialVersionUID = 1L;
+
     private User user;
 
     private final Set<GrantedAuthority> authorities;
