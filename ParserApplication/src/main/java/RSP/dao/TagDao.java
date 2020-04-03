@@ -20,7 +20,7 @@ public class TagDao extends AbstractDao<Tag> {
 
     @Override
     public List<Tag> getAll() {
-        return em.createNamedQuery("Tag.getAll").getResultList();
+        return em.createNamedQuery("Tag.getAll", Tag.class).getResultList();
     }
 
     @Override

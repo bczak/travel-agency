@@ -19,7 +19,7 @@ public class UserDao extends AbstractDao<User> {
 
     @Override
     public List<User> getAll() {
-        return em.createNamedQuery("User.getAll").getResultList();
+        return em.createNamedQuery("User.getAll", User.class).getResultList();
     }
 
     @Override

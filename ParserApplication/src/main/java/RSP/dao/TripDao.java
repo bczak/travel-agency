@@ -22,7 +22,7 @@ public class TripDao extends AbstractDao<Trip> {
 
     @Override
     public List<Trip> getAll() {
-        return em.createNamedQuery("Trip.getAll").getResultList();
+        return em.createNamedQuery("Trip.getAll", Trip.class).getResultList();
     }
 
     @Override
