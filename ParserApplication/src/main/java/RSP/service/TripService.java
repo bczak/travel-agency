@@ -64,4 +64,9 @@ public class TripService {
         }
         return trip;
     }
+
+    public List<Trip> getByPriceASC()
+    {
+        return tripDao.getByPriceASC();
+    }
 }

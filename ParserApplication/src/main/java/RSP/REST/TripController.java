@@ -34,6 +34,12 @@ public class TripController {
         return tripService.getByName(name);
     }
 
+    @GetMapping(value = "/priceASC",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> get() throws TripNotFoundException
+    {
+        return tripService.getByPriceASC();
+    }
+
     @PostMapping
     ResponseEntity<Void> add(@RequestBody Trip trip) {
         if(tripService.add(trip))

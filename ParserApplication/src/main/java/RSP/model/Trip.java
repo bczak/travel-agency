@@ -11,7 +11,10 @@ import java.util.List;
         @NamedQuery(name = "Trip.getAll", query = "SELECT c FROM Trip c"),
         @NamedQuery(
                 name = "Trip.getByName",
-                query = "SELECT c FROM Trip c WHERE c.Name = :Name")
+                query = "SELECT c FROM Trip c WHERE c.Name = :Name"),
+        @NamedQuery(
+                name = "Trip.getByPriceASC",
+                query = "SELECT c FROM Trip c ORDER BY c.Price ASC")
 })
 public class Trip extends AbstractEntity {
 
@@ -28,6 +31,9 @@ public class Trip extends AbstractEntity {
 
     @Column
     private Date endDate;
+
+    @Column
+    private double Price;
 
     @ManyToMany
     private List<User> users;
@@ -65,6 +71,14 @@ public class Trip extends AbstractEntity {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public double getPrice() {
+        return Price;
+    }
+
+    public void setPrice(double price) {
+        Price = price;
     }
 
     public List<User> getUsers() {
