@@ -17,7 +17,10 @@ import java.util.List;
                 query = "SELECT c FROM Trip c ORDER BY c.Price ASC"),
         @NamedQuery(
                 name = "Trip.getByStartDate",
-                query = "SELECT c FROM Trip c ORDER BY c.startDate ASC")
+                query = "SELECT c FROM Trip c ORDER BY c.startDate ASC"),
+        @NamedQuery(
+                name = "Trip.getByLenght",
+                query = "SELECT c FROM Trip c ORDER BY c.lenght ASC")
 })
 public class Trip extends AbstractEntity {
 
@@ -28,6 +31,9 @@ public class Trip extends AbstractEntity {
 
     @Column
     private String Name;
+
+    @Column
+    private long lenght;
 
     @Column
     private Date startDate;
@@ -89,6 +95,14 @@ public class Trip extends AbstractEntity {
             setUsers(new ArrayList<>());
         }
         return users;
+    }
+
+    public long getLenght() {
+        return lenght;
+    }
+
+    public void setLenght(long lenght) {
+        this.lenght = lenght;
     }
 
     public void setUsers(List<User> users) {

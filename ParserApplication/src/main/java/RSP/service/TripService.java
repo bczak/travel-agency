@@ -6,8 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional
@@ -25,6 +30,8 @@ public class TripService {
         if(idExists(trip.getId()) || nameExists(trip.getName())) {
             return false;
         }
+        long lenght = givenLenghtOfTrip(trip);
+        trip.setLenght(lenght);
         tripDao.add(trip);
         return true;
     }
@@ -73,5 +80,20 @@ public class TripService {
     public List<Trip> getByStartDate()
     {
         return tripDao.getByStartDate();
+    }
+
+    public List<Trip> getByLenght()
+    {
+        return tripDao.getByLenght();
+    }
+
+    public long givenLenghtOfTrip(Trip trip) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
+
+        long diffInMillies = Math.abs(trip.getEndDate().getTime() - trip.getStartDate().getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        return diff;
     }
 }

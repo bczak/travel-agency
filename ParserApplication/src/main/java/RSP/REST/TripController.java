@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -44,6 +45,12 @@ public class TripController {
     List<Trip> getByStartDate() throws TripNotFoundException
     {
         return tripService.getByStartDate();
+    }
+
+    @GetMapping(value = "/lenght",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getByLenght() throws TripNotFoundException
+    {
+        return tripService.getByLenght();
     }
 
     @PostMapping
