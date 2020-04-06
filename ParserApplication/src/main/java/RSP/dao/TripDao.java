@@ -53,4 +53,9 @@ public class TripDao extends AbstractDao<Trip> {
         TypedQuery<Trip> query = em.createNamedQuery("Trip.getByPriceASC", Trip.class);
         return query.getResultList();
     }
+
+    public List<Trip> getByStartDate() {
+        TypedQuery<Trip> query = em.createNamedQuery("Trip.getByStartDate", Trip.class);
+        return query.getResultList();
+    }
 }

@@ -14,7 +14,10 @@ import java.util.List;
                 query = "SELECT c FROM Trip c WHERE c.Name = :Name"),
         @NamedQuery(
                 name = "Trip.getByPriceASC",
-                query = "SELECT c FROM Trip c ORDER BY c.Price ASC")
+                query = "SELECT c FROM Trip c ORDER BY c.Price ASC"),
+        @NamedQuery(
+                name = "Trip.getByStartDate",
+                query = "SELECT c FROM Trip c ORDER BY c.startDate ASC")
 })
 public class Trip extends AbstractEntity {
 

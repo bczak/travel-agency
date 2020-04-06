@@ -40,6 +40,12 @@ public class TripController {
         return tripService.getByPriceASC();
     }
 
+    @GetMapping(value = "/date",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getByStartDate() throws TripNotFoundException
+    {
+        return tripService.getByStartDate();
+    }
+
     @PostMapping
     ResponseEntity<Void> add(@RequestBody Trip trip) {
         if(tripService.add(trip))
