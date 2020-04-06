@@ -39,30 +39,6 @@ public class TripController {
         return tripService.getByName(name);
     }
 
-    @GetMapping(value = "/priceASC",produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> get()
-    {
-        return tripService.getByPriceASC();
-    }
-
-    @GetMapping(value = "/date",produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getByStartDate()
-    {
-        return tripService.getByStartDate();
-    }
-
-    @GetMapping(value = "/length",produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getByLength()
-    {
-        return tripService.getByLength();
-    }
-
-    @GetMapping(value = "/sortName",produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getBySortName()
-    {
-        return tripService.getBySortName();
-    }
-
     @GetMapping(value = "/sort", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Trip> getAllSorted(@RequestParam SortAttribute by, @RequestParam SortOrder order) {
         return tripService.getAllSorted(by, order);

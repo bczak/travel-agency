@@ -74,26 +74,6 @@ public class TripService {
         return trip;
     }
 
-    public List<Trip> getByPriceASC()
-    {
-        return tripDao.getByPriceASC();
-    }
-
-    public List<Trip> getByStartDate()
-    {
-        return tripDao.getByStartDate();
-    }
-
-    public List<Trip> getByLength()
-    {
-        return tripDao.getByLength();
-    }
-
-    public List<Trip> getBySortName()
-    {
-        return tripDao.getByNameSort();
-    }
-
     private long givenLengthOfTrip(Trip trip) {
         long diffInMillies = Math.abs(
                 trip.getEndDate().getTime() - trip.getStartDate().getTime());
