@@ -59,8 +59,8 @@ public class TripDao extends AbstractDao<Trip> {
         return query.getResultList();
     }
 
-    public List<Trip> getByLenght() {
-        TypedQuery<Trip> query = em.createNamedQuery("Trip.getByLenght", Trip.class);
+    public List<Trip> getByLength() {
+        TypedQuery<Trip> query = em.createNamedQuery("Trip.getByLength", Trip.class);
         return query.getResultList();
     }
 }
