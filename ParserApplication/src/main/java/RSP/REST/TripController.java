@@ -8,7 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/trips")
@@ -71,5 +74,10 @@ public class TripController {
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     void remove(@PathVariable int id) throws TripNotFoundException {
         tripService.remove(id);
+    }
+
+    @ExceptionHandler(TripNotFoundException.class)
+    void handleTripNotFound(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.NOT_FOUND.value());
     }
 }
