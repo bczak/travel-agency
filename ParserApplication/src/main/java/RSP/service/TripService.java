@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -90,10 +89,8 @@ public class TripService {
     }
 
     private long givenLengthOfTrip(Trip trip) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
-
-        long diffInMillies = Math.abs(trip.getEndDate().getTime() - trip.getStartDate().getTime());
+        long diffInMillies = Math.abs(
+                trip.getEndDate().getTime() - trip.getStartDate().getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
         return diff;
