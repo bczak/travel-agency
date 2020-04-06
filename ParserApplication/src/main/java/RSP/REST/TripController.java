@@ -35,19 +35,19 @@ public class TripController {
     }
 
     @GetMapping(value = "/priceASC",produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> get() throws TripNotFoundException
+    List<Trip> get()
     {
         return tripService.getByPriceASC();
     }
 
     @GetMapping(value = "/date",produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getByStartDate() throws TripNotFoundException
+    List<Trip> getByStartDate()
     {
         return tripService.getByStartDate();
     }
 
     @GetMapping(value = "/length",produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getByLength() throws TripNotFoundException
+    List<Trip> getByLength()
     {
         return tripService.getByLength();
     }
