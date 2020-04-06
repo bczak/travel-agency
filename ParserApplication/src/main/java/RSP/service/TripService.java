@@ -1,6 +1,8 @@
 package RSP.service;
 
 import RSP.dao.TripDao;
+import RSP.dto.SortAttribute;
+import RSP.dto.SortOrder;
 import RSP.model.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +60,10 @@ public class TripService {
 
     public List<Trip> getAll() {
         return tripDao.getAll();
+    }
+
+    public List<Trip> getAllSorted(SortAttribute by, SortOrder order) {
+        return tripDao.getAllSorted(by, order);
     }
 
     public Trip getByName(String name) throws TripNotFoundException {

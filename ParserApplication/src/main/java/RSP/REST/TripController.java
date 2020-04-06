@@ -1,5 +1,7 @@
 package RSP.REST;
 
+import RSP.dto.SortAttribute;
+import RSP.dto.SortOrder;
 import RSP.model.Trip;
 import RSP.service.TripNotFoundException;
 import RSP.service.TripService;
@@ -59,6 +61,11 @@ public class TripController {
     List<Trip> getBySortName()
     {
         return tripService.getBySortName();
+    }
+
+    @GetMapping(value = "/sort", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getAllSorted(@RequestParam SortAttribute by, @RequestParam SortOrder order) {
+        return tripService.getAllSorted(by, order);
     }
 
     @PostMapping

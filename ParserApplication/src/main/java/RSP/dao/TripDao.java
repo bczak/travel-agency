@@ -1,10 +1,18 @@
 package RSP.dao;
 
+import RSP.dto.SortAttribute;
+import RSP.dto.SortOrder;
 import RSP.model.Trip;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +30,18 @@ public class TripDao extends AbstractDao<Trip> {
     @Override
     public List<Trip> getAll() {
         return em.createNamedQuery("Trip.getAll", Trip.class).getResultList();
+    }
+
+    public List<Trip> getAllSorted(SortAttribute by, SortOrder order) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Trip> criteria = builder.createQuery(Trip.class);
+        Root<Trip> trips = criteria.from(Trip.class);
+        Path<?> column = trips.get(by.getColumnName());
+        Order ordering = (order == SortOrder.ASCENDING)
+                ? builder.asc(column) : builder.desc(column);
+        criteria.select(trips).orderBy(ordering);
+        TypedQuery<Trip> query = em.createQuery(criteria);
+        return query.getResultList();
     }
 
     @Override
