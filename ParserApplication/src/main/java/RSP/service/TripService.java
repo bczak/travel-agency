@@ -23,6 +23,14 @@ public class TripService {
         this.tripDao = tripDao;
     }
 
+    public Trip get(int id) throws TripNotFoundException {
+        Trip trip = tripDao.get(id);
+        if (trip == null) {
+            throw new TripNotFoundException(id);
+        }
+        return trip;
+    }
+
     public boolean add(Trip trip) {
         Objects.requireNonNull(trip, "trip must not be null");
         if(idExists(trip.getId()) || nameExists(trip.getName())) {
@@ -48,14 +56,6 @@ public class TripService {
             throw new TripNotFoundException(id);
         }
         tripDao.remove(trip);
-    }
-
-    public Trip get(int id) throws TripNotFoundException {
-        Trip trip = tripDao.get(id);
-        if (trip == null) {
-            throw new TripNotFoundException(id);
-        }
-        return trip;
     }
 
     public List<Trip> getAll() {

@@ -41,6 +41,14 @@ public class Trip extends AbstractEntity {
     @ManyToMany
     private List<Tag> tags;
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getName() {
         return Name;
     }
@@ -49,12 +57,12 @@ public class Trip extends AbstractEntity {
         Name = name;
     }
 
-    public String getLocation() {
-        return location;
+    public long getLength() {
+        return length;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLength(long length) {
+        this.length = length;
     }
 
     public Date getStartDate() {
@@ -86,14 +94,6 @@ public class Trip extends AbstractEntity {
             setUsers(new ArrayList<>());
         }
         return users;
-    }
-
-    public long getLength() {
-        return length;
-    }
-
-    public void setLength(long length) {
-        this.length = length;
     }
 
     public void setUsers(List<User> users) {

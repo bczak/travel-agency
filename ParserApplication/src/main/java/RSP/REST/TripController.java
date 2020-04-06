@@ -29,6 +29,11 @@ public class TripController {
         return tripService.getAll();
     }
 
+    @GetMapping(value = "/sort", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getAllSorted(@RequestParam SortAttribute by, @RequestParam SortOrder order) {
+        return tripService.getAllSorted(by, order);
+    }
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     Trip get(@PathVariable int id) throws TripNotFoundException {
         return tripService.get(id);
@@ -37,11 +42,6 @@ public class TripController {
     @GetMapping(value = "/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     Trip get(@PathVariable String name) throws TripNotFoundException {
         return tripService.getByName(name);
-    }
-
-    @GetMapping(value = "/sort", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getAllSorted(@RequestParam SortAttribute by, @RequestParam SortOrder order) {
-        return tripService.getAllSorted(by, order);
     }
 
     @PostMapping
