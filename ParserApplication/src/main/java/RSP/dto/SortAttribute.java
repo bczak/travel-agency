@@ -1,10 +1,10 @@
 package RSP.dto;
 
 public enum SortAttribute {
-	NAME("Name"),
+	NAME("name"),
 	START("startDate"),
 	LENGTH("length"),
-	PRICE("Price");
+	PRICE("price");
 
 	private final String columnName;
 

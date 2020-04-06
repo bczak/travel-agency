@@ -11,7 +11,7 @@ import java.util.List;
         @NamedQuery(name = "Trip.getAll", query = "SELECT c FROM Trip c"),
         @NamedQuery(
                 name = "Trip.getByName",
-                query = "SELECT c FROM Trip c WHERE c.Name = :Name")
+                query = "SELECT c FROM Trip c WHERE c.name = :Name")
 })
 public class Trip extends AbstractEntity {
 
