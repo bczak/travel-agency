@@ -84,6 +84,11 @@ public class TripService {
         return tripDao.getByLength();
     }
 
+    public List<Trip> getBySortName()
+    {
+        return tripDao.getByNameSort();
+    }
+
     private long givenLengthOfTrip(Trip trip) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");

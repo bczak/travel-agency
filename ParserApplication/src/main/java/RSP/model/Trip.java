@@ -20,7 +20,10 @@ import java.util.List;
                 query = "SELECT c FROM Trip c ORDER BY c.startDate ASC"),
         @NamedQuery(
                 name = "Trip.getByLength",
-                query = "SELECT c FROM Trip c ORDER BY c.length ASC")
+                query = "SELECT c FROM Trip c ORDER BY c.length ASC"),
+        @NamedQuery(
+                name = "Trip.getBySortName",
+                query = "SELECT c FROM Trip c ORDER BY c.Name ASC")
 })
 public class Trip extends AbstractEntity {
 

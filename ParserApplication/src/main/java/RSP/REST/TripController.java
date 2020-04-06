@@ -52,6 +52,12 @@ public class TripController {
         return tripService.getByLength();
     }
 
+    @GetMapping(value = "/sortName",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getBySortName()
+    {
+        return tripService.getBySortName();
+    }
+
     @PostMapping
     ResponseEntity<Void> add(@RequestBody Trip trip) {
         if(tripService.add(trip))
