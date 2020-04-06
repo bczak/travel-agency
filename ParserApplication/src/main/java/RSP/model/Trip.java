@@ -104,8 +104,8 @@ public class Trip extends AbstractEntity {
         return length;
     }
 
-    public void setLength(long lenght) {
-        this.length = lenght;
+    public void setLength(long length) {
+        this.length = length;
     }
 
     public void setUsers(List<User> users) {
