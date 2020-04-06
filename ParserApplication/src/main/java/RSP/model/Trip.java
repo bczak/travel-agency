@@ -11,19 +11,7 @@ import java.util.List;
         @NamedQuery(name = "Trip.getAll", query = "SELECT c FROM Trip c"),
         @NamedQuery(
                 name = "Trip.getByName",
-                query = "SELECT c FROM Trip c WHERE c.Name = :Name"),
-        @NamedQuery(
-                name = "Trip.getByPriceASC",
-                query = "SELECT c FROM Trip c ORDER BY c.Price ASC"),
-        @NamedQuery(
-                name = "Trip.getByStartDate",
-                query = "SELECT c FROM Trip c ORDER BY c.startDate ASC"),
-        @NamedQuery(
-                name = "Trip.getByLength",
-                query = "SELECT c FROM Trip c ORDER BY c.length ASC"),
-        @NamedQuery(
-                name = "Trip.getBySortName",
-                query = "SELECT c FROM Trip c ORDER BY c.Name ASC")
+                query = "SELECT c FROM Trip c WHERE c.name = :Name")
 })
 public class Trip extends AbstractEntity {
 
@@ -33,7 +21,7 @@ public class Trip extends AbstractEntity {
     private String location;
 
     @Column
-    private String Name;
+    private String name;
 
     @Column
     private long length;
@@ -45,7 +33,7 @@ public class Trip extends AbstractEntity {
     private Date endDate;
 
     @Column
-    private double Price;
+    private double price;
 
     @ManyToMany
     private List<User> users;
@@ -53,20 +41,28 @@ public class Trip extends AbstractEntity {
     @ManyToMany
     private List<Tag> tags;
 
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
     public String getLocation() {
         return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getLength() {
+        return length;
+    }
+
+    public void setLength(long length) {
+        this.length = length;
     }
 
     public Date getStartDate() {
@@ -86,26 +82,18 @@ public class Trip extends AbstractEntity {
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(double price) {
-        Price = price;
+        this.price = price;
     }
 
     public List<User> getUsers() {
-        if(users == null){
+        if (users == null) {
             setUsers(new ArrayList<>());
         }
         return users;
-    }
-
-    public long getLength() {
-        return length;
-    }
-
-    public void setLength(long length) {
-        this.length = length;
     }
 
     public void setUsers(List<User> users) {
@@ -113,7 +101,7 @@ public class Trip extends AbstractEntity {
     }
 
     public List<Tag> getTags() {
-        if(tags == null) {
+        if (tags == null) {
             setTags(new ArrayList<>());
         }
         return tags;
