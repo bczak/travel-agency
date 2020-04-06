@@ -21,7 +21,7 @@ public class Trip extends AbstractEntity {
     private String location;
 
     @Column
-    private String Name;
+    private String name;
 
     @Column
     private long length;
@@ -33,7 +33,7 @@ public class Trip extends AbstractEntity {
     private Date endDate;
 
     @Column
-    private double Price;
+    private double price;
 
     @ManyToMany
     private List<User> users;
@@ -50,11 +50,11 @@ public class Trip extends AbstractEntity {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public long getLength() {
@@ -82,15 +82,15 @@ public class Trip extends AbstractEntity {
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(double price) {
-        Price = price;
+        this.price = price;
     }
 
     public List<User> getUsers() {
-        if(users == null){
+        if (users == null) {
             setUsers(new ArrayList<>());
         }
         return users;
@@ -101,7 +101,7 @@ public class Trip extends AbstractEntity {
     }
 
     public List<Tag> getTags() {
-        if(tags == null) {
+        if (tags == null) {
             setTags(new ArrayList<>());
         }
         return tags;
