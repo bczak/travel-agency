@@ -5,12 +5,15 @@ import RSP.dto.SortOrder;
 import RSP.model.Trip;
 import RSP.service.TripNotFoundException;
 import RSP.service.TripService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -44,11 +47,16 @@ public class TripController {
         return tripService.getByName(name);
     }
 
-    @PostMapping
-    ResponseEntity<Void> add(@RequestBody Trip trip) {
-        if(tripService.add(trip))
-            return new ResponseEntity<Void>(HttpStatus.CREATED);
-        return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Trip> add(@RequestBody Trip trip) throws URISyntaxException {
+        Trip old = tripService.add(trip);
+        if (old != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).header("Content-Location", "/trips/" + old.getId()).body(old);
+        } else {
+            String myUrl = "/trips/" + trip.getId();
+            URI myURI = new URI(myUrl);
+            return ResponseEntity.created(myURI).body(trip);
+        }
     }
 
     //DELETE REQUESTS

@@ -31,15 +31,16 @@ public class TripService {
         return trip;
     }
 
-    public boolean add(Trip trip) {
+    public Trip add(Trip trip) {
         Objects.requireNonNull(trip, "trip must not be null");
-        if(idExists(trip.getId()) || nameExists(trip.getName())) {
-            return false;
+        Trip oldTrip = tripDao.getByName(trip.getName());
+        if(oldTrip == null){
+            long length = givenLengthOfTrip(trip);
+            trip.setLength(length);
+            tripDao.add(trip);
+            return null;
         }
-        long length = givenLengthOfTrip(trip);
-        trip.setLength(length);
-        tripDao.add(trip);
-        return true;
+        return oldTrip;
     }
 
     public boolean idExists(int id) {
