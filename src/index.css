@@ -4,14 +4,15 @@ html, body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    background-image: url('./assets/travel1.png');
+    background-image: url('./assets/travel1.jpg');
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     font-family: 'Josefin Slab', sans-serif;
-    font-weight: 400;
+    font-weight: 300;
+    color: white;
     
 }
 
@@ -27,7 +28,7 @@ html, body {
 .calendarWrapper{
     margin-top: 50px;
     font-size: 30px;
-    font-weight: 400;
+    /* font-weight: 400; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -47,7 +48,7 @@ html, body {
 
 .tagFilterWraper{
     margin-top: 70px;
-    color: rgb(0, 0, 0);
+    color: white;
     text-align: center;
     font-size: 35px;
 
@@ -84,7 +85,7 @@ html, body {
 .tagWrapper{
     display: flex;
     margin: 10px;
-    background-color: #fdaea9a1;
+    background-color: #2faaaf;
 }
 
 .calendarButton{
@@ -105,7 +106,7 @@ html, body {
 }
 
 .calendarButton:hover{
-    background-color: #f7b1ace0;
+    background-color: #2a9296;
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
     color: #fff;
     transform: translateY(-7px);
@@ -137,7 +138,7 @@ html, body {
     }
   
 .searchButton:hover {
-    background-color: #f7b1ace0;
+    background-color: #2a9296;
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
     color: #fff;
     transform: translateY(-7px);
@@ -158,7 +159,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
-    background: #f7b1ace0;
+    /* background:#2a9296; */
 
     
 }
@@ -168,16 +169,20 @@ html, body {
     margin-top: 70px;
     margin-bottom: 30px;
     font-size: 35px;
-    background: #f7b1ace0;
+    /* background: #2faaaf; */
 }
 
 .resultWrapper{
     width: 700px;
 }
 
-/* .resultElementsWrapper{
-    width: 500px;
-} */
+.result_trip{
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 25px;
+}
 
 img{
     width: 700px;
