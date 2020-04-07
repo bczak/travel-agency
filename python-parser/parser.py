@@ -14,7 +14,7 @@ out = ""
 
 tour_url = tour['tour']['url']
 
-out += tour['tour']['overview']['p'] + ' '
+out += tour['tour']['overview']['p'][0] + ' '
 
 out += tour['tour']['whatyouneedtoknow']['ul']['li']
 num = len(tour['tour']['itineraries']['itinerary'])

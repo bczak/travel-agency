@@ -1,0 +1,11 @@
+{
+  "summer": ["summer", "beach", "sea", "park", "hot", "sun"],
+  "winter": ["winter", "snow", "cold", "mountain"],
+  "family": ["family", "mom", "dad" ],
+  "asia": ["asia"],
+  "europe": ["europe"],
+  "children": ["children"],
+  "mountain": ["mountain"],
+  "africa": ["africa"],
+  "sea": ["sea"]
+}
