@@ -2,9 +2,9 @@ package RSP.dto;
 
 public class TripsQueryCriteria {
 
-	private SortAttribute sortBy;
+	private SortAttribute sortBy = SortAttribute.ID;
 
-	private SortOrder order;
+	private SortOrder order = SortOrder.ASCENDING;
 
 	public SortAttribute getSortBy() {
 		return sortBy;
