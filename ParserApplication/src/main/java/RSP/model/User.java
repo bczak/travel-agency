@@ -66,7 +66,7 @@ public class User extends AbstractEntity {
     }
 
     public List<Trip> getTrips() {
-        if(trips == null) {
+        if (trips == null) {
             setTrips(new ArrayList<>());
         }
         return trips;
@@ -77,7 +77,7 @@ public class User extends AbstractEntity {
     }
 
     public List<TripCriteria> getTripCriteria() {
-        if(tripCriteria == null) {
+        if (tripCriteria == null) {
             setTripCriteria(new ArrayList<>());
         }
         return tripCriteria;

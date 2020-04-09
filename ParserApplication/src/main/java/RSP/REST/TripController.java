@@ -8,7 +8,6 @@ import RSP.service.InconsistentQueryException;
 import RSP.service.InvalidQueryException;
 import RSP.service.TripNotFoundException;
 import RSP.service.TripService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/trips")
 public class TripController {
+
     TripService tripService;
 
     TripController(TripService tripService) {
@@ -60,15 +60,17 @@ public class TripController {
     ResponseEntity<Trip> add(@RequestBody Trip trip) throws URISyntaxException {
         Trip old = tripService.add(trip);
         if (old != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).header("Content-Location", "/trips/" + old.getId()).body(old);
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .header("Content-Location", "/trips/" + old.getId())
+                    .body(old);
         } else {
-            String myUrl = "/trips/" + trip.getId();
-            URI myURI = new URI(myUrl);
-            return ResponseEntity.created(myURI).body(trip);
+            return ResponseEntity
+                    .created(new URI("/trips/" + trip.getId()))
+                    .body(trip);
         }
     }
 
-    //DELETE REQUESTS
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     //@PreAuthorize("hasRole('ROLE_ADMIN')")

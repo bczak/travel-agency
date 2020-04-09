@@ -35,11 +35,9 @@ public class TripService {
     public Trip add(Trip trip) {
         Objects.requireNonNull(trip, "trip must not be null");
         Trip oldTrip = tripDao.getByName(trip.getName());
-        if(oldTrip == null){
-            long length = givenLengthOfTrip(trip);
-            trip.setLength(length);
+        if (oldTrip == null) {
+            trip.setLength(computeLengthOfTrip(trip));
             tripDao.add(trip);
-            return null;
         }
         return oldTrip;
     }
@@ -96,7 +94,7 @@ public class TripService {
         return trip;
     }
 
-    private long givenLengthOfTrip(Trip trip) {
+    private long computeLengthOfTrip(Trip trip) {
         long diffInMillies = Math.abs(
                 trip.getEndDate().getTime() - trip.getStartDate().getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);

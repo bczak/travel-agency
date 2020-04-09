@@ -20,6 +20,7 @@ import java.util.Objects;
 
 @Repository
 public class TripDao extends AbstractDao<Trip> {
+
     TripDao(EntityManager em) {
         super(em);
     }
