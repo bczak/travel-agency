@@ -2,6 +2,7 @@ package RSP.REST;
 
 import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
+import RSP.dto.TripsQueryCriteria;
 import RSP.model.Trip;
 import RSP.service.TripNotFoundException;
 import RSP.service.TripService;
@@ -35,6 +36,11 @@ public class TripController {
     @GetMapping(value = "/sort", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Trip> getAllSorted(@RequestParam SortAttribute by, @RequestParam SortOrder order) {
         return tripService.getAllSorted(by, order);
+    }
+
+    @GetMapping(value = "/query", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getAll(TripsQueryCriteria criteria) {
+        return tripService.getAllSorted(criteria.getSortBy(), criteria.getOrder());
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
