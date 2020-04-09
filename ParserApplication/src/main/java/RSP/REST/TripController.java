@@ -40,7 +40,7 @@ public class TripController {
 
     @GetMapping(value = "/query", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Trip> getAll(TripsQueryCriteria criteria) {
-        return tripService.getAllSorted(criteria.getSortBy(), criteria.getOrder());
+        return tripService.getSome(criteria);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
