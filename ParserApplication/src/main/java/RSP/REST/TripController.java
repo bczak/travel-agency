@@ -4,6 +4,8 @@ import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
 import RSP.dto.TripsQueryCriteria;
 import RSP.model.Trip;
+import RSP.service.InconsistentQueryException;
+import RSP.service.InvalidQueryException;
 import RSP.service.TripNotFoundException;
 import RSP.service.TripService;
 import org.springframework.http.HttpHeaders;
@@ -39,7 +41,8 @@ public class TripController {
     }
 
     @GetMapping(value = "/query", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getAll(TripsQueryCriteria criteria) {
+    List<Trip> getAll(TripsQueryCriteria criteria)
+            throws InvalidQueryException, InconsistentQueryException {
         return tripService.getSome(criteria);
     }
 
@@ -76,5 +79,10 @@ public class TripController {
     @ExceptionHandler(TripNotFoundException.class)
     void handleTripNotFound(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.NOT_FOUND.value());
+    }
+
+    @ExceptionHandler({InconsistentQueryException.class, InvalidQueryException.class})
+    void handleInvalidQuery(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 }

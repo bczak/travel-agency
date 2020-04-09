@@ -68,7 +68,23 @@ public class TripService {
         return tripDao.getAllSorted(by, order);
     }
 
-    public List<Trip> getSome(TripsQueryCriteria criteria) {
+    public List<Trip> getSome(TripsQueryCriteria criteria)
+            throws InvalidQueryException, InconsistentQueryException {
+
+        Integer minPrice = criteria.getMinPrice();
+        if (minPrice != null && minPrice < 0) {
+            throw new InvalidQueryException("minPrice", minPrice);
+        }
+
+        Integer maxPrice = criteria.getMaxPrice();
+        if (maxPrice != null && maxPrice < 0) {
+            throw new InvalidQueryException("maxPrice", maxPrice);
+        }
+
+        if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
+            throw new InconsistentQueryException("minPrice", minPrice, "maxPrice", maxPrice);
+        }
+
         return tripDao.getSome(criteria);
     }
 
