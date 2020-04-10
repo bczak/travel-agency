@@ -43,4 +43,19 @@ public class TripServiceTest {
         tripService.remove(trip.getId());
         assertFalse(tripService.idExists(trip.getId()));
     }
+
+    @Test
+    public void getByNameTest() throws ParseException, TripNotFoundException {
+        Trip t = Generator.generateTrip();
+        tripService.add(t);
+
+        assertTrue(tripService.idExists(t.getId()));
+
+        Trip test = tripService.get(t.getId());
+
+        Trip actualName = tripService.getByName(t.getName());
+
+        assertEquals(test.getName(), actualName.getName());
+
+    }
 }
