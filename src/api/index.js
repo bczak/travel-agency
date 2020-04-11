@@ -1,4 +1,4 @@
-const api_url = "http://localhost:8080";
+const api_url = "";
 
 export async function getTripsApi(by, order) {
   try {
