@@ -4,6 +4,7 @@ import RSP.dao.TripDao;
 import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
 import RSP.model.Trip;
+import RSP.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +74,13 @@ public class TripService {
             throw new TripNotFoundException(name);
         }
         return trip;
+    }
+
+    public List<User> getUsersFromTrip(int id) {
+        Trip t = tripDao.get(id);
+        List<User> users = t.getUsers();
+
+        return users;
     }
 
     private long givenLengthOfTrip(Trip trip) {
