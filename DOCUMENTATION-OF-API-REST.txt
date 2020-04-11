@@ -1,0 +1,16 @@
+Documentation for API REST endpoints:
+
+1) GET /localhost:../trips - return all trips
+
+2) GET /trips/sort/ - jako paramter prijima dva argumnty sortAttribute "by "to jest: NAME, START, LENGTH, PRICE. A SortOrder order - ASCENDING, DESCENDING
+to bude vypadat napr. takto: localhost:8080/trips/sort?by=PRICE&order=ASCENDING - Vrati mi All trips, ktere jsou sortovani podle PRICE a ASC
+
+3) GET /trips/{id} - return trip with trip.getId = {id}
+
+4) GET /trips/name/{name} - return where trip.getName = {name}
+
+5) GET /trips/users/{id} - return all users of Trip where trip.getId = {id}
+
+6) POST /trips - jako argument posilam JSON body entity Trip. Pokud je ulozena do DB vratim mi 201 created a celou tu entitu, pokud ne vrati CONFLICT a jiz existujici Trip s kterym je Conflict
+
+7) DELETE /trips/{id} - delete Trip where trip.getId = {id}
