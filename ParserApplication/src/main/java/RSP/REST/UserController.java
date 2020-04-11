@@ -37,7 +37,7 @@ public class UserController {
     //POST REQUESTS
     @PostMapping(value = "/add")
     ResponseEntity<Void> add(@RequestBody User user) {
-        if(userService.add(user))
+        if (userService.add(user))
             return new ResponseEntity<Void>(HttpStatus.CREATED);
         return new ResponseEntity<Void>(HttpStatus.CONFLICT);
     }
@@ -46,7 +46,7 @@ public class UserController {
     @DeleteMapping(value = "/remove/{id}")
     //@PreAuthorize("hasRole('ROLE_ADMIN)")
     ResponseEntity<Void> remove(@PathVariable int id) {
-        if(userService.remove(id))
+        if (userService.remove(id))
             return new ResponseEntity<Void>(HttpStatus.OK);
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
