@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/trips")
+@RequestMapping("/api/trips")
 public class TripController {
     TripService tripService;
 
