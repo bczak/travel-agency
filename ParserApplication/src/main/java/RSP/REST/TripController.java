@@ -3,6 +3,7 @@ package RSP.REST;
 import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
 import RSP.model.Trip;
+import RSP.model.User;
 import RSP.service.TripNotFoundException;
 import RSP.service.TripService;
 import org.springframework.http.HttpHeaders;
@@ -52,6 +53,12 @@ public class TripController {
     Trip get(@PathVariable String name) throws TripNotFoundException {
         log.info("path: /trips/name/{name} GET method get is invoked where name = " + name);
         return tripService.getByName(name);
+    }
+
+    @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<User> getUsersOfTrip(@PathVariable int id) throws TripNotFoundException {
+        log.info("path: /trips/users/{id} GET method getUsersOfTrip is invoked where tasakId = " + id);
+        return tripService.getUsersFromTrip(id);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
