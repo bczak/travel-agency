@@ -1,5 +1,7 @@
 package RSP.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +37,20 @@ public class Trip extends AbstractEntity {
     @Column
     private double price;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Column
+    private String description;
+
+
     @ManyToMany
+    @JsonIgnore
     private List<User> users;
 
     @ManyToMany
