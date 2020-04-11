@@ -50,7 +50,6 @@ public class Trip extends AbstractEntity {
 
 
     @ManyToMany
-    @JsonIgnore
     private List<User> users;
 
     @ManyToMany
