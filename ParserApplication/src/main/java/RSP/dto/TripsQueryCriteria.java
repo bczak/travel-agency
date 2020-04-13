@@ -43,4 +43,12 @@ public class TripsQueryCriteria {
 	public void setMaxPrice(Integer maxPrice) {
 		this.maxPrice = maxPrice;
 	}
+
+	@Override
+	public String toString() {
+		return "TripsQueryCriteria [maxPrice=" + maxPrice
+				+ ", minPrice=" + minPrice
+				+ ", order=" + order
+				+ ", sortBy=" + sortBy + "]";
+	}
 }

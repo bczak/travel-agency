@@ -34,21 +34,18 @@ public class TripController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getAll() {
-        log.info("path: /trips GET method getAll is invoked");
-        return tripService.getAll();
+    List<Trip> getAll(TripsQueryCriteria criteria)
+            throws InvalidQueryException, InconsistentQueryException {
+        log.info(() -> "REST GET /trips invoked with " + criteria);
+        List<Trip> results = tripService.getSome(criteria);
+        log.info(() -> "REST GET /trips returned OK with " + results.size() + " trips");
+        return results;
     }
 
     @GetMapping(value = "/sort", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Trip> getAllSorted(@RequestParam SortAttribute by, @RequestParam SortOrder order) {
         log.info("path: /trips/sort GET method getAllSorted is invoked by " + by + " order " + order);
         return tripService.getAllSorted(by, order);
-    }
-
-    @GetMapping(value = "/query", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Trip> getAll(TripsQueryCriteria criteria)
-            throws InvalidQueryException, InconsistentQueryException {
-        return tripService.getSome(criteria);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -183,12 +180,16 @@ public class TripController {
     // EXCEPTIONS
 
     @ExceptionHandler(TripNotFoundException.class)
-    void handleTripNotFound(HttpServletResponse response) throws IOException {
+    void handleTripNotFound(HttpServletResponse response, Exception exception)
+            throws IOException {
+        log.info(() -> "REST returned NOT_FOUND with error: " + exception.getMessage());
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 
     @ExceptionHandler({InconsistentQueryException.class, InvalidQueryException.class})
-    void handleInvalidQuery(HttpServletResponse response) throws IOException {
+    void handleInvalidQuery(HttpServletResponse response, Exception exception)
+            throws IOException {
+        log.info("REST returned UNPROCESSABLE_ENTITY with error: " + exception.getMessage());
         response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 }
