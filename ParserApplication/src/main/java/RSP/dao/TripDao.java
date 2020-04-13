@@ -99,6 +99,10 @@ public class TripDao extends AbstractDao<Trip> {
         em.remove(em.contains(entity) ? entity : em.merge(entity));
     }
 
+    public void removeAll() {
+        em.createNamedQuery("Trip.removeAll").executeUpdate();
+    }
+
     public Trip getByName(String name) {
         return em.createNamedQuery("Trip.getByName", Trip.class)
                 .setParameter("Name", name)

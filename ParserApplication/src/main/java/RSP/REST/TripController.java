@@ -67,16 +67,16 @@ public class TripController {
     ResponseEntity<Trip> add(@RequestBody Trip trip) throws URISyntaxException {
         log.info("path: /trips POST method add is invoked");
         Trip old = tripService.add(trip);
-        if (old != null) {
+        if (old == null) {
+            return ResponseEntity
+                    .created(new URI("/trips/" + trip.getId()))
+                    .body(trip);
+        } else {
             log.info("path: /trips POST method add is invoked with error CONFLICT");
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .header("Content-Location", "/trips/" + old.getId())
                     .body(old);
-        } else {
-            return ResponseEntity
-                    .created(new URI("/trips/" + trip.getId()))
-                    .body(trip);
         }
     }
 
@@ -87,6 +87,100 @@ public class TripController {
         log.info("path: /trips DELETE method remove is invoked with id = " + id);
         tripService.remove(id);
     }
+
+    // BULK OPERATIONS
+
+    /**
+     * Returns an array with all trips in database.
+     */
+    @GetMapping(value = "/bulk", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getBulk() {
+        log.info("REST GET /trips/bulk invoked");
+        List<Trip> result = tripService.getAll();
+        log.info(() -> "REST GET /trips/bulk returned OK with " + result.size() + " trips");
+        return result;
+    }
+
+    /**
+     * Adds all trips from array into database.
+     *
+     * @param trips array of trips without IDs
+     * @return OK with an array of added trips including their assigned IDs
+     *         or CONFLICT with an array of existing trips with conflicting names.
+     */
+    @PostMapping(value = "/bulk", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<Trip>> postBulk(@RequestBody List<Trip> trips) {
+        log.info(() -> "REST POST /trips/bulk invoked with " + trips.size() + " trips");
+        List<Trip> old = tripService.addAll(trips);
+        if (old.isEmpty()) {
+            log.info(() ->
+                    "REST POST /trips/bulk returned OK with " + trips.size() + " trips");
+            return ResponseEntity
+                    .created(URI.create("/trips"))
+                    .body(trips);
+        } else {
+            log.info(() ->
+                    "REST POST /trips/bulk returned CONFLICT with " + old.size() + "trips");
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .header("Content-Location", "/trips")
+                    .body(old);
+        }
+    }
+
+    /**
+     * Replaces content of database with trips from array.
+     *
+     * @param trips array of trips without IDs
+     * @return OK with an array of all trips including their assigned IDs
+     *         or CONFLICT with an array of requested trips that could not be added.
+     */
+    @PutMapping(value = "/bulk", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<Trip>> putBulk(@RequestBody List<Trip> trips) {
+        log.info(() -> "REST PUT /trips/bulk invoked with " + trips.size() + " trips");
+        List<Trip> bad = tripService.setAll(trips);
+        if (bad.isEmpty()) {
+            log.info(() -> "REST PUT /trips/bulk returned OK with " + trips.size() + " trips");
+            return ResponseEntity
+                    .created(URI.create("/trips"))
+                    .body(trips);
+        } else {
+            log.info(() ->
+                    "REST PUT /trips/bulk returned CONFLICT with " + bad.size() + " trips");
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(bad);
+        }
+    }
+
+    /**
+     * Update content of database with trips from array.
+     * Trips from array replace existing trips with same name or are added into database
+     * if database does not contain trip with such name.
+     *
+     * @param trips array of trips without IDs
+     * @return OK with an array of added or updated trips with IDs
+     */
+    @PatchMapping(value = "/bulk", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> patchBulk(@RequestBody List<Trip> trips) {
+        log.info(() -> "REST PATCH /trips/bulk invoked with " + trips.size() + " trips");
+        List<Trip> result = tripService.updateAll(trips);
+        log.info(() -> "REST PATCH /trips/bulk returned OK with " + result.size() + " trips");
+        return result;
+    }
+
+    /**
+     * Delete database of trips.
+     */
+    @DeleteMapping("/bulk")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteBulk() {
+        log.info("REST DELETE /trips/bulk invoked");
+        tripService.removeAll();
+        log.info("REST DELETE /trips/bulk returned NO_CONTENT");
+    }
+
+    // EXCEPTIONS
 
     @ExceptionHandler(TripNotFoundException.class)
     void handleTripNotFound(HttpServletResponse response) throws IOException {
