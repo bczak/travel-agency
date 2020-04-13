@@ -1,7 +1,6 @@
 package RSP.service;
 
 import RSP.ParserApplicationBackend;
-import RSP.dao.TripDao;
 import RSP.model.Trip;
 import generator.Generator;
 import org.junit.Test;

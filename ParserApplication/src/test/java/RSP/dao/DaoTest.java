@@ -1,7 +1,6 @@
 package RSP.dao;
 
 import RSP.ParserApplicationBackend;
-import RSP.model.TripCriteria;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
