@@ -23,9 +23,12 @@ public class TripService {
 
     private TripDao tripDao;
 
+    private CriteriaChecker checker;
+
     @Autowired
-    public TripService(TripDao tripDao) {
+    public TripService(TripDao tripDao, CriteriaChecker checker) {
         this.tripDao = tripDao;
+        this.checker = checker;
     }
 
     public Trip get(int id) throws TripNotFoundException {
@@ -69,20 +72,7 @@ public class TripService {
     public List<Trip> getSome(TripsQueryCriteria criteria)
             throws InvalidQueryException, InconsistentQueryException {
 
-        Integer minPrice = criteria.getMinPrice();
-        if (minPrice != null && minPrice < 0) {
-            throw new InvalidQueryException("minPrice", minPrice);
-        }
-
-        Integer maxPrice = criteria.getMaxPrice();
-        if (maxPrice != null && maxPrice < 0) {
-            throw new InvalidQueryException("maxPrice", maxPrice);
-        }
-
-        if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
-            throw new InconsistentQueryException("minPrice", minPrice, "maxPrice", maxPrice);
-        }
-
+        checker.check(criteria);
         return tripDao.getSome(criteria);
     }
 
