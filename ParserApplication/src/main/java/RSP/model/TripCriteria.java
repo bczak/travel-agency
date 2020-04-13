@@ -7,7 +7,7 @@ import java.util.List;
 
 @Table(name = "TripCriteria_table")
 @Entity
-@NamedQuery(name = "TripCriteria.getAll",query = "SELECT c FROM TripCriteria c")
+@NamedQuery(name = "TripCriteria.getAll", query = "SELECT c FROM TripCriteria c")
 public class TripCriteria extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
@@ -72,7 +72,7 @@ public class TripCriteria extends AbstractEntity {
     }
 
     public List<Tag> getTags() {
-        if(tags == null) {
+        if (tags == null) {
             setTags(new ArrayList<>());
         }
         return tags;

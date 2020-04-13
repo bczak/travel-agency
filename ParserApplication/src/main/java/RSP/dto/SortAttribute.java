@@ -1,6 +1,7 @@
 package RSP.dto;
 
 public enum SortAttribute {
+	ID("id"),
 	NAME("name"),
 	START("startDate"),
 	LENGTH("length"),

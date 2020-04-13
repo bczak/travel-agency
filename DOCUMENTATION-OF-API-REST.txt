@@ -1,16 +1,44 @@
 Documentation for API REST endpoints:
 
-1) GET /localhost:../trips - return all trips
+Base path: localhost:8080/api
 
-2) GET /trips/sort/ - jako paramter prijima dva argumnty sortAttribute "by "to jest: NAME, START, LENGTH, PRICE. A SortOrder order - ASCENDING, DESCENDING
-to bude vypadat napr. takto: localhost:8080/trips/sort?by=PRICE&order=ASCENDING - Vrati mi All trips, ktere jsou sortovani podle PRICE a ASC
 
-3) GET /trips/{id} - return trip with trip.getId = {id}
+1) GET /trips - return JSON array of all trips where:
+             ?minPrice=N ... price is >= N
+             &maxPrice=M ... price is <= M
+			 &sortBy=ATTR ... sort returned array by attribute ATTR:
+			    id, name, start, length, price (default: id)
+		     &order=DIRECTION ... sort in direction:
+			    ascending, descending (default: ascending)
+       (all parameters are optional and applied in conjunction)
 
-4) GET /trips/name/{name} - return where trip.getName = {name}
+2) GET /trips/sort/ - OBSOLETE, please use just /trips?sortBy=ATTR&order=DIRECTION
 
-5) GET /trips/users/{id} - return all users of Trip where trip.getId = {id}
+3) GET /trips/{id} - return Trip with trip.getId() = {id}
 
-6) POST /trips - jako argument posilam JSON body entity Trip. Pokud je ulozena do DB vratim mi 201 created a celou tu entitu, pokud ne vrati CONFLICT a jiz existujici Trip s kterym je Conflict
+4) GET /trips/name/{name} - return Trip with trip.getName() = {name}
 
-7) DELETE /trips/{id} - delete Trip where trip.getId = {id}
+5) GET /trips/users/{id} - return all users of Trip where trip.getId() = {id}
+
+6) POST /trips - request body must be JSON entity Trip without ID attribute.
+       If there is no Trip with the same NAME in DB, store Trip into DB
+	       and return 201 CREATED with JSON entity Trip including assigned ID,
+       otherwise,
+	       return 409 CONFLICT with JSON entity Trip with conflicting NAME.
+
+7) DELETE /trips/{id} - delete Trip where trip.getId = {id}, return 204 NO_CONTENT
+
+
+Bulk operations (mostly for debugging):
+
+8) GET /trips/bulk - return JSON array of all Trips, unsorted
+
+9) POST /trips/bulk - add all Trips from JSON array as with POST /trips
+
+10) PUT /trips/bulk - replace all Trips in DB with Trips from JSON array
+       like DELETE /trips/bulk and POST /trips/bulk
+
+11) PATCH /trips/bulk - add or replace all Trips from JSON array,
+       Trips with same NAME are replaced, new NAMEs are added.
+
+12) DELETE /trips/bulk - delete all Trips from DB

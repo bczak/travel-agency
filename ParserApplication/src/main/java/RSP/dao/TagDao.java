@@ -9,6 +9,7 @@ import java.util.Objects;
 
 @Repository
 public class TagDao extends AbstractDao<Tag> {
+
     TagDao(EntityManager em) {
         super(em);
     }

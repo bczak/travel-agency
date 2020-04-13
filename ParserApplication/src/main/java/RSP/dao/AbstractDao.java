@@ -5,6 +5,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public abstract class AbstractDao<T> {
+
     @PersistenceContext
     protected EntityManager em;
 
