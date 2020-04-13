@@ -4,6 +4,7 @@ import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
 import RSP.dto.TripsQueryCriteria;
 import RSP.model.Trip;
+import RSP.model.User;
 import RSP.service.InconsistentQueryException;
 import RSP.service.InvalidQueryException;
 import RSP.service.TripNotFoundException;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/trips")
+@RequestMapping("/api/trips")
 public class TripController {
 
     TripService tripService;
@@ -58,6 +59,12 @@ public class TripController {
     Trip get(@PathVariable String name) throws TripNotFoundException {
         log.info("path: /trips/name/{name} GET method get is invoked where name = " + name);
         return tripService.getByName(name);
+    }
+
+    @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<User> getUsersOfTrip(@PathVariable int id) throws TripNotFoundException {
+        log.info("path: /trips/users/{id} GET method getUsersOfTrip is invoked where tasakId = " + id);
+        return tripService.getUsersFromTrip(id);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
