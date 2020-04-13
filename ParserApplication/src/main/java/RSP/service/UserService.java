@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
-//     JEN KOSTRA
+
     private UserDao userDao;
 
     @Autowired
@@ -20,9 +20,9 @@ public class UserService {
     }
 
     public boolean add(User user) {
-        if(user == null)
+        if (user == null)
             throw new IllegalArgumentException("User can not be Null.");
-        if(alreadyExists(user.getId()) || getByUsername(user.getUsername()) != null)
+        if (alreadyExists(user.getId()) || getByUsername(user.getUsername()) != null)
             return false;
         userDao.add(user);
         return true;
@@ -30,16 +30,16 @@ public class UserService {
 
     public boolean remove(int id) {
         User user = userDao.get(id);
-        if(user == null)
+        if (user == null)
             throw new IllegalArgumentException("User can not be Null.");
-        if(!alreadyExists(user))
+        if (!alreadyExists(user))
             return false;
         userDao.remove(user);
         return true;
     }
 
     public User get(int id) {
-        if(!alreadyExists(id))
+        if (!alreadyExists(id))
             throw new IllegalArgumentException("User can not be Null.");
         return userDao.get(id);
     }
@@ -49,8 +49,8 @@ public class UserService {
     }
 
     public User getByUsername(String username) {
-        for(User user : userDao.getAll()) {
-            if(user.getUsername().equals(username)) {
+        for (User user : userDao.getAll()) {
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }

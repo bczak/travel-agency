@@ -3,13 +3,17 @@ package RSP.service;
 import RSP.dao.TripDao;
 import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
+import RSP.dto.TripsQueryCriteria;
 import RSP.model.Trip;
 import RSP.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -35,11 +39,9 @@ public class TripService {
     public Trip add(Trip trip) {
         Objects.requireNonNull(trip, "trip must not be null");
         Trip oldTrip = tripDao.getByName(trip.getName());
-        if(oldTrip == null){
-            long length = givenLengthOfTrip(trip);
-            trip.setLength(length);
+        if (oldTrip == null) {
+            trip.setLength(computeLengthOfTrip(trip));
             tripDao.add(trip);
-            return null;
         }
         return oldTrip;
     }
@@ -60,12 +62,28 @@ public class TripService {
         tripDao.remove(trip);
     }
 
-    public List<Trip> getAll() {
-        return tripDao.getAll();
-    }
-
     public List<Trip> getAllSorted(SortAttribute by, SortOrder order) {
         return tripDao.getAllSorted(by, order);
+    }
+
+    public List<Trip> getSome(TripsQueryCriteria criteria)
+            throws InvalidQueryException, InconsistentQueryException {
+
+        Integer minPrice = criteria.getMinPrice();
+        if (minPrice != null && minPrice < 0) {
+            throw new InvalidQueryException("minPrice", minPrice);
+        }
+
+        Integer maxPrice = criteria.getMaxPrice();
+        if (maxPrice != null && maxPrice < 0) {
+            throw new InvalidQueryException("maxPrice", maxPrice);
+        }
+
+        if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
+            throw new InconsistentQueryException("minPrice", minPrice, "maxPrice", maxPrice);
+        }
+
+        return tripDao.getSome(criteria);
     }
 
     public Trip getByName(String name) throws TripNotFoundException {
@@ -83,11 +101,64 @@ public class TripService {
         return users;
     }
 
-    private long givenLengthOfTrip(Trip trip) {
+    private long computeLengthOfTrip(Trip trip) {
         long diffInMillies = Math.abs(
                 trip.getEndDate().getTime() - trip.getStartDate().getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
         return diff;
+    }
+
+    // BULK OPERATIONS
+
+    public List<Trip> getAll() {
+        return tripDao.getAll();
+    }
+
+    public List<Trip> addAll(List<Trip> trips) {
+        List<Trip> conflict = new ArrayList<>();
+        for (Trip trip : trips) {
+            Trip old = add(trip);
+            if (old != null) {
+                conflict.add(old);
+            }
+        }
+        return conflict;
+    }
+
+    public List<Trip> setAll(List<Trip> trips) {
+        Map<String, Trip> data = new LinkedHashMap<>();
+        List<Trip> conflict = new ArrayList<>();
+        for (Trip trip : trips) {
+            if (data.putIfAbsent(trip.getName(), trip) != null) {
+                conflict.add(trip);
+            }
+        }
+        if (conflict.isEmpty()) {
+            removeAll();
+            for (Trip trip : data.values()) {
+                tripDao.add(trip);
+            }
+        }
+        return conflict;
+    }
+
+    public List<Trip> updateAll(List<Trip> trips) {
+        List<Trip> result = new ArrayList<>();
+        for (Trip trip : trips) {
+            Trip original = tripDao.getByName(trip.getName());
+            if (original == null) {
+                tripDao.add(trip);
+            } else {
+                trip.setId(original.getId());
+                trip = tripDao.update(trip);
+            }
+            result.add(trip);
+        }
+        return result;
+    }
+
+    public void removeAll() {
+        tripDao.removeAll();
     }
 }
