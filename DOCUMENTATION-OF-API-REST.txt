@@ -43,6 +43,6 @@ Bulk operations (mostly for debugging):
 
 12) DELETE /trips/bulk - delete all Trips from DB
 
-13) POST /tags/{tripid} - add tag for trip where tripId = trip.getId
+13) POST /trips/{tripid} - add one tag for trip where tripId = trip.getId
 
-14) DELETE /tags/{tripId}/{tagId} - delete tag from trip and from DB where tripId = trip.getId and tagId = tag.getId
+14) DELETE /trips/{tripId}/{tagId} - delete one tag from trip and from DB where tripId = trip.getId and tagId = tag.getId
