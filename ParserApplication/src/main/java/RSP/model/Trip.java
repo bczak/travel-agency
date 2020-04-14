@@ -51,10 +51,25 @@ public class Trip extends AbstractEntity {
 
 
     @ManyToMany
+    @JsonIgnore
     private List<User> users;
 
     @ManyToMany
     private List<Tag> tags;
+
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj == this)
+            return true;
+        if(obj instanceof Trip)
+        {
+            Trip trip = (Trip) obj;
+            return getName().equals(trip.getName());
+        }
+        return false;
+    }
 
     public String getLocation() {
         return location;

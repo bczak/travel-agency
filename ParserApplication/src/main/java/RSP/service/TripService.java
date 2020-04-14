@@ -1,9 +1,11 @@
 package RSP.service;
 
+import RSP.dao.TagDao;
 import RSP.dao.TripDao;
 import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
 import RSP.dto.TripsQueryCriteria;
+import RSP.model.Tag;
 import RSP.model.Trip;
 import RSP.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,41 @@ public class TripService {
 
     private TripDao tripDao;
 
+    private TagDao tagDao;
+
     @Autowired
-    public TripService(TripDao tripDao) {
+    public TripService(TripDao tripDao, TagDao tagDao) {
         this.tripDao = tripDao;
+        this.tagDao = tagDao;
     }
+
+    public boolean addTags(Tag tag, int id) throws TripNotFoundException {
+        Trip t = tripDao.get(id);
+        if(tag == null){
+            return false;
+        }
+
+        tagDao.add(tag);
+
+
+        t.getTags().add(tag);
+
+        tripDao.update(t);
+        return true;
+    }
+
+    public boolean removeTag(int tagId, int tripId) throws TripNotFoundException {
+        Tag tag = tagDao.get(tagId);
+        Trip trip = tripDao.get(tripId);
+        if(tag == null || trip == null){
+            return false;
+        }
+        trip.getTags().remove(tag);
+        tagDao.remove(tag);
+        tripDao.update(trip);
+        return true;
+    }
+
 
     public Trip get(int id) throws TripNotFoundException {
         Trip trip = tripDao.get(id);
@@ -94,8 +127,11 @@ public class TripService {
         return trip;
     }
 
-    public List<User> getUsersFromTrip(int id) {
+    public List<User> getUsersFromTrip(int id) throws TripNotFoundException {
         Trip t = tripDao.get(id);
+        if (t == null) {
+            throw new TripNotFoundException(id);
+        }
         List<User> users = t.getUsers();
 
         return users;
