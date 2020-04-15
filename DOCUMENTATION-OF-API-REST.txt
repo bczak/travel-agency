@@ -43,10 +43,34 @@ Bulk operations (mostly for debugging):
 
 12) DELETE /trips/bulk - delete all Trips from DB
 
-13) POST /trips/{tripid} - add one tag for trip where tripId = trip.getId
+13) POST /tags/{tripid} - add one tag for trip where tripId = trip.getId, if tag exists then existTag add to trip, else created new tag and add to trip
 
-14) DELETE /trips/{tripId}/{tagId} - delete one tag from trip and from DB where tripId = trip.getId and tagId = tag.getId
+14) DELETE /tags/{tripId}/{tagId} - delete one tag from trip where tripId = trip.getId and tagId = tag.getId, Tag is NOT DELETED from DB!
 
-15) GET /tags - retrurn all tags
+15) POST /country/{tripid} - add one country for trip where tripId = trip.getId, if country exists then existCountry add to trip, else created new Country and add to trip
 
-16) DELETE /tags/{tagId} - delete one tag where tagId = tag.getId
+16) DELETE /country/{tripId}/{countryId} - delete one country from trip where tripId = trip.getId and countryId = country.getId, Country is NOT DELETED from DB!
+
+ENTITA TAG
+
+1) GET /tags - retrurn all tags
+
+2) POST /tags - add one Tag to db
+
+3) DELETE /tags/{tagId} - delete one tag where tagId = tag.getId
+
+4) GET /tags/{name} - return one Tag where name = tag.name
+
+5) POST /tags/addAll - add all Tags from JSON array
+
+ENTITA COUNTRY
+
+1) GET /countries - get all countries
+
+2) GET /countries/{name} - return Country where name = country.getName
+
+3) POST /countries/addAll - add all Countries from JSON array
+
+4) POST /countries - add one Country to db
+
+5) DELETE /countries/{id} - delete country where id = country.getId

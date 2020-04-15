@@ -3,6 +3,7 @@ package RSP.REST;
 import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
 import RSP.dto.TripsQueryCriteria;
+import RSP.model.Country;
 import RSP.model.Tag;
 import RSP.model.Trip;
 import RSP.model.User;
@@ -86,14 +87,22 @@ public class TripController {
 
     @PostMapping(value = "/tags/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Trip> addTags(@PathVariable int id, @RequestBody Tag tag) throws URISyntaxException, TripNotFoundException {
-        log.info("path: /trips/task/{taskId} POST method addTags is invoked where taskId = " + id);
+        log.info("path: /trips/tags/{tagId} POST method addTags is invoked where tripId = " + id);
         Trip t = tripService.get(id);
         if(!tripService.addTags(tag, id)){
-            throw new IllegalArgumentException("list of tags must not be null");
+            throw new IllegalArgumentException("tag must not be null");
         }
-        return ResponseEntity
-                .created(new URI("/trips/tags" + t.getId()))
-                .body(t);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/country/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Trip> addCountry(@PathVariable int id, @RequestBody Country country) throws URISyntaxException, TripNotFoundException {
+        log.info("path: /trips/country/{countryId} POST method addCountry is invoked where tripId = " + id);
+        Trip t = tripService.get(id);
+        if(!tripService.addCountry(country, id)){
+            throw new IllegalArgumentException("country must not be null");
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -107,8 +116,18 @@ public class TripController {
     @DeleteMapping(value = "/tags/{tripId}/{tagId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     ResponseEntity<Void> removeTag(@PathVariable int tripId, @PathVariable int tagId) throws TripNotFoundException {
-        log.info("path: /trips/tags/{taskId}/{tagId} DELETE method removeTag is invoked with tagId = " + tagId);
+        log.info("path: /trips/tags/{tripId}/{tagId} DELETE method removeTag is invoked with tagId = " + tagId);
         if(tripService.removeTag(tagId, tripId)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+    @DeleteMapping(value = "/country/{tripId}/{countryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    ResponseEntity<Void> removeCountry(@PathVariable int tripId, @PathVariable int countryId) throws TripNotFoundException {
+        log.info("path: /trips/country/{tripId}/{countryId} DELETE method removeCountry is invoked with countryId = " + countryId);
+        if(tripService.removeCountry(tripId, countryId)){
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);

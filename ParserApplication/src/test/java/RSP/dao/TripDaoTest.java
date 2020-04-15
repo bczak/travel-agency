@@ -35,7 +35,6 @@ public class TripDaoTest {
 
         trip.setStartDate(new Date());
         trip.setLength(15);
-        trip.setLocation("ABAS City");
         trip.setName("Test");
         trip.setPrice(10000);
 
@@ -50,7 +49,6 @@ public class TripDaoTest {
 
         trip.setStartDate(new Date());
         trip.setLength(15);
-        trip.setLocation("ABAS City");
         trip.setName("Test");
         trip.setPrice(10000);
 

@@ -21,9 +21,6 @@ public class Trip extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @Column
-    private String location;
-
-    @Column
     private String name;
 
     @Column
@@ -31,6 +28,9 @@ public class Trip extends AbstractEntity {
 
     @Column
     private Date startDate;
+
+    @Column
+    private String imageLink;
 
     @Column
     private Date endDate;
@@ -41,17 +41,8 @@ public class Trip extends AbstractEntity {
     @Column
     private double price;
 
-public String getLink() {
-	return link;
-}
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Country> countries;
 
     @Column(length=60000)
     private String description;
@@ -78,12 +69,36 @@ public String getLink() {
         return false;
     }
 
-    public String getLocation() {
-        return location;
+    public List<Country> getCountries() {
+        return countries;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCountries(List<Country> countries) {
+        this.countries = countries;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {

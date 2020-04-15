@@ -1,14 +1,15 @@
 package RSP.service;
 
 import RSP.dao.TagDao;
-import RSP.dao.TripDao;
 import RSP.model.Tag;
 import RSP.model.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -20,8 +21,29 @@ public class TagService {
         this.tagDao = tagDao;
     }
 
-    public void add(Tag tag) {
-        tagDao.add(tag);
+    public List<Tag> addAll(List<Tag> tags) {
+        List<Tag> conflict = new ArrayList<>();
+        for (Tag t : tags) {
+            Tag old = add(t);
+            if (old != null) {
+                conflict.add(old);
+            }
+        }
+        return conflict;
+    }
+
+    public Tag getByName(String name) {
+        return tagDao.getByName(name);
+    }
+
+//---CRUD
+    public Tag add(Tag tag) {
+        Objects.requireNonNull(tag, "tag must not be null");
+        Tag oldTag = tagDao.getByName(tag.getName());
+        if (oldTag == null) {
+            tagDao.add(tag);
+        }
+        return oldTag;
     }
 
     public Tag get(int id) {
@@ -39,7 +61,7 @@ public class TagService {
         return tagDao.getAll();
     }
 
-    public void remove(int id) throws TripNotFoundException {
+    public void remove(int id) {
         Tag tag = tagDao.get(id);
         if (tag == null) {
             throw new IllegalArgumentException("tag must not be null");
