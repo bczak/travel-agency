@@ -29,8 +29,14 @@ class App extends React.Component {
   };
 
   getTrips = async (by='PRICE', order='ASCENDING') => {
-    const trips = await getTripsApi(by, order);
-    this.setState({ trips })
+    try {
+      const trips = await getTripsApi(by, order);
+      if (Array.isArray(trips)){
+        this.setState({ trips })
+      }
+    } catch(error){
+      console.log({ error })
+    }
   }
 
   render() {
