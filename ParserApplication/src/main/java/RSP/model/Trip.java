@@ -36,6 +36,9 @@ public class Trip extends AbstractEntity {
     private Date endDate;
 
     @Column
+    private String link;
+
+    @Column
     private double price;
 
     public String getDescription() {
