@@ -1,4 +1,4 @@
-const api_url = "http://tash.wtf/api";
+const api_url = "https://tash.wtf/api";
 
 export async function getTripsApi(by, order) {
   try {
