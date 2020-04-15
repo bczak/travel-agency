@@ -41,6 +41,10 @@ public class Trip extends AbstractEntity {
     @Column
     private double price;
 
+public String getLink() {
+	return link;
+}
+
     public String getDescription() {
         return description;
     }
@@ -49,7 +53,7 @@ public class Trip extends AbstractEntity {
         this.description = description;
     }
 
-    @Column
+    @Column(length=60000)
     private String description;
 
 
