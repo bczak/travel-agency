@@ -48,37 +48,7 @@ public class TripDao extends AbstractDao<Trip> {
     }
 
     public List<Trip> getSome(TripsQueryCriteria criteria) {
-        // Fetching
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Trip> query = builder.createQuery(Trip.class);
-        Root<Trip> trips = query.from(Trip.class);
-
-        // Filtering
-        Predicate predicate = builder.conjunction();
-
-        // - by price
-        Integer minPrice = criteria.getMinPrice();
-        Integer maxPrice = criteria.getMaxPrice();
-        if (minPrice != null || maxPrice != null) {
-            Path<Integer> price = trips.get("price");
-            if (minPrice != null) {
-                predicate = builder.and(predicate,
-                        builder.greaterThanOrEqualTo(price, minPrice));
-            }
-            if (maxPrice != null) {
-                predicate = builder.and(predicate,
-                        builder.lessThanOrEqualTo(price, maxPrice));
-            }
-        }
-
-        // Sorting
-        Path<?> orderByColumn = trips.get(criteria.getSortBy().getColumnName());
-        Order ordering = (SortOrder.ASCENDING == criteria.getOrder())
-                ? builder.asc(orderByColumn) : builder.desc(orderByColumn);
-
-        // Selecting results
-        return em.createQuery(query.select(trips).where(predicate).orderBy(ordering))
-                .getResultList();
+        return new TripQueryBuilder(em).build(criteria).getResultList();
     }
 
     @Override
