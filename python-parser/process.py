@@ -11,43 +11,48 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('punkt')
 
-filename = sys.argv[1]
-file = open('json/' + filename + '.json', 'r')
-json_data = file.read()
-parsed_json = (json.loads(json_data))
-# print(parsed_json)
 
-words = set()
+def tagging(filename):
+    file = open('json/' + filename + '.json', 'r')
+    json_data = file.read()
+    parsed_json = (json.loads(json_data))
+    # print(parsed_json)
 
-text = parsed_json['description']
-text = re.sub(r'\d+', '', text)
+    words = set()
 
-translate_table = dict((ord(char), None) for char in string.punctuation)
-text = text.translate(translate_table)
+    text = parsed_json['description']
+    text = re.sub(r'\d+', '', text)
 
-text = text.lower()
+    translate_table = dict((ord(char), None) for char in string.punctuation)
+    text = text.translate(translate_table)
 
-tokens = nltk.word_tokenize(text)
+    text = text.lower()
 
-lem = nltk.WordNetLemmatizer()
-tokens = [lem.lemmatize(token) for token in tokens]
+    tokens = nltk.word_tokenize(text)
 
-stop = stopwords.words('english')
-tokens = [token for token in tokens if token not in stop]
+    lem = nltk.WordNetLemmatizer()
+    tokens = [lem.lemmatize(token) for token in tokens]
 
-syns = []
+    stop = stopwords.words('english')
+    tokens = [token for token in tokens if token not in stop]
 
-for word in tokens:
-    for syn in nltk.corpus.wordnet.synsets(word):
-        for lemma in syn.lemmas():
-            w = lemma.name()
-            if w not in tokens or w not in syns:
-                syns.append(lemma.name())
+    syns = []
 
-tokens = tokens + syns
+    for word in tokens:
+        for syn in nltk.corpus.wordnet.synsets(word):
+            for lemma in syn.lemmas():
+                w = lemma.name()
+                if w not in tokens or w not in syns:
+                    syns.append(lemma.name())
 
-for rule in config.rules:
-    index = 0
-    for word in config.rules[rule]:
-        index += tokens.count(word)
-    print(rule + ' : ' + str(index))
+    tokens = tokens + syns
+
+    tags = {}
+    for rule in config.rules:
+        index = 0
+        for word in config.rules[rule]:
+            index += tokens.count(word)
+        if index > 0:
+            tags[rule] = index
+    tags = {k: v for k, v in sorted(tags.items(), key=lambda item: item[1])}
+    return tags, parsed_json

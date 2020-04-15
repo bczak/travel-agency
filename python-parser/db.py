@@ -4,6 +4,7 @@ import config
 
 class DB:
     def __init__(self):
+        print("Connecting...")
         self.conn = psycopg2.connect(host=config.database['host'], database=config.database['database'],
                                      user=config.database['user'], password=config.database['password'])
         print("Connected")
@@ -13,3 +14,7 @@ class DB:
         self.cur.execute(sql)
         result = self.cur.fetchall()
         return result
+
+    def insert(self, sql, data):
+        self.cur.execute(sql, data)
+        self.conn.commit()
