@@ -2,6 +2,7 @@ package RSP.REST;
 
 import RSP.model.Country;
 import RSP.model.Tag;
+import RSP.model.Trip;
 import RSP.service.CountryService;
 import RSP.service.TripNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,12 @@ public class CountryController {
         return countryService.getByName(name);
     }
 
+    @GetMapping(value = "/tripGet/{countryid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getTripsFromCountry(@PathVariable int countryid){
+        return countryService.getTrips(countryid);
+    }
+
+
     @PostMapping(value = "/addAll", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Country>> postBulk(@RequestBody List<Country> countries) {
         List<Country> old = countryService.addAll(countries);
@@ -49,15 +56,40 @@ public class CountryController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Country> add(@RequestBody Country country) throws URISyntaxException {
-        countryService.add(country);
+        Country c = countryService.add(country);
+        if(c == null){
+            return ResponseEntity
+                    .created(new URI("/countries/" + country.getId()))
+                    .body(country);
+        }
         return ResponseEntity
-                .created(new URI("/countries/" + country.getId()))
-                .body(country);
+                .status(HttpStatus.CONFLICT)
+                .header("Content-Location", "/countries/" + c.getId())
+                .body(c);
     }
+
+    @PostMapping(value = "/trip/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Trip> addTrip(@PathVariable int id, @RequestBody Trip trip) throws URISyntaxException, TripNotFoundException {
+        Country t = countryService.get(id);
+        if(!countryService.addTrip(trip, id)){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void remove(@PathVariable int id) throws TripNotFoundException {
+    void remove(@PathVariable int id){
         countryService.remove(id);
+    }
+
+        @DeleteMapping(value = "/trip/{countryId}/{tripId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    ResponseEntity<Void> removeTrip(@PathVariable int countryId, @PathVariable int tripId){
+        if(countryService.removeTrip(countryId, tripId)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }

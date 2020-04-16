@@ -42,6 +42,7 @@ public class TagService {
         Tag oldTag = tagDao.getByName(tag.getName());
         if (oldTag == null) {
             tagDao.add(tag);
+            return null;
         }
         return oldTag;
     }

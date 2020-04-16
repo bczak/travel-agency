@@ -1,6 +1,9 @@
 package RSP.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "country_table")
 @Entity
@@ -8,15 +11,18 @@ import javax.persistence.*;
         @NamedQuery(name = "Country.getAll", query = "SELECT c FROM Country c"),
         @NamedQuery(
                 name = "Country.getByName",
-                query = "SELECT c FROM Country c WHERE c.name = :name")
+                query = "SELECT c FROM Country c WHERE c.name = :name"),
+        @NamedQuery(
+                name = "Country.getTrips",
+                query = "SELECT c.trip FROM Country c WHERE c.id = :id")
 })
 
 public class Country extends AbstractEntity{
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @JoinColumn(name = "trip_id")
-    private Trip trip;
+    @ManyToMany
+    @JsonIgnore
+    private List<Trip> trip;
 
     @Column
     private String name;
@@ -61,11 +67,11 @@ public class Country extends AbstractEntity{
         this.name = country;
     }
 
-    public Trip getTrip() {
+    public List<Trip> getTrip() {
         return trip;
     }
 
-    public void setTrip(Trip trip) {
+    public void setTrip(List<Trip> trip) {
         this.trip = trip;
     }
 }

@@ -74,3 +74,9 @@ ENTITA COUNTRY
 4) POST /countries - add one Country to db
 
 5) DELETE /countries/{id} - delete country where id = country.getId
+
+6) GET /countries/tripGet/{countryId} - retun all Trips from country where countryId = country.getId
+
+7) POST /countries/trip/{countryId} - add trip to country where countryId = country.getId
+
+8) DELETE /countries/trip/{countryId}/{tripId} - delete trip from country where countryId = country.getId and tripId = trip.getId Trip is NOT DELETED from DB!

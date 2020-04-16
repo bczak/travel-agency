@@ -44,6 +44,13 @@ public class TripService {
         if(t == null){
             throw new TripNotFoundException(id);
         }else if(tag2 != null){
+            List<Tag> tagz = t.getTags();
+            for (Tag test:
+                 tagz) {
+                if(test.getName().equals(tag2.getName())){
+                    return false;
+                }
+            }
             t.getTags().add(tag2);
             tripDao.update(t);
             return true;
@@ -62,6 +69,13 @@ public class TripService {
             throw new TripNotFoundException(id);
         }
         else if(c != null){
+            List<Country> countries = t.getCountries();
+            for (Country countr:
+                 countries) {
+             if(countr.getName().equals(c.getName())){
+                 return false;
+             }
+            }
             t.getCountries().add(c);
             tripDao.update(t);
             return true;

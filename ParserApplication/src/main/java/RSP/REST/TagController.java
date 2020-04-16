@@ -50,10 +50,17 @@ public class TagController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Tag> add(@RequestBody Tag tag) throws URISyntaxException {
-        tagService.add(tag);
+        Tag t = tagService.add(tag);
+        if(t == null){
+            return ResponseEntity
+                    .created(new URI("/tags/" + tag.getId()))
+                    .body(tag);
+        }
         return ResponseEntity
-                .created(new URI("/tags/" + tag.getId()))
-                .body(tag);
+                .status(HttpStatus.CONFLICT)
+                .header("Content-Location", "/tags/" + t.getId())
+                .body(t);
+
     }
 
     @DeleteMapping(value = "/{id}")

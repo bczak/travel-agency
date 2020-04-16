@@ -87,20 +87,20 @@ public class TripController {
 
     @PostMapping(value = "/tags/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Trip> addTags(@PathVariable int id, @RequestBody Tag tag) throws URISyntaxException, TripNotFoundException {
-        log.info("path: /trips/tags/{tagId} POST method addTags is invoked where tripId = " + id);
+        log.info("path: /trips/tags/{TripId} POST method addTags is invoked where tripId = " + id);
         Trip t = tripService.get(id);
         if(!tripService.addTags(tag, id)){
-            throw new IllegalArgumentException("tag must not be null");
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/country/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Trip> addCountry(@PathVariable int id, @RequestBody Country country) throws URISyntaxException, TripNotFoundException {
-        log.info("path: /trips/country/{countryId} POST method addCountry is invoked where tripId = " + id);
+        log.info("path: /trips/country/{TripId} POST method addCountry is invoked where tripId = " + id);
         Trip t = tripService.get(id);
         if(!tripService.addCountry(country, id)){
-            throw new IllegalArgumentException("country must not be null");
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

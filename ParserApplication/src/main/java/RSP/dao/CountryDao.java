@@ -1,7 +1,6 @@
 package RSP.dao;
 
 import RSP.model.Country;
-import RSP.model.Tag;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -48,5 +47,11 @@ public class CountryDao extends AbstractDao<Country>{
                 .setMaxResults(1)
                 .getResultList()
                 .stream().findFirst().orElse(null);
+    }
+
+    public List getTrips(int id) {
+        return em.createNamedQuery("Country.getTrips")
+                .setParameter("id", id)
+                .getResultList();
     }
 }

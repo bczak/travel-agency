@@ -41,7 +41,7 @@ public class Trip extends AbstractEntity {
     @Column
     private double price;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Country> countries;
 
     @Column(length=60000)
