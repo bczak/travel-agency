@@ -3,6 +3,7 @@ package RSP.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "country_table")
@@ -11,10 +12,7 @@ import java.util.List;
         @NamedQuery(name = "Country.getAll", query = "SELECT c FROM Country c"),
         @NamedQuery(
                 name = "Country.getByName",
-                query = "SELECT c FROM Country c WHERE c.name = :name"),
-        @NamedQuery(
-                name = "Country.getTrips",
-                query = "SELECT c.trip FROM Country c WHERE c.id = :id")
+                query = "SELECT c FROM Country c WHERE c.name = :name")
 })
 
 public class Country extends AbstractEntity{
@@ -22,7 +20,7 @@ public class Country extends AbstractEntity{
 
     @ManyToMany
     @JsonIgnore
-    private List<Trip> trip;
+    private List<Trip> trip = new ArrayList<>();
 
     @Column
     private String name;

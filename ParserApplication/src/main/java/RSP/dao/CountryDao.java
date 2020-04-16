@@ -48,10 +48,4 @@ public class CountryDao extends AbstractDao<Country>{
                 .getResultList()
                 .stream().findFirst().orElse(null);
     }
-
-    public List getTrips(int id) {
-        return em.createNamedQuery("Country.getTrips")
-                .setParameter("id", id)
-                .getResultList();
-    }
 }

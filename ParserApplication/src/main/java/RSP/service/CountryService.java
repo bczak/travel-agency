@@ -5,6 +5,7 @@ import RSP.dao.TripDao;
 import RSP.model.Country;
 import RSP.model.Tag;
 import RSP.model.Trip;
+import org.aspectj.bridge.ILifecycleAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,7 +83,11 @@ public class CountryService {
     }
 
     public List<Trip> getTrips(int id) {
-        return countryDao.getTrips(id);
+        Country c = countryDao.get(id);
+        if(c == null){
+            throw new IllegalArgumentException("Not found country with id = " + id + " and name = " + c.getName());
+        }
+        return c.getTrip();
     }
     
     //CRUD

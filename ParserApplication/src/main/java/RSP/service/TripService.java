@@ -77,11 +77,13 @@ public class TripService {
              }
             }
             t.getCountries().add(c);
+            c.getTrip().add(t);
             tripDao.update(t);
             return true;
         }else{
             countryDao.add(country);
             t.getCountries().add(country);
+            country.getTrip().add(t);
             tripDao.update(t);
             return true;
         }
