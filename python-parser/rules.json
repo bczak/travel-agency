@@ -1,11 +1,16 @@
 {
-  "summer": ["summer", "beach", "sea", "park", "hot", "sun"],
+  "summer": ["summer", "beach", "sea", "park", "hot", "sun", "relaxation", "tropical", "breeze"],
   "winter": ["winter", "snow", "cold"],
   "family": ["family", "mom", "dad" ],
-  "asia": ["asia"],
-  "europe": ["europe"],
+  "asia": ["asia", "phuket", "elephant", "buddha", "thai", "thailand", "burma", "myanmar", "shan"],
+  "europe": ["europe", "estonia", "latvia", "lithuana", "poland","gothic church", "serbia", "kosovo", "macedonia", "albania", "montenegro", "croatia", "slovenia", "hungary", "czech", "greece", "germany", "france", "portugal", "spain", "united kingdom", "ireland", "norway", "finland", "sweden", "ukraine", "moldova", "romania", "italy", "bosnia", "malta", "austria", "slovakia", "belarus", "denmark", "netherlands", "belgium", "switzerland", "bulgaria"],
   "children": ["children"],
-  "mountain": ["mountain"],
-  "africa": ["africa"],
-  "sea": ["sea"]
+  "mountains": ["mountains", "shan", "ski"],
+  "africa": ["africa", "zambia", "botswana", "namibia", "livingstone", "chobe", "kasane", "savute", "elephant sands", "kalahari desert", "maun", "okavango", "wildlife", "etosha", "otjiwarongo", "namibian", "swakopmund", "windhoek", "cape town", "victoria falls", "sossusvlei", "deadvlei", "orange river", "fish river canyon", "cederberg", "rwanda", "uganda", "kenya", "nairobi", "kigali", "lake bunyonyi", "gorilla trek", "kampala", "nile", "jinja", "naivasha", "masai mara", "mara", "tanzania", "serengeti", "ngorongoro", "swaziland", "zimbabwe", "pretoria", "mlilwane", "mpumalanga", "hazyview", "kruger", "tshipise", "bulawayo", "matobo"],
+  "beach": ["sea", "relaxed", "relax", "beaches", "swim", "waters", "island", "breeze", "ocean"],
+  "active": ["walking", "bike", "loud", "architecture", "museum", "cathedral", "tour", "walk", "hikes", "waterfalls", "rhythmic", "park", "national park", "churches", "palaces", "volcano", "sport", "city tour", "adventure", "fitness", "horse riding", "kayaking", "hiking", "water sports", "fitness", "gallery", "tour"],
+  "nightlife" : ["dancing", "nightclubs", "night", "drinks", "evening", "dance", "show", "music", "lively", "restaurants", "bars", "rhythmic", "music", "cafes"],
+  "sea": ["sea", "breeze", "beach", "mediterranean", "red", "baltic"],
+  "islands": ["island", "galapagos", "sea"],
+  "cruise": ["cruise", "boat", "channel"]
 }

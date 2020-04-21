@@ -15,6 +15,7 @@ class DB:
         result = self.cur.fetchall()
         return result
 
-    def insert(self, sql, data):
+    def insert(self, sql: str, data: tuple) -> object:
         self.cur.execute(sql, data)
         self.conn.commit()
+        return None
