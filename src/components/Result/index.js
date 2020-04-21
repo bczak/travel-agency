@@ -6,7 +6,7 @@ export class Result extends React.Component {
   state = {
     order: "DESCENDING",
     tripDetailRequested: false,
-    tripId: null
+    tripId: null,
   };
 
   closeTripDetailsModal = () => {
@@ -17,7 +17,10 @@ export class Result extends React.Component {
     return (
       <>
         {this.state.tripDetailRequested ? (
-          <TripDetailModal closeTripDetailsModal={this.closeTripDetailsModal} tripId={this.state.tripId} />
+          <TripDetailModal
+            closeTripDetailsModal={this.closeTripDetailsModal}
+            tripId={this.state.tripId}
+          />
         ) : null}
         <div className="resultWrapper">
           <div className="resultHeader">Results</div>
@@ -58,7 +61,7 @@ export class Result extends React.Component {
                   key={trip.id}
                   className="result_trip"
                   onClick={() => {
-                    this.setState({ tripId: trip.id})
+                    this.setState({ tripId: trip.id });
                     this.setState({ tripDetailRequested: true });
                   }}
                 >
@@ -70,6 +73,14 @@ export class Result extends React.Component {
                     "DD-MM-YY"
                   )}`}</div>
                   <div>{`Price: ${trip.price}`}</div>
+
+                  <div className='resultTagsName'>
+                    {`Tags: `}
+                    <div  className='resultTagsWrapper'>
+                    {trip.tags.map((tag) => {
+                      return <p className='tagFromResult' key={tag.id}>{tag.name}</p>;
+                    })}</div>
+                  </div>
                   <br />
                 </div>
               );

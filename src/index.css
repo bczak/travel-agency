@@ -13,7 +13,11 @@ html, body {
     font-family: 'Josefin Slab', sans-serif;
     font-weight: 300;
     color: white;
-    
+
+}
+
+p{
+    margin:0;
 }
 
 #App {
@@ -74,6 +78,7 @@ html, body {
 .tagContainer{
     display:flex;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .tag{
@@ -243,6 +248,27 @@ img{
     font-size: 20px;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.resultTagsName{
+    text-align: center;
+
+}
+
+.resultTagsWrapper{
+    width: 330px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.tagFromResult{
+    display: flex;
+    margin: 10px;
+    background-color: #2faaaf;
+    align-items: center;
+    justify-content: center;
 }
 
 
