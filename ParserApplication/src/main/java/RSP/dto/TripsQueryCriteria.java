@@ -31,6 +31,8 @@ public class TripsQueryCriteria {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endBefore = null;
 
+	private String inName = null;
+
 	public SortAttribute getSortBy() {
 		return sortBy;
 	}
@@ -111,6 +113,14 @@ public class TripsQueryCriteria {
 		this.endBefore = endBefore;
 	}
 
+	public String getInName() {
+		return inName;
+	}
+
+	public void setInName(String inName) {
+		this.inName = inName;
+	}
+
 	@Override
 	public String toString() {
 		return "TripsQueryCriteria [maxPrice=" + maxPrice
@@ -121,6 +131,7 @@ public class TripsQueryCriteria {
 				+ ", startBefore=" + startBefore
 				+ ", endAfter=" + endAfter
 				+ ", endBefore=" + endBefore
+				+ ", inName=" + inName
 				+ ", order=" + order
 				+ ", sortBy=" + sortBy + "]";
 	}

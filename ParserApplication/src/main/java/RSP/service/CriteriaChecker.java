@@ -23,6 +23,8 @@ public class CriteriaChecker {
         checkDateInterval(
             criteria.getStartAfter(), criteria.getStartBefore(),
             criteria.getEndAfter(), criteria.getEndBefore());
+
+        criteria.setInName(normalizeName(criteria.getInName()));
     }
 
     void checkPrice(Integer min, Integer max)
@@ -80,5 +82,15 @@ public class CriteriaChecker {
         if (minValue != null && maxValue != null && minValue.after(maxValue)) {
             throw new InconsistentQueryException(minName, minValue, maxName, maxValue);
         }
+    }
+
+    String normalizeName(String name) {
+        if (name != null) {
+            String relevant = name.trim();
+            if (!relevant.isEmpty()) {
+                return relevant.toLowerCase(); // TODO what about locales?
+            }
+        }
+        return null;
     }
 }

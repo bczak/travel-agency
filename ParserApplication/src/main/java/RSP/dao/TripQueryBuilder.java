@@ -39,6 +39,7 @@ class TripQueryBuilder {
 		filterByNumericInterval("length", criteria.getMinLength(), criteria.getMaxLength());
 		filterByDateInterval("startDate", criteria.getStartAfter(), criteria.getStartBefore());
 		filterByDateInterval("endDate", criteria.getEndAfter(), criteria.getEndBefore());
+		filterBySubstring("name", criteria.getInName());
 
 		Order order = sort(criteria.getSortBy(), criteria.getOrder());
 		return entityManager.createQuery(criteriaQuery
@@ -70,6 +71,14 @@ class TripQueryBuilder {
 			if (maxValue != null) {
 				filter(criteriaBuilder.lessThanOrEqualTo(column, maxValue));
 			}
+		}
+	}
+
+	private void filterBySubstring(String columnName, String substring) {
+		if (substring != null) {
+			Path<String> column = trips.get(columnName);
+			filter(criteriaBuilder.notEqual(
+				criteriaBuilder.locate(criteriaBuilder.lower(column), substring), 0));
 		}
 	}
 
