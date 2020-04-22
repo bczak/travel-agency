@@ -102,7 +102,7 @@ class App extends React.Component {
 			let end = new Date(res[i].endDate)
 			let needS = this.state.selectionRange.startDate
 			let needE = this.state.selectionRange.endDate
-			if (needE !== needS) {
+			if (getDate(needE) !== getDate(needS)) {
 				if ((end > needS && end < needE) || (start > needS && start < needE)) {
 				} else continue
 			}
