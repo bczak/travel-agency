@@ -35,6 +35,8 @@ public class TripsQueryCriteria {
 
 	private String country = null;
 
+	private String tag = null;
+
 	public SortAttribute getSortBy() {
 		return sortBy;
 	}
@@ -131,6 +133,14 @@ public class TripsQueryCriteria {
 		this.country = country;
 	}
 
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
 	@Override
 	public String toString() {
 		return "TripsQueryCriteria [maxPrice=" + maxPrice
@@ -143,6 +153,7 @@ public class TripsQueryCriteria {
 				+ ", endBefore=" + endBefore
 				+ ", inName=" + inName
 				+ ", country=" + country
+				+ ", tag=" + tag
 				+ ", order=" + order
 				+ ", sortBy=" + sortBy + "]";
 	}

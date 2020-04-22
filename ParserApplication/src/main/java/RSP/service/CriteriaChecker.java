@@ -26,6 +26,7 @@ public class CriteriaChecker {
 
         criteria.setInName(normalizeName(criteria.getInName()));
         criteria.setCountry(normalizeIdentifier(criteria.getCountry()));
+        criteria.setTag(normalizeIdentifier(criteria.getTag()));
     }
 
     void checkPrice(Integer min, Integer max)

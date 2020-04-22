@@ -15,6 +15,7 @@ Base path: localhost:8080/api
                                  DATE is YYYY-MM-DD, assumed with 00:00:00.000 time
              &inName=SUBSTR ... name contains SUBSTR
              &country=COUNTRY ... countries contain COUNTRY
+             &tag=TAG ... tags contain TAG
              &sortBy=ATTR ... sort returned array by attribute ATTR:
                               id, name, start, length, price (default: id)
              &order=DIRECTION ... sort in direction:
