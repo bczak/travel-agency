@@ -29,6 +29,13 @@ public class CriteriaChecker {
         criteria.setInName(normalizeName(criteria.getInName()));
         criteria.setCountry(normalizeList(criteria.getCountry()));
         criteria.setTag(normalizeList(criteria.getTag()));
+
+        checkPagination(criteria.getFrom(), criteria.getLimit());
+    }
+
+    void checkPagination(Integer from, Integer limit) throws InvalidQueryException {
+        checkNumber("from", from);
+        checkNumber("limit", limit);
     }
 
     void checkPrice(Integer min, Integer max)
