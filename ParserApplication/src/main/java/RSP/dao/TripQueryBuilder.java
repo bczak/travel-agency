@@ -26,6 +26,7 @@ class TripQueryBuilder {
 	private final Root<Trip> trips;
 
 	private final List<Predicate> predicates = new ArrayList<>();
+	private boolean needsDeduplication = false;
 
 	TripQueryBuilder(EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -46,6 +47,7 @@ class TripQueryBuilder {
 		Order order = sort(criteria.getSortBy(), criteria.getOrder());
 		return entityManager.createQuery(criteriaQuery
 				.select(trips)
+				.distinct(needsDeduplication)
 				.where(predicates.toArray(new Predicate[predicates.size()]))
 				.orderBy(order));
 	}
@@ -84,9 +86,24 @@ class TripQueryBuilder {
 		}
 	}
 
-	private void filterByJoin(String columnName, String name) {
-		if (name != null) {
-			filter(criteriaBuilder.equal(trips.join(columnName).get("name"), name));
+	private void filterByJoin(String columnName, List<String> names) {
+		if (names != null) {
+			Path<String> column = trips.join(columnName).get("name");
+			List<Predicate> choices = new ArrayList<>();
+			for (String name : names) {
+				choices.add(criteriaBuilder.equal(column, name));
+			}
+			int count = choices.size();
+			switch (count) {
+				case 0:
+					break;
+				case 1:
+					filter(choices.get(0));
+					break;
+				default:
+					filter(criteriaBuilder.or(choices.toArray(new Predicate[count])));
+					needsDeduplication = true;
+			}
 		}
 	}
 

@@ -14,8 +14,8 @@ Base path: localhost:8080/api
              &endBefore=DATE ... endDate id <= DATE
                                  DATE is YYYY-MM-DD, assumed with 00:00:00.000 time
              &inName=SUBSTR ... name contains SUBSTR
-             &country=COUNTRY ... countries contain COUNTRY
-             &tag=TAG ... tags contain TAG
+             &country=COUNTRY[,COUNTRY[...]] ... countries contain at least one of COUNTRies
+             &tag=TAG[,TAG[...]] ... tags contain at least on of TAGs
              &sortBy=ATTR ... sort returned array by attribute ATTR:
                               id, name, start, length, price (default: id)
              &order=DIRECTION ... sort in direction:

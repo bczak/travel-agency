@@ -1,8 +1,10 @@
 package RSP.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -25,8 +27,8 @@ public class CriteriaChecker {
             criteria.getEndAfter(), criteria.getEndBefore());
 
         criteria.setInName(normalizeName(criteria.getInName()));
-        criteria.setCountry(normalizeIdentifier(criteria.getCountry()));
-        criteria.setTag(normalizeIdentifier(criteria.getTag()));
+        criteria.setCountry(normalizeList(criteria.getCountry()));
+        criteria.setTag(normalizeList(criteria.getTag()));
     }
 
     void checkPrice(Integer min, Integer max)
@@ -96,9 +98,17 @@ public class CriteriaChecker {
         return null;
     }
 
-    String normalizeIdentifier(String identifier) {
-        if (identifier != null) {
-            String relevant = identifier.trim();
+    List<String> normalizeList(List<String> list) {
+        if (list != null) {
+            List<String> relevant = new ArrayList<>(list.size());
+            for (String item : list) {
+                if (item != null) {
+                    String data = item.trim();
+                    if (!data.isEmpty()) {
+                        relevant.add(data);
+                    }
+                }
+            }
             if (!relevant.isEmpty()) {
                 return relevant;
             }
