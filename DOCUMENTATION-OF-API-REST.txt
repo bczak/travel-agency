@@ -20,6 +20,8 @@ Base path: localhost:8080/api
                               id, name, start, length, price (default: id)
              &order=DIRECTION ... sort in direction:
                                   ascending, descending (default: ascending)
+             &from=N ... omit first N results from returned list
+             &limit=M ... include only max M results in returned list
        (all parameters are optional and applied in conjunction)
 
 2) GET /trips/sort/ - OBSOLETE, please use just /trips?sortBy=ATTR&order=DIRECTION

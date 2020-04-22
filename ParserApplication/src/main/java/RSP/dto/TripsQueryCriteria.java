@@ -38,6 +38,10 @@ public class TripsQueryCriteria {
 
 	private List<String> tag = null;
 
+	private Integer from = null;
+
+	private Integer limit = null;
+
 	public SortAttribute getSortBy() {
 		return sortBy;
 	}
@@ -142,6 +146,22 @@ public class TripsQueryCriteria {
 		this.tag = tag;
 	}
 
+	public Integer getFrom() {
+		return from;
+	}
+
+	public void setFrom(Integer from) {
+		this.from = from;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+
 	@Override
 	public String toString() {
 		return "TripsQueryCriteria [maxPrice=" + maxPrice
@@ -156,6 +176,8 @@ public class TripsQueryCriteria {
 				+ ", country=" + country
 				+ ", tag=" + tag
 				+ ", order=" + order
-				+ ", sortBy=" + sortBy + "]";
+				+ ", sortBy=" + sortBy
+				+ ", from=" + from
+				+ ", limit=" + limit + "]";
 	}
 }
