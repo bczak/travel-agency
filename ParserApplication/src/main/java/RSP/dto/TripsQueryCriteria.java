@@ -1,6 +1,7 @@
 package RSP.dto;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,9 +34,9 @@ public class TripsQueryCriteria {
 
 	private String inName = null;
 
-	private String country = null;
+	private List<String> country = null;
 
-	private String tag = null;
+	private List<String> tag = null;
 
 	public SortAttribute getSortBy() {
 		return sortBy;
@@ -125,19 +126,19 @@ public class TripsQueryCriteria {
 		this.inName = inName;
 	}
 
-	public String getCountry() {
+	public List<String> getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(List<String> country) {
 		this.country = country;
 	}
 
-	public String getTag() {
+	public List<String> getTag() {
 		return tag;
 	}
 
-	public void setTag(String tag) {
+	public void setTag(List<String> tag) {
 		this.tag = tag;
 	}
 
