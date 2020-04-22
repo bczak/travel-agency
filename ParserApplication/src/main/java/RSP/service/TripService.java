@@ -158,6 +158,7 @@ public class TripService {
         tripDao.remove(trip);
     }
 
+    @Deprecated
     public List<Trip> getAllSorted(SortAttribute by, SortOrder order) {
         return tripDao.getAllSorted(by, order);
     }

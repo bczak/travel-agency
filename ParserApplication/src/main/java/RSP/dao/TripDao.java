@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import java.util.List;
@@ -35,6 +34,7 @@ public class TripDao extends AbstractDao<Trip> {
         return em.createNamedQuery("Trip.getAll", Trip.class).getResultList();
     }
 
+    @Deprecated
     public List<Trip> getAllSorted(SortAttribute by, SortOrder order) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Trip> criteria = builder.createQuery(Trip.class);
