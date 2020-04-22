@@ -35,6 +35,7 @@ class TripQueryBuilder {
 
 	TypedQuery<Trip> build(TripsQueryCriteria criteria) {
 		filterByNumericInterval("price", criteria.getMinPrice(), criteria.getMaxPrice());
+		filterByNumericInterval("length", criteria.getMinLength(), criteria.getMaxLength());
 		Order order = sort(criteria.getSortBy(), criteria.getOrder());
 		return entityManager.createQuery(criteriaQuery
 				.select(trips)

@@ -12,6 +12,10 @@ public class TripsQueryCriteria {
 
 	private Integer maxPrice = null;
 
+	private Integer minLength = null;
+
+	private Integer maxLength = null;
+
 	public SortAttribute getSortBy() {
 		return sortBy;
 	}
@@ -44,10 +48,28 @@ public class TripsQueryCriteria {
 		this.maxPrice = maxPrice;
 	}
 
+	public Integer getMinLength() {
+		return minLength;
+	}
+
+	public void setMinLength(Integer minLength) {
+		this.minLength = minLength;
+	}
+
+	public Integer getMaxLength() {
+		return maxLength;
+	}
+
+	public void setMaxLength(Integer maxLength) {
+		this.maxLength = maxLength;
+	}
+
 	@Override
 	public String toString() {
 		return "TripsQueryCriteria [maxPrice=" + maxPrice
 				+ ", minPrice=" + minPrice
+				+ ", maxLength=" + maxLength
+				+ ", minLength=" + minLength
 				+ ", order=" + order
 				+ ", sortBy=" + sortBy + "]";
 	}

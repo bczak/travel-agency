@@ -10,11 +10,17 @@ public class CriteriaChecker {
     public void check(TripsQueryCriteria criteria)
             throws InvalidQueryException, InconsistentQueryException {
         checkPrice(criteria.getMinPrice(), criteria.getMaxPrice());
+        checkLength(criteria.getMinLength(), criteria.getMaxLength());
     }
 
     void checkPrice(Integer min, Integer max)
             throws InvalidQueryException, InconsistentQueryException {
         checkInterval("minPrice", min, "maxPrice", max);
+    }
+
+    void checkLength(Integer min, Integer max)
+            throws InvalidQueryException, InconsistentQueryException {
+        checkInterval("minLength", min, "maxLength", max);
     }
 
     void checkInterval(
