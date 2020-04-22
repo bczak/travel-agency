@@ -86,18 +86,7 @@ class App extends React.Component {
 	search = async () => {
 		let res = await API.getTrips(this.state.selectedTags.map(e => e.title))
 		let cards = []
-		/*
-		countries: []
-description: "E We will try to run your tour as close to the itinerary as conditions will allow. On very rare occasions, local events may affect the way your itinerary operates. We ask for your flexibility and understanding in these situations.Welcome to Moscow! Y..."
-endDate: "2020-04-16T22:00:00.000+0000"
-id: 334
-length: 14
-link: "https://www.tucantravel.com/tour/moscow-to-warsaw/eemw/"
-name: "Moscow to Warsaw"
-price: 190
-startDate: "2020-04-02T22:00:00.000+0000"
-tags: (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-*/
+
 		for (let i = 0; i < res.length; i++) {
 			if (res[i].price < this.state.value[0] || res[i].price > this.state.value[1]) continue
 			cards.push(<Card className={'card'} variant={'outlined'} key={res[i].id}>

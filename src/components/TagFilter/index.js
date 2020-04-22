@@ -3,11 +3,14 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
 const filters = [
-  { title: "Summer" },
-  { title: "Winter" },
-  { title: "Family" },
-  { title: "Beach" },
-  { title: "Mountains" },
+  { title: "summer" },
+  { title: "winter" },
+  { title: "family" },
+  { title: "beach" },
+  { title: "mountains" },
+  { title: "nightlife" },
+  { title: "africa" },
+  { title: "europe" },
 ];
 
 export class TagFilter extends React.Component {
