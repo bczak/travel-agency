@@ -19,6 +19,10 @@ public class Country extends AbstractEntity{
     private static final long serialVersionUID = 1L;
 
     @ManyToMany
+    @JoinTable(
+            name = "country_trip",
+            joinColumns = @JoinColumn(name = "country_id"),
+            inverseJoinColumns = @JoinColumn(name = "trip_id"))
     @JsonIgnore
     private List<Trip> trip = new ArrayList<>();
 
