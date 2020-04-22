@@ -9,10 +9,12 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "date-fns": "^2.11.0",
+    "date-fns": "^2.12.0",
+    "material-ui-chip-input": "^1.1.0",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
     "react": "^16.13.1",
+    "react-date-range": "^1.0.3",
     "react-daterange-picker": "^2.0.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
@@ -37,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@material-ui/icons": "^4.9.1"
   }
 }

@@ -1,249 +1,119 @@
-html, body {
-    height: 100%;
-    width: 100%;
-    padding: 0;
+*  {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    background-image: url('./assets/travel1.jpg');
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    font-family: 'Josefin Slab', sans-serif;
-    font-weight: 300;
-    color: white;
-    
+    font-family: 'Roboto', serif;
+}
+/*----------------------------*/
+.root {
+    flex-grow: 1;
+}
+.title {
+    flex-grow: 1;
 }
 
-#App {
-    width: 100%;
-    height: 100%;
+.main{
+    margin: 100px auto 20px;
+    max-width: 800px;
+    padding: 10px;
+}
+
+.filter {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
 }
 
-.calendarWrapper{
-    margin-top: 50px;
+#filter {
+    text-align: center;
     font-size: 30px;
-    /* font-weight: 400; */
+}
+
+.date {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 35px;
-}
-
-.calendarDateRangeText{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    
-}
-
-
-.tagFilterWraper{
-    margin-top: 70px;
-    color: white;
-    text-align: center;
-    font-size: 35px;
-
-}
-
-.tagFilterHeader{
-    margin-bottom: 20px;
-    display: block;
-    text-align: center;
-}
-
-.tagContainerWrapper{
-    width: 500px;
-    margin-top: 50px;
-    margin-bottom: 70px;
-    font-size: 35px;
-}
-
-.tagContainerHeader{
-    text-align: center;
-}
-
-.tagContainer{
-    display:flex;
-    margin-top: 10px;
-}
-
-.tag{
-    margin-right: 5px;
-    font-weight: 300;
-    
-}
-
-.tagWrapper{
-    display: flex;
-    margin: 10px;
-    background-color: #2faaaf;
-}
-
-.calendarButton{
-    width: 150px;
-    height: 50px;
-    font-family: 'Josefin Slab', sans-serif;
-    font-size: 28px;
-    font-weight: 500;
-    color: #000;
-    background-color: #fff;
-    border: none;
-    border-radius: 45px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
-    margin-bottom: 10px;
-}
-
-.calendarButton:hover{
-    background-color: #2a9296;
-    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
-    color: #fff;
-    transform: translateY(-7px);
-}
-
-.searchButtonWrapper{
-    width: 500px;
-    display: list-item;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.searchButton {
-    width: 150px;
-    height: 50px;
-    font-family: 'Josefin Slab', sans-serif;
-    font-size: 28px;
-    font-weight: 500;
-    color: #000;
-    background-color: #fff;
-    border: none;
-    border-radius: 45px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
-    }
-  
-.searchButton:hover {
-    background-color: #2a9296;
-    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
-    color: #fff;
-    transform: translateY(-7px);
-  }
-
-.emailCheckboxWrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.emailCheckboxLabel{
-    font-size: 20px;
-}
-
-.sortElements{
-    font-size: 25px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px;
-    /* background:#2a9296; */
-
-}
-
-.sortByPrice, .sortByDate{
-    cursor: pointer;
-}
-
-
-
-.resultHeader{
-    text-align: center;
-    margin-top: 70px;
-    margin-bottom: 30px;
-    font-size: 35px;
-    /* background: #2faaaf; */
-}
-
-.resultWrapper{
-    width: 700px;
-}
-
-.result_trip{
-    width: 700px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 25px;
-    cursor: pointer;
-}
-
-img{
-    width: 700px;
-}
-
-.tripDetailModalWrapper{
-    background: rgba(0,0,0,.45);
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
     width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 2;
+    /*flex-basis: auto;*/
+}
+.date > * {
 }
 
-@keyframes showModal {
-    from {
-        opacity: 0;
-        transform: translateX(-500px) scale(0);
-    } to {
-        opacity: 1;
-        transform: translateX(0) scale(1);
+.result {
+    margin: 10px auto;
+    max-width: 800px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.rdrDefinedRangesWrapper {
+    display: none;
+}
+
+.select-data {
+    padding: 10px;
+}
+
+.params {
+    display: flex;
+    flex-direction: column;
+}
+
+.spacer {
+    height: 30px;
+    content: "";
+}
+
+.slider {
+    height: 10px !important;
+    padding-top: 50px !important;
+}
+.panel {
+    margin: 0 0 10px 0;
+    padding: 5px 15px;
+    width: 100%;
+}
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button-search {
+    align-self: flex-end;
+}
+.image {
+    height: 0;
+    padding-top: 56.25%
+}
+
+.card{
+    width: calc(50% - 20px);
+    margin: 10px
+}
+
+.more-button {
+    align-self: flex-end;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+    .params {
+        width: 90%;
     }
 }
 
-.tripDetailModalView{
-    font-size: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    background: white;
-    color: black;
-    opacity: 1;
-    width: 60%;
-    height: 60%;
-    animation: showModal 300ms ease-in-out;
-    transition: all 300ms ease-in-out;
+@media screen and (min-width: 600px){
+    .params {
+        width: 45%;
+
+    }
 }
-
-.tripDetailModalCloseButton{
-    position: absolute;
-    bottom: 25px;
-    right: 25px;
-    background: #ea4f43;
-    font-family: 'Josefin Slab', sans-serif;
-    color: white;
-    font-size: 20px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-
 
