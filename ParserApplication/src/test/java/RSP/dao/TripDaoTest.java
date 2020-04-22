@@ -73,6 +73,7 @@ public class TripDaoTest {
 
     }
 
+    @Deprecated
     @Test
     public void sortAllTest() throws ParseException {
         Trip t = Generator.generateTrip();

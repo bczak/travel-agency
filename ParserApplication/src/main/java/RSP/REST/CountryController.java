@@ -1,7 +1,6 @@
 package RSP.REST;
 
 import RSP.model.Country;
-import RSP.model.Tag;
 import RSP.model.Trip;
 import RSP.service.CountryService;
 import RSP.service.TripNotFoundException;
@@ -76,7 +75,7 @@ public class CountryController {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    
+
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

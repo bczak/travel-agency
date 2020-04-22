@@ -31,11 +31,18 @@ public class TripService {
 
     private CountryDao countryDao;
 
+    private CriteriaChecker checker;
+
     @Autowired
-    public TripService(TripDao tripDao, TagDao tagDao, CountryDao countryDao) {
+    public TripService(
+                TripDao tripDao,
+                TagDao tagDao,
+                CountryDao countryDao,
+                CriteriaChecker checker) {
         this.tripDao = tripDao;
         this.tagDao = tagDao;
         this.countryDao = countryDao;
+        this.checker = checker;
     }
 
     public boolean addTags(Tag tag, int id) throws TripNotFoundException {
@@ -151,6 +158,7 @@ public class TripService {
         tripDao.remove(trip);
     }
 
+    @Deprecated
     public List<Trip> getAllSorted(SortAttribute by, SortOrder order) {
         return tripDao.getAllSorted(by, order);
     }
@@ -158,20 +166,7 @@ public class TripService {
     public List<Trip> getSome(TripsQueryCriteria criteria)
             throws InvalidQueryException, InconsistentQueryException {
 
-        Integer minPrice = criteria.getMinPrice();
-        if (minPrice != null && minPrice < 0) {
-            throw new InvalidQueryException("minPrice", minPrice);
-        }
-
-        Integer maxPrice = criteria.getMaxPrice();
-        if (maxPrice != null && maxPrice < 0) {
-            throw new InvalidQueryException("maxPrice", maxPrice);
-        }
-
-        if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
-            throw new InconsistentQueryException("minPrice", minPrice, "maxPrice", maxPrice);
-        }
-
+        checker.check(criteria);
         return tripDao.getSome(criteria);
     }
 

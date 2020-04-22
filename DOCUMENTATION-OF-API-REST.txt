@@ -6,10 +6,20 @@ Base path: localhost:8080/api
 1) GET /trips - return JSON array of all trips where:
              ?minPrice=N ... price is >= N
              &maxPrice=M ... price is <= M
-			 &sortBy=ATTR ... sort returned array by attribute ATTR:
-			    id, name, start, length, price (default: id)
-		     &order=DIRECTION ... sort in direction:
-			    ascending, descending (default: ascending)
+             &minLength=N ... length is >= N
+             &maxLength=M ... length is <= M
+             &startAfter=DATE ... startDate is >= DATE
+             &startBefore=DATE ... startDate is <= DATE
+             &endAfter=DATE ... endDate is >= DATE
+             &endBefore=DATE ... endDate id <= DATE
+                                 DATE is YYYY-MM-DD, assumed with 00:00:00.000 time
+             &inName=SUBSTR ... name contains SUBSTR
+             &country=COUNTRY ... countries contain COUNTRY
+             &tag=TAG ... tags contain TAG
+             &sortBy=ATTR ... sort returned array by attribute ATTR:
+                              id, name, start, length, price (default: id)
+             &order=DIRECTION ... sort in direction:
+                                  ascending, descending (default: ascending)
        (all parameters are optional and applied in conjunction)
 
 2) GET /trips/sort/ - OBSOLETE, please use just /trips?sortBy=ATTR&order=DIRECTION

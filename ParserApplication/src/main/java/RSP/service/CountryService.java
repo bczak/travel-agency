@@ -3,9 +3,7 @@ package RSP.service;
 import RSP.dao.CountryDao;
 import RSP.dao.TripDao;
 import RSP.model.Country;
-import RSP.model.Tag;
 import RSP.model.Trip;
-import org.aspectj.bridge.ILifecycleAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,7 +87,7 @@ public class CountryService {
         }
         return c.getTrip();
     }
-    
+
     //CRUD
     public Country add(Country country) {
         Objects.requireNonNull(country, "country must not be null");

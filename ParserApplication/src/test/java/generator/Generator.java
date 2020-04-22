@@ -1,7 +1,6 @@
 package generator;
 
 import RSP.model.Trip;
-import RSP.model.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

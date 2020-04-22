@@ -44,6 +44,7 @@ public class TripController {
         return results;
     }
 
+    @Deprecated
     @GetMapping(value = "/sort", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Trip> getAllSorted(@RequestParam SortAttribute by, @RequestParam SortOrder order) {
         log.info("path: /trips/sort GET method getAllSorted is invoked by " + by + " order " + order);
