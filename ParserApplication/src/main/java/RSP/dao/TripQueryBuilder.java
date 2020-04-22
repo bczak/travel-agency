@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
 import RSP.dto.TripsQueryCriteria;
+import RSP.model.Country;
 import RSP.model.Trip;
 
 class TripQueryBuilder {
@@ -40,6 +41,7 @@ class TripQueryBuilder {
 		filterByDateInterval("startDate", criteria.getStartAfter(), criteria.getStartBefore());
 		filterByDateInterval("endDate", criteria.getEndAfter(), criteria.getEndBefore());
 		filterBySubstring("name", criteria.getInName());
+		filterByJoin("countries", criteria.getCountry());
 
 		Order order = sort(criteria.getSortBy(), criteria.getOrder());
 		return entityManager.createQuery(criteriaQuery
@@ -79,6 +81,12 @@ class TripQueryBuilder {
 			Path<String> column = trips.get(columnName);
 			filter(criteriaBuilder.notEqual(
 				criteriaBuilder.locate(criteriaBuilder.lower(column), substring), 0));
+		}
+	}
+
+	private void filterByJoin(String columnName, String name) {
+		if (name != null) {
+			filter(criteriaBuilder.equal(trips.join(columnName).get("name"), name));
 		}
 	}
 

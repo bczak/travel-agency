@@ -25,6 +25,7 @@ public class CriteriaChecker {
             criteria.getEndAfter(), criteria.getEndBefore());
 
         criteria.setInName(normalizeName(criteria.getInName()));
+        criteria.setCountry(normalizeIdentifier(criteria.getCountry()));
     }
 
     void checkPrice(Integer min, Integer max)
@@ -89,6 +90,16 @@ public class CriteriaChecker {
             String relevant = name.trim();
             if (!relevant.isEmpty()) {
                 return relevant.toLowerCase(); // TODO what about locales?
+            }
+        }
+        return null;
+    }
+
+    String normalizeIdentifier(String identifier) {
+        if (identifier != null) {
+            String relevant = identifier.trim();
+            if (!relevant.isEmpty()) {
+                return relevant;
             }
         }
         return null;
