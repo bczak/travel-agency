@@ -23,6 +23,8 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import Backdrop from '@material-ui/core/Backdrop'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 function getDate(date) {
 
@@ -66,6 +68,7 @@ class App extends React.Component {
 			value: [1000, 2000],
 			cards: [],
 			sort: 0,
+			open: false,
 			expanded: false,
 			selectionRange: {
 				startDate: new Date(),
@@ -75,21 +78,36 @@ class App extends React.Component {
 		}
 	}
 
+	sortBy = (param) => {
+		this.search(param)
+	}
+
 	handleChange = (event, newValue) => {
 		this.setState({...this.state, value: newValue})
 	}
 	handleSelect = (ranges) => {
-		console.log(ranges)
 		this.setState({...this.state, selectionRange: {...(ranges.selection), key: this.state.selectionRange.key}})
 	}
 
-	search = async () => {
+	search = async (param) => {
+		this.setState({...this.state, open: true})
+		if (param === undefined) param = 0
 		let res = await API.getTrips(this.state.selectedTags.map(e => e.title))
 		let cards = []
 
 		for (let i = 0; i < res.length; i++) {
 			if (res[i].price < this.state.value[0] || res[i].price > this.state.value[1]) continue
-			cards.push(<Card className={'card'} variant={'outlined'} key={res[i].id}>
+
+			let start = new Date(res[i].startDate)
+			let end = new Date(res[i].endDate)
+			let needS = this.state.selectionRange.startDate
+			let needE = this.state.selectionRange.endDate
+			if (needE !== needS) {
+				if ((end > needS && end < needE) || (start > needS && start < needE)) {
+				} else continue
+			}
+
+			cards.push(<Card className={'card'} variant={'outlined'} key={res[i].id} json={res[i]}>
 				<CardMedia
 					className={'image'}
 					image={res[i].imageLink}
@@ -123,7 +141,7 @@ class App extends React.Component {
 							<ListItemIcon>
 								<Icon>explore</Icon>
 							</ListItemIcon>
-							<ListItemText primary={res[i].countries.map(e => e.name).join(',')}/>
+							<ListItemText primary={res[i].countries.map(e => e.name).join(', ')}/>
 						</ListItem>
 					</List>
 				</CardContent>
@@ -133,7 +151,47 @@ class App extends React.Component {
 				</CardActions>
 			</Card>)
 		}
-		this.setState({...this.state, cards: cards})
+		if (cards.length === 0) {
+			alert('No results')
+		}
+
+		if (param === 0) {
+			cards.sort((a, b) => {
+				let nameA = a.props.json.name.toLowerCase(), nameB = b.props.json.name.toLowerCase()
+				if (nameA < nameB) //sort string ascending
+					return -1
+				if (nameA > nameB)
+					return 1
+				return 0 //default return value (no sorting)
+			})
+		} else if (param === 3) {
+			cards.sort((a, b) => {
+				return b.props.json.price - a.props.json.price
+			})
+		} else if (param === 2) {
+			cards.sort((a, b) => {
+				return a.props.json.price - b.props.json.price
+			})
+		} else if (param === 1) {
+			cards.sort((a, b) => {
+				let durationA = Math.abs(new Date(a.props.json.startDate) - new Date(a.props.json.endDate))
+				let durationB = Math.abs(new Date(b.props.json.startDate) - new Date(b.props.json.endDate))
+				return durationA - durationB
+			})
+		} else if (param === 4) {
+			cards.sort((a, b) => {
+				let A = new Date(a.props.json.startDate)
+				let B = new Date(b.props.json.startDate)
+				return A - B
+			})
+		} else if (param === 5) {
+			cards.sort((a, b) => {
+				let A = new Date(a.props.json.startDate)
+				let B = new Date(b.props.json.startDate)
+				return B - A
+			})
+		}
+		this.setState({...this.state, cards: cards, sort: param, open: false})
 	}
 
 	render() {
@@ -242,20 +300,36 @@ class App extends React.Component {
 					<Paper className={'panel'} variant={'outlined'} elevation={3}>
 						<div className="button-group">
 							<Button>Sort By:</Button>
-							<Button disableElevation variant={this.state.sort === 0 ? 'contained' : 'outlined'}
+							<Button onClick={() => {
+								this.sortBy(0)
+							}} disableElevation variant={this.state.sort === 0 ? 'contained' : 'outlined'}
 											color={'primary'}>Title</Button>
-							<Button disableElevation variant={this.state.sort === 1 ? 'contained' : 'outlined'}
+							<Button onClick={() => {
+								this.sortBy(1)
+							}} disableElevation variant={this.state.sort === 1 ? 'contained' : 'outlined'}
 											color={'primary'}>Duration</Button>
-							<Button disableElevation variant={this.state.sort === 2 ? 'contained' : 'outlined'} color={'primary'}>Low
+							<Button onClick={() => {
+								this.sortBy(2)
+							}} disableElevation variant={this.state.sort === 2 ? 'contained' : 'outlined'} color={'primary'}>Low
 								Price</Button>
-							<Button disableElevation variant={this.state.sort === 3 ? 'contained' : 'outlined'} color={'primary'}>High
+							<Button onClick={() => {
+								this.sortBy(3)
+							}} disableElevation variant={this.state.sort === 3 ? 'contained' : 'outlined'} color={'primary'}>High
 								Price</Button>
-							<Button disableElevation variant={this.state.sort === 4 ? 'contained' : 'outlined'}
+							<Button onClick={() => {
+								this.sortBy(4)
+							}} disableElevation variant={this.state.sort === 4 ? 'contained' : 'outlined'}
 											color={'primary'}>Newest</Button>
-							<Button disableElevation variant={this.state.sort === 5 ? 'contained' : 'outlined'}
+							<Button onClick={() => {
+								this.sortBy(5)
+							}} disableElevation variant={this.state.sort === 5 ? 'contained' : 'outlined'}
 											color={'primary'}>Latest</Button>
 						</div>
 					</Paper>
+					<Backdrop open={this.state.open} className={'loader'}>
+						<CircularProgress color="inherit"/>
+					</Backdrop>
+
 					{this.state.cards}
 				</Paper>
 			</div>
