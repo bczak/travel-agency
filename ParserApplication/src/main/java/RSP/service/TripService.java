@@ -35,10 +35,10 @@ public class TripService {
 
     @Autowired
     public TripService(
-                TripDao tripDao,
-                TagDao tagDao,
-                CountryDao countryDao,
-                CriteriaChecker checker) {
+            TripDao tripDao,
+            TagDao tagDao,
+            CountryDao countryDao,
+            CriteriaChecker checker) {
         this.tripDao = tripDao;
         this.tagDao = tagDao;
         this.countryDao = countryDao;
@@ -48,20 +48,20 @@ public class TripService {
     public boolean addTags(Tag tag, int id) throws TripNotFoundException {
         Trip t = tripDao.get(id);
         Tag tag2 = tagDao.getByName(tag.getName());
-        if(t == null){
+        if (t == null) {
             throw new TripNotFoundException(id);
-        }else if(tag2 != null){
+        } else if (tag2 != null) {
             List<Tag> tagz = t.getTags();
-            for (Tag test:
-                 tagz) {
-                if(test.getName().equals(tag2.getName())){
+            for (Tag test :
+                    tagz) {
+                if (test.getName().equals(tag2.getName())) {
                     return false;
                 }
             }
             t.getTags().add(tag2);
             tripDao.update(t);
             return true;
-        }else{
+        } else {
             tagDao.add(tag);
             t.getTags().add(tag);
             tripDao.update(t);
@@ -72,22 +72,21 @@ public class TripService {
     public boolean addCountry(Country country, int id) throws TripNotFoundException {
         Trip t = tripDao.get(id);
         Country c = countryDao.getByName(country.getName());
-        if(t == null){
+        if (t == null) {
             throw new TripNotFoundException(id);
-        }
-        else if(c != null){
+        } else if (c != null) {
             List<Country> countries = t.getCountries();
-            for (Country countr:
-                 countries) {
-             if(countr.getName().equals(c.getName())){
-                 return false;
-             }
+            for (Country countr :
+                    countries) {
+                if (countr.getName().equals(c.getName())) {
+                    return false;
+                }
             }
             t.getCountries().add(c);
             c.getTrip().add(t);
             tripDao.update(t);
             return true;
-        }else{
+        } else {
             countryDao.add(country);
             t.getCountries().add(country);
             country.getTrip().add(t);
@@ -100,7 +99,7 @@ public class TripService {
     public boolean removeTag(int tagId, int tripId) throws TripNotFoundException {
         Tag tag = tagDao.get(tagId);
         Trip trip = tripDao.get(tripId);
-        if(tag == null || trip == null){
+        if (tag == null || trip == null) {
             return false;
         }
         trip.getTags().remove(tag);
@@ -113,7 +112,7 @@ public class TripService {
     public boolean removeCountry(int tripId, int countryId) throws TripNotFoundException {
         Country country = countryDao.get(countryId);
         Trip trip = tripDao.get(tripId);
-        if(country == null || trip == null){
+        if (country == null || trip == null) {
             return false;
         }
         trip.getCountries().remove(country);

@@ -42,6 +42,10 @@ public class Trip extends AbstractEntity {
     private double price;
 
     @ManyToMany
+    @JoinTable(
+            name = "country_trip",
+            joinColumns = @JoinColumn(name = "trip_id"),
+            inverseJoinColumns = @JoinColumn(name = "country_id"))
     private List<Country> countries;
 
     @Column(length=60000)
