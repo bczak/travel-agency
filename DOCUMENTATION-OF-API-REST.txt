@@ -10,6 +10,9 @@ Base path: localhost:8080/api
              &maxLength=M ... length is <= M
              &startAfter=DATE ... startDate is >= DATE
              &startBefore=DATE ... startDate is <= DATE
+             &endAfter=DATE ... endDate is >= DATE
+             &endBefore=DATE ... endDate id <= DATE
+                                 DATE is YYYY-MM-DD, assumed with 00:00:00.000 time
              &sortBy=ATTR ... sort returned array by attribute ATTR:
                               id, name, start, length, price (default: id)
              &order=DIRECTION ... sort in direction:

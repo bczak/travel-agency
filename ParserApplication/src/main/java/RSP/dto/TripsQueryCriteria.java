@@ -25,6 +25,12 @@ public class TripsQueryCriteria {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startBefore = null;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date endAfter = null;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date endBefore = null;
+
 	public SortAttribute getSortBy() {
 		return sortBy;
 	}
@@ -89,6 +95,22 @@ public class TripsQueryCriteria {
 		this.startBefore = startBefore;
 	}
 
+	public Date getEndAfter() {
+		return endAfter;
+	}
+
+	public void setEndAfter(Date endAfter) {
+		this.endAfter = endAfter;
+	}
+
+	public Date getEndBefore() {
+		return endBefore;
+	}
+
+	public void setEndBefore(Date endBefore) {
+		this.endBefore = endBefore;
+	}
+
 	@Override
 	public String toString() {
 		return "TripsQueryCriteria [maxPrice=" + maxPrice
@@ -97,6 +119,8 @@ public class TripsQueryCriteria {
 				+ ", minLength=" + minLength
 				+ ", startAfter=" + startAfter
 				+ ", startBefore=" + startBefore
+				+ ", endAfter=" + endAfter
+				+ ", endBefore=" + endBefore
 				+ ", order=" + order
 				+ ", sortBy=" + sortBy + "]";
 	}

@@ -38,6 +38,7 @@ class TripQueryBuilder {
 		filterByNumericInterval("price", criteria.getMinPrice(), criteria.getMaxPrice());
 		filterByNumericInterval("length", criteria.getMinLength(), criteria.getMaxLength());
 		filterByDateInterval("startDate", criteria.getStartAfter(), criteria.getStartBefore());
+		filterByDateInterval("endDate", criteria.getEndAfter(), criteria.getEndBefore());
 
 		Order order = sort(criteria.getSortBy(), criteria.getOrder());
 		return entityManager.createQuery(criteriaQuery
