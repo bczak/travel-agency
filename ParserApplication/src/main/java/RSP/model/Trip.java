@@ -21,9 +21,6 @@ public class Trip extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @Column
-    private String location;
-
-    @Column
     private String name;
 
     @Column
@@ -33,20 +30,21 @@ public class Trip extends AbstractEntity {
     private Date startDate;
 
     @Column
+    private String imageLink;
+
+    @Column
     private Date endDate;
+
+    @Column
+    private String link;
 
     @Column
     private double price;
 
-    public String getDescription() {
-        return description;
-    }
+    @ManyToMany
+    private List<Country> countries;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Column
+    @Column(length=60000)
     private String description;
 
 
@@ -57,12 +55,50 @@ public class Trip extends AbstractEntity {
     @ManyToMany
     private List<Tag> tags;
 
-    public String getLocation() {
-        return location;
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj == this)
+            return true;
+        if(obj instanceof Trip)
+        {
+            Trip trip = (Trip) obj;
+            return getName().equals(trip.getName());
+        }
+        return false;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public List<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(List<Country> countries) {
+        this.countries = countries;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {

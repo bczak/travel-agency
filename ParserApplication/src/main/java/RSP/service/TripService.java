@@ -1,9 +1,13 @@
 package RSP.service;
 
+import RSP.dao.CountryDao;
+import RSP.dao.TagDao;
 import RSP.dao.TripDao;
 import RSP.dto.SortAttribute;
 import RSP.dto.SortOrder;
 import RSP.dto.TripsQueryCriteria;
+import RSP.model.Country;
+import RSP.model.Tag;
 import RSP.model.Trip;
 import RSP.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +27,102 @@ public class TripService {
 
     private TripDao tripDao;
 
+    private TagDao tagDao;
+
+    private CountryDao countryDao;
+
     private CriteriaChecker checker;
 
     @Autowired
-    public TripService(TripDao tripDao, CriteriaChecker checker) {
+    public TripService(
+                TripDao tripDao,
+                TagDao tagDao,
+                CountryDao countryDao,
+                CriteriaChecker checker) {
         this.tripDao = tripDao;
+        this.tagDao = tagDao;
+        this.countryDao = countryDao;
         this.checker = checker;
     }
+
+    public boolean addTags(Tag tag, int id) throws TripNotFoundException {
+        Trip t = tripDao.get(id);
+        Tag tag2 = tagDao.getByName(tag.getName());
+        if(t == null){
+            throw new TripNotFoundException(id);
+        }else if(tag2 != null){
+            List<Tag> tagz = t.getTags();
+            for (Tag test:
+                 tagz) {
+                if(test.getName().equals(tag2.getName())){
+                    return false;
+                }
+            }
+            t.getTags().add(tag2);
+            tripDao.update(t);
+            return true;
+        }else{
+            tagDao.add(tag);
+            t.getTags().add(tag);
+            tripDao.update(t);
+            return true;
+        }
+    }
+
+    public boolean addCountry(Country country, int id) throws TripNotFoundException {
+        Trip t = tripDao.get(id);
+        Country c = countryDao.getByName(country.getName());
+        if(t == null){
+            throw new TripNotFoundException(id);
+        }
+        else if(c != null){
+            List<Country> countries = t.getCountries();
+            for (Country countr:
+                 countries) {
+             if(countr.getName().equals(c.getName())){
+                 return false;
+             }
+            }
+            t.getCountries().add(c);
+            c.getTrip().add(t);
+            tripDao.update(t);
+            return true;
+        }else{
+            countryDao.add(country);
+            t.getCountries().add(country);
+            country.getTrip().add(t);
+            tripDao.update(t);
+            return true;
+        }
+    }
+
+
+    public boolean removeTag(int tagId, int tripId) throws TripNotFoundException {
+        Tag tag = tagDao.get(tagId);
+        Trip trip = tripDao.get(tripId);
+        if(tag == null || trip == null){
+            return false;
+        }
+        trip.getTags().remove(tag);
+        //musim delete tag z DB taky?
+        //tagDao.remove(tag);
+        tripDao.update(trip);
+        return true;
+    }
+
+    public boolean removeCountry(int tripId, int countryId) throws TripNotFoundException {
+        Country country = countryDao.get(countryId);
+        Trip trip = tripDao.get(tripId);
+        if(country == null || trip == null){
+            return false;
+        }
+        trip.getCountries().remove(country);
+        //musim delete tag z DB taky?
+        //countryDao.remove(country);
+        tripDao.update(trip);
+        return true;
+    }
+
 
     public Trip get(int id) throws TripNotFoundException {
         Trip trip = tripDao.get(id);
@@ -84,8 +177,11 @@ public class TripService {
         return trip;
     }
 
-    public List<User> getUsersFromTrip(int id) {
+    public List<User> getUsersFromTrip(int id) throws TripNotFoundException {
         Trip t = tripDao.get(id);
+        if (t == null) {
+            throw new TripNotFoundException(id);
+        }
         List<User> users = t.getUsers();
 
         return users;

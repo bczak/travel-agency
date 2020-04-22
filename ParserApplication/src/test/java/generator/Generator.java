@@ -39,7 +39,6 @@ public class Generator
 
         trip.setStartDate(new Date());
         trip.setEndDate(date);
-        trip.setLocation("ABAS City");
         trip.setName("Test" + randomInt());
         trip.setPrice(randomInt());
 

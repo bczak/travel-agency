@@ -1,7 +1,6 @@
 package RSP.dao;
 
-import RSP.model.Tag;
-import RSP.model.Trip;
+import RSP.model.Country;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,42 +8,41 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class TagDao extends AbstractDao<Tag> {
-
-    TagDao(EntityManager em) {
+public class CountryDao extends AbstractDao<Country>{
+    CountryDao(EntityManager em) {
         super(em);
     }
 
     @Override
-    public Tag get(int id) {
-        return em.find(Tag.class, id);
+    public Country get(int id) {
+        return em.find(Country.class, id);
     }
 
     @Override
-    public List<Tag> getAll() {
-        return em.createNamedQuery("Tag.getAll", Tag.class).getResultList();
+    public List<Country> getAll() {
+        return em.createNamedQuery("Country.getAll", Country.class).getResultList();
     }
 
     @Override
-    public void add(Tag entity) {
+    public void add(Country entity) {
         Objects.requireNonNull(entity);
         em.persist(entity);
     }
 
     @Override
-    public Tag update(Tag entity) {
+    public Country update(Country entity) {
         Objects.requireNonNull(entity);
         return em.merge(entity);
     }
 
     @Override
-    public void remove(Tag entity) {
+    public void remove(Country entity) {
         Objects.requireNonNull(entity);
         em.remove(em.contains(entity) ? entity : em.merge(entity));
     }
 
-    public Tag getByName(String name) {
-        return em.createNamedQuery("Tag.getByName", Tag.class)
+    public Country getByName(String name) {
+        return em.createNamedQuery("Country.getByName", Country.class)
                 .setParameter("name", name)
                 .setMaxResults(1)
                 .getResultList()
