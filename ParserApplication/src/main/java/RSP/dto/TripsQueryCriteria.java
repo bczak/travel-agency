@@ -1,6 +1,9 @@
 package RSP.dto;
 
+import java.util.Date;
 import java.util.Objects;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class TripsQueryCriteria {
 
@@ -15,6 +18,12 @@ public class TripsQueryCriteria {
 	private Integer minLength = null;
 
 	private Integer maxLength = null;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date startAfter = null;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date startBefore = null;
 
 	public SortAttribute getSortBy() {
 		return sortBy;
@@ -64,12 +73,30 @@ public class TripsQueryCriteria {
 		this.maxLength = maxLength;
 	}
 
+	public Date getStartAfter() {
+		return startAfter;
+	}
+
+	public void setStartAfter(Date startAfter) {
+		this.startAfter = startAfter;
+	}
+
+	public Date getStartBefore() {
+		return startBefore;
+	}
+
+	public void setStartBefore(Date startBefore) {
+		this.startBefore = startBefore;
+	}
+
 	@Override
 	public String toString() {
 		return "TripsQueryCriteria [maxPrice=" + maxPrice
 				+ ", minPrice=" + minPrice
 				+ ", maxLength=" + maxLength
 				+ ", minLength=" + minLength
+				+ ", startAfter=" + startAfter
+				+ ", startBefore=" + startBefore
 				+ ", order=" + order
 				+ ", sortBy=" + sortBy + "]";
 	}

@@ -8,6 +8,8 @@ Base path: localhost:8080/api
              &maxPrice=M ... price is <= M
              &minLength=N ... length is >= N
              &maxLength=M ... length is <= M
+             &startAfter=DATE ... startDate is >= DATE
+             &startBefore=DATE ... startDate is <= DATE
              &sortBy=ATTR ... sort returned array by attribute ATTR:
                               id, name, start, length, price (default: id)
              &order=DIRECTION ... sort in direction:

@@ -1,6 +1,7 @@
 package RSP.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -36,6 +37,8 @@ class TripQueryBuilder {
 	TypedQuery<Trip> build(TripsQueryCriteria criteria) {
 		filterByNumericInterval("price", criteria.getMinPrice(), criteria.getMaxPrice());
 		filterByNumericInterval("length", criteria.getMinLength(), criteria.getMaxLength());
+		filterByDateInterval("startDate", criteria.getStartAfter(), criteria.getStartBefore());
+
 		Order order = sort(criteria.getSortBy(), criteria.getOrder());
 		return entityManager.createQuery(criteriaQuery
 				.select(trips)
@@ -48,6 +51,18 @@ class TripQueryBuilder {
 
 		if (minValue != null || maxValue != null) {
 			Path<Integer> column = trips.get(columnName);
+			if (minValue != null) {
+				filter(criteriaBuilder.greaterThanOrEqualTo(column, minValue));
+			}
+			if (maxValue != null) {
+				filter(criteriaBuilder.lessThanOrEqualTo(column, maxValue));
+			}
+		}
+	}
+
+	private void filterByDateInterval(String columnName, Date minValue, Date maxValue) {
+		if (minValue != null || maxValue != null) {
+			Path<Date> column = trips.get(columnName);
 			if (minValue != null) {
 				filter(criteriaBuilder.greaterThanOrEqualTo(column, minValue));
 			}
