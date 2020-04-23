@@ -87,12 +87,13 @@ class TripQueryBuilder {
 	}
 
 	private void filterByJoin(String columnName, List<String> names, boolean conjunction) {
-		if(!conjunction){
-			for (String name : names) {
-				filter(criteriaBuilder.equal(trips.join(columnName).get("name"), name));
-			}
-		}else{
-			if (names != null) {
+		if (names != null) {
+			if(!conjunction){
+				for (String name : names) {
+					filter(criteriaBuilder.equal(trips.join(columnName).get("name"), name));
+				}
+			}else{
+
 				Path<String> column = trips.join(columnName).get("name");
 				List<Predicate> choices = new ArrayList<>();
 
