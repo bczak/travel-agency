@@ -44,7 +44,19 @@ public class TripDao extends AbstractDao<Trip> {
     }
 
     public List<Trip> getSome(TripsQueryCriteria criteria) {
-        return new TripQueryBuilder(em).build(criteria).getResultList();
+        TypedQuery<Trip> query = new TripQueryBuilder(em).build(criteria);
+
+        Integer limit = criteria.getLimit();
+        if (limit != null) {
+            query.setMaxResults(limit);
+        }
+
+        Integer from = criteria.getFrom();
+        if (from != null) {
+            query.setFirstResult(from);
+        }
+
+        return query.getResultList();
     }
 
     @Override
