@@ -41,8 +41,8 @@ class TripQueryBuilder {
 		filterByDateInterval("startDate", criteria.getStartAfter(), criteria.getStartBefore());
 		filterByDateInterval("endDate", criteria.getEndAfter(), criteria.getEndBefore());
 		filterBySubstring("name", criteria.getInName());
-		filterByJoin("countries", criteria.getCountry());
-		filterByJoin("tags", criteria.getTag());
+		filterByJoin("countries", criteria.getCountry(), criteria.getCountryAny());
+		filterByJoin("tags", criteria.getTag(), criteria.getTagAny());
 
 		Order order = sort(criteria.getSortBy(), criteria.getOrder());
 		return entityManager.createQuery(criteriaQuery
@@ -86,26 +86,35 @@ class TripQueryBuilder {
 		}
 	}
 
-	private void filterByJoin(String columnName, List<String> names) {
-		if (names != null) {
-			Path<String> column = trips.join(columnName).get("name");
-			List<Predicate> choices = new ArrayList<>();
+	private void filterByJoin(String columnName, List<String> names, boolean conjunction) {
+		if(!conjunction){
 			for (String name : names) {
-				choices.add(criteriaBuilder.equal(column, name));
+				filter(criteriaBuilder.equal(trips.join(columnName).get("name"), name));
 			}
-			int count = choices.size();
-			switch (count) {
-				case 0:
-					break;
-				case 1:
-					filter(choices.get(0));
-					break;
-				default:
-					filter(criteriaBuilder.or(choices.toArray(new Predicate[count])));
-					needsDeduplication = true;
+		}else{
+			if (names != null) {
+				Path<String> column = trips.join(columnName).get("name");
+				List<Predicate> choices = new ArrayList<>();
+
+				for (String name : names) {
+					choices.add(criteriaBuilder.equal(column, name));
+				}
+
+				int count = choices.size();
+				switch (count) {
+					case 0:
+						break;
+					case 1:
+						filter(choices.get(0));
+						break;
+					default:
+						filter(criteriaBuilder.or(choices.toArray(new Predicate[count])));
+						needsDeduplication = true;
+				}
 			}
 		}
 	}
+
 
 	private void filter(Predicate predicate) {
 		predicates.add(predicate);

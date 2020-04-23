@@ -34,9 +34,29 @@ public class TripsQueryCriteria {
 
 	private String inName = null;
 
+	private Boolean tagAny = true;
+
+	private Boolean countryAny = true;
+
 	private List<String> country = null;
 
 	private List<String> tag = null;
+
+	public Boolean getTagAny() {
+		return tagAny;
+	}
+
+	public void setTagAny(Boolean tagAny) {
+		this.tagAny = tagAny;
+	}
+
+	public Boolean getCountryAny() {
+		return countryAny;
+	}
+
+	public void setCountryAny(Boolean countryAny) {
+		this.countryAny = countryAny;
+	}
 
 	public SortAttribute getSortBy() {
 		return sortBy;
@@ -156,6 +176,8 @@ public class TripsQueryCriteria {
 				+ ", country=" + country
 				+ ", tag=" + tag
 				+ ", order=" + order
+				+ ", tagAny=" + tagAny
+				+ ", countryAny=" + countryAny
 				+ ", sortBy=" + sortBy + "]";
 	}
 }
