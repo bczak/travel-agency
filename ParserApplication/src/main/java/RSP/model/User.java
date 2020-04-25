@@ -6,7 +6,13 @@ import javax.persistence.*;
 
 @Table(name = "user_table")
 @Entity
-@NamedQuery(name = "User.getAll", query = "SELECT c FROM User c")
+@NamedQueries({
+        @NamedQuery(name = "User.getAll", query = "SELECT c FROM User c"),
+        @NamedQuery(
+                name = "User.getByName",
+                query = "SELECT c FROM User c WHERE c.username = :name")
+})
+
 public class User extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;

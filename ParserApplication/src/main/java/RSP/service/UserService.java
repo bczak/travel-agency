@@ -49,12 +49,7 @@ public class UserService {
     }
 
     public User getByUsername(String username) {
-        for (User user : userDao.getAll()) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
+        return userDao.getByName(username);
     }
 
     public boolean alreadyExists(User user) {
