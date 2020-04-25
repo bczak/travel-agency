@@ -2,6 +2,7 @@ Documentation for API REST endpoints:
 
 Base path: localhost:8080/api
 
+ENTITA TRIP
 
 1) GET /trips - return JSON array of all trips where:
              ?minPrice=N ... price is >= N
@@ -92,3 +93,16 @@ ENTITA COUNTRY
 7) POST /countries/trip/{countryId} - add trip to country where countryId = country.getId
 
 8) DELETE /countries/trip/{countryId}/{tripId} - delete trip from country where countryId = country.getId and tripId = trip.getId Trip is NOT DELETED from DB!
+
+
+ENTITA USER
+
+1) GET /user - get all users
+
+2) GET /user/{userID} - get user where userId = user.getId
+
+3) GET /user/username/{username} - get user where username = user.getUsername
+
+4) POST /user/add - add new User to DB, attribute Role is Enum = ROLE_ADMIN, ROLE_USER
+
+5) DELET /user/remove/{userId} - delete user from DB where userId = user.getId
