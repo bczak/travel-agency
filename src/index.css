@@ -135,6 +135,16 @@
     margin: 10px 0 0 0  !important;
     width: 80%
 }
+.chips {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.chips > * {
+    margin: 2px 5px;
+}
 
 @media screen and (max-width: 600px) {
     .params {

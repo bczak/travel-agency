@@ -26,6 +26,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import {Switch} from './components/Switch'
+import Chip from '@material-ui/core/Chip'
 
 function getDate(date) {
 	const ye = new Intl.DateTimeFormat('en', {year: 'numeric'}).format(date)
@@ -182,6 +183,9 @@ class App extends React.Component {
 								/>
 							</ListItem>
 						</List>
+						<div className="chips">
+							{res[i].tags.map(e => (<Chip label={e.name}/>))}
+						</div>
 					</CardContent>
 					<CardActions disableSpacing className={'actions'}>
 						<Button
@@ -249,6 +253,7 @@ class App extends React.Component {
 		function valuetext(value) {
 			return `${value}$`
 		}
+
 		return (
 			<div id="App">
 				<AppBar className={'root'}>
@@ -363,7 +368,7 @@ class App extends React.Component {
 				</Paper>
 				{this.state.cards.length > 0 ? <Paper className={'reminder'} variant={'outlined'} elevation={2}>
 						<Typography variant={'h4'}>Do you want to subscribe to this filter?</Typography>
-						<TextField variant={'outlined'} className={'subs-input'} placeholder={"Enter your email"} type={'mail'}/>
+						<TextField variant={'outlined'} className={'subs-input'} placeholder={'Enter your email'} type={'mail'}/>
 						<Button variant={'outlined'} color={'primary'} className={'subs'}>Subscribe</Button>
 					</Paper>
 					: ''}
