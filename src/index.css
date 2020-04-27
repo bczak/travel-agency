@@ -113,6 +113,28 @@
     color: #fff;
 }
 
+.reminder {
+    max-width: 800px;
+    margin: auto;
+    padding: 1em;
+    text-align: center;
+}
+
+.res {
+    width: 100%;
+    padding: 1em;
+    text-align: center;
+}
+
+.subs {
+    margin: 10px 10px 0 !important;
+    height: 56px;
+    width: calc(20%- 20px);
+}
+.subs-input {
+    margin: 10px 0 0 0  !important;
+    width: 80%
+}
 
 @media screen and (max-width: 600px) {
     .params {
