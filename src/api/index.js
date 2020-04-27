@@ -38,8 +38,8 @@ async function getAllCountries() {
 
 }
 
-async function getTrips(tags, countries) {
-	let  res = await fetch(api_url + '/trips?tag=' + tags.join(','))
+async function getTrips(tags, isAllTags, countries, isAllCountries) {
+	let  res = await fetch(api_url + '/trips?tag=' + tags.join(',') + '&tagAny=' + isAllTags + '&country=' + countries.join(',') + '&countryAny=' + isAllCountries)
 	res = await res.json();
 	return res
 
