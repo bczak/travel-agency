@@ -44,6 +44,9 @@ output = json.dump({
     'link': tour_url,
     'dates': dates,
     'days': days,
-    'description': out
+    'description': out,
+    "image": tour['tour']['tourimages']['tourimage'][0]['imgfile'],
+    "countries": tour['tour']['visitedcountries']
 }, file)
+print(output)
 print(str(tour['tour']['tourname']))
