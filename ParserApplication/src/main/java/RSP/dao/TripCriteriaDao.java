@@ -41,4 +41,8 @@ public class TripCriteriaDao extends AbstractDao<TripCriteria> {
         Objects.requireNonNull(entity);
         em.remove(em.contains(entity) ? entity : em.merge(entity));
     }
+
+    public void removeAll() {
+        em.createNamedQuery("TripCriteria.removeAll").executeUpdate();
+    }
 }
