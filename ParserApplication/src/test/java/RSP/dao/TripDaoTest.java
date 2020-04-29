@@ -37,7 +37,7 @@ public class TripDaoTest {
         trip.setLength(15);
         trip.setName("Test");
         trip.setPrice(10000);
-
+        trip.setDescription("asdsadd");
         tripDao.add(trip);
 
         assertNotNull(tripDao.get(trip.getId()));

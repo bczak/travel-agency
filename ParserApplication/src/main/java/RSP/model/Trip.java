@@ -46,7 +46,7 @@ public class Trip extends AbstractEntity {
 
     @Column
     @NotNull(message = "price must not be null")
-    @Min(value = 0, message = "price should not be less than 18")
+    @Min(value = 0, message = "price should not be less than 0")
     private double price;
 
     @ManyToMany
