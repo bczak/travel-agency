@@ -3,6 +3,9 @@ package RSP.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,9 +24,12 @@ public class Trip extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @Column
+    @NotEmpty(message = "name must not be empty")
+    @NotNull(message = "name must not be null")
     private String name;
 
     @Column
+    @Min(value = 0, message = "length should not be less than 18")
     private long length;
 
     @Column
@@ -39,6 +45,8 @@ public class Trip extends AbstractEntity {
     private String link;
 
     @Column
+    @NotNull(message = "price must not be null")
+    @Min(value = 0, message = "price should not be less than 18")
     private double price;
 
     @ManyToMany
@@ -49,6 +57,7 @@ public class Trip extends AbstractEntity {
     private List<Country> countries;
 
     @Column(length=60000)
+    @NotEmpty(message = "description must not be empty")
     private String description;
 
 

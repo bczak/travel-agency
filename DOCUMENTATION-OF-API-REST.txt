@@ -72,9 +72,11 @@ ENTITA TAG
 
 3) DELETE /tags/{tagId} - delete one tag where tagId = tag.getId
 
-4) GET /tags/{name} - return one Tag where name = tag.name
+4) GET /tags/getByName/{name} - return one Tag where name = tag.name
 
-5) POST /tags/addAll - add all Tags from JSON array
+5) GET /tags/{tagId} - return one Tag where tagId = tag.getId
+
+6) POST /tags/addAll - add all Tags from JSON array
 
 ENTITA COUNTRY
 

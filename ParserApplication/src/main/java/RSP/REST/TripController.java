@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/trips")
@@ -70,7 +71,7 @@ public class TripController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Trip> add(@RequestBody Trip trip) throws URISyntaxException {
+    ResponseEntity<Trip> add(@Valid @RequestBody Trip trip) throws URISyntaxException {
         log.info("path: /trips POST method add is invoked");
         Trip old = tripService.add(trip);
         if (old == null) {

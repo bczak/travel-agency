@@ -1,6 +1,7 @@
 package RSP.REST;
 
 import RSP.model.Tag;
+import RSP.model.Trip;
 import RSP.service.TagService;
 import RSP.service.TripNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -26,13 +28,26 @@ public class TagController {
         return tagService.getAll();
     }
 
-    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Tag get(@PathVariable String name){
-        return tagService.getByName(name);
+    @GetMapping(value = "/getByName/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Tag> get(@PathVariable String name){
+        Tag t = tagService.getByName(name);
+        if(t == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(t, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Tag> getById(@PathVariable int id){
+        Tag t = tagService.get(id);
+        if(t == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(t,HttpStatus.OK);
     }
 
     @PostMapping(value = "/addAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<Tag>> postBulk(@RequestBody List<Tag> tags) {
+    ResponseEntity<List<Tag>> postBulk(@Valid @RequestBody List<Tag> tags) {
         List<Tag> old = tagService.addAll(tags);
         if (old.isEmpty()) {
             return ResponseEntity
@@ -47,7 +62,7 @@ public class TagController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Tag> add(@RequestBody Tag tag) throws URISyntaxException {
+    ResponseEntity<Tag> add(@Valid @RequestBody Tag tag) throws URISyntaxException {
         Tag t = tagService.add(tag);
         if(t == null){
             return ResponseEntity
@@ -62,8 +77,11 @@ public class TagController {
     }
 
     @DeleteMapping(value = "/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void remove(@PathVariable int id) throws TripNotFoundException {
+    ResponseEntity<?> remove(@PathVariable int id) throws TripNotFoundException {
+        if(tagService.get(id) == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         tagService.remove(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
