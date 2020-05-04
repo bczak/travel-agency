@@ -1,169 +1,174 @@
-*  {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", serif;
 }
 /*----------------------------*/
 .root {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 .title {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
-.main{
-    margin: 100px auto 20px;
-    max-width: 800px;
-    padding: 10px;
+.main {
+  margin: 100px auto 20px;
+  max-width: 800px;
+  padding: 10px;
 }
 
 .filter {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #filter {
-    text-align: center;
-    font-size: 30px;
+  text-align: center;
+  font-size: 30px;
 }
 
 .date {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    width: 100%;
-    /*flex-basis: auto;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100%;
+  /*flex-basis: auto;*/
 }
 .date > * {
 }
 
 .result {
-    margin: 10px auto;
-    max-width: 800px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 10px;
-    align-items: center;
-    background: #3f51b5 !important;
+  margin: 10px auto;
+  max-width: 800px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  align-items: center;
+  background: #3f51b5 !important;
 }
 
 .rdrDefinedRangesWrapper {
-    display: none;
+  display: none;
 }
 
 .select-data {
-    padding: 10px;
+  padding: 10px;
 }
 
 .params {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .spacer {
-    height: 30px;
-    content: "";
+  height: 30px;
+  content: "";
 }
 
 .slider {
-    height: 10px !important;
-    padding-top: 50px !important;
+  height: 10px !important;
+  padding-top: 50px !important;
 }
 .panel {
-    margin: 0 0 10px 0;
-    padding: 5px 15px;
-    width: 100%;
+  margin: 0 0 10px 0;
+  padding: 5px 15px;
+  width: 100%;
 }
 .actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .button-search {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 .image {
-    height: 0;
-    padding-top: 56.25%
+  height: 0;
+  padding-top: 56.25%;
 }
 
-
 .more-button {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
 .button-group {
-    display: flex;
-    flex-direction: row;
-    /*justify-content: space-between;*/
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  /*justify-content: space-between;*/
+  flex-wrap: wrap;
 }
 .button-group > * {
-    margin: 5px !important;
-    /*min-width: calc(33% - 10px) !important;*/
+  margin: 5px !important;
+  /*min-width: calc(33% - 10px) !important;*/
 }
 
-
-.loader, .loader > * {
-    z-index: 10000 !important;
-    color: #fff;
+.loader,
+.loader > * {
+  z-index: 10000 !important;
+  color: #fff;
 }
 
 .reminder {
-    max-width: 800px;
-    margin: auto;
-    padding: 1em;
-    text-align: center;
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  text-align: center;
 }
 
 .res {
-    width: 100%;
-    padding: 1em;
-    text-align: center;
+  width: 100%;
+  padding: 1em;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resultText {
+  width: 50%;
+  text-align: right;
 }
 
 .subs {
-    margin: 10px 10px 0 !important;
-    height: 56px;
-    width: calc(20%- 20px);
+  margin: 10px 10px 0 !important;
+  height: 56px;
+  width: calc(20%- 20px);
 }
 .subs-input {
-    margin: 10px 0 0 0  !important;
-    width: 80%
+  margin: 10px 0 0 0 !important;
+  width: 80%;
 }
 .chips {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: left;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
 }
 
 .chips > * {
-    margin: 2px 5px;
+  margin: 2px 5px;
 }
 
 @media screen and (max-width: 600px) {
-    .params {
-        width: 90%;
-    }
-    .card{
-        width: calc(100%);
-        margin: 10px 0
-    }
+  .params {
+    width: 90%;
+  }
+  .card {
+    width: calc(100%);
+    margin: 10px 0;
+  }
 }
 
-@media screen and (min-width: 600px){
-    .params {
-        width: 45%;
-
-    }
-    .card{
-        width: calc(50% - 10px);
-        margin: 5px;
-    }
+@media screen and (min-width: 600px) {
+  .params {
+    width: 45%;
+  }
+  .card {
+    width: calc(50% - 10px);
+    margin: 5px;
+  }
 }
-
