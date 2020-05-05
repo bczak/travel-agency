@@ -38,7 +38,7 @@ async function getAllCountries() {
   }));
 }
 
-async function getTrips(tags, isAllTags, countries, isAllCountries, limit) {
+async function getTrips(tags, isAllTags, countries, isAllCountries, duration) {
   let res = await fetch(
     api_url +
       "/trips?tag=" +
@@ -48,7 +48,9 @@ async function getTrips(tags, isAllTags, countries, isAllCountries, limit) {
       "&country=" +
       countries.join(",") +
       "&countryAny=" +
-      isAllCountries
+      isAllCountries +
+      "&minLength=" +duration[0] +
+      "&maxLength=" +duration[1]
   );
   res = await res.json();
   return res;

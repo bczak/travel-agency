@@ -19,10 +19,9 @@ export class Switch extends React.Component {
           control={
             <SwitchUI
               checked={this.state.switch}
-              onChange={this.props.onChange}
+              onChange={this.handleChange}
               name="switch"
               color="primary"
-              checked={this.props.value}
             />
           }
           label={this.props.label}
