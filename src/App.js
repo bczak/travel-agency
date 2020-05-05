@@ -3,7 +3,6 @@ import API from "./api";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
-import Icon from "@material-ui/core/Icon";
 
 import {
   AppBar,
@@ -11,30 +10,30 @@ import {
   Typography,
   Button,
   Toolbar,
-  Card,
-  CardActions,
-  CardMedia,
-  CardContent,
   Slider,
   TextField,
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Switch } from "./components/Switch";
-import Chip from "@material-ui/core/Chip";
-import { PageCount } from "./components/PageCount";
+import { CardItem } from "./components/CardItem";
 
-function getDate(date) {
+export function getDate(date) {
   const ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
   const mo = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(date);
   const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date);
   return `${da}.${mo}.${ye}`;
 }
+
+const SORT_TYPES = {
+  TITLE: "TITLE",
+  DURATION: "DURATION",
+  LOW_PRICE: "LOW PRICE",
+  HIGH_PRICE: "HIGH PRICE",
+  NEWEST: "NEWEST",
+  LATEST: "LATEST",
+};
 
 class App extends React.Component {
   state = {
@@ -56,8 +55,8 @@ class App extends React.Component {
   allTags = [];
 
   async componentDidMount() {
-    let tag = await API.getAllTags();
-    let cnt = await API.getAllCountries();
+    const tag = await API.getAllTags();
+    const cnt = await API.getAllCountries();
     this.setState({ ...this.state, tags: tag, countries: cnt });
   }
 
@@ -71,11 +70,12 @@ class App extends React.Component {
       isAllCountries: true,
       countries: [],
       value: [1000, 2000],
+      resLength: 0,
       cards: [],
-      sort: 0,
+      sort: SORT_TYPES.TITLE,
       open: false,
       expanded: false,
-      limit: 10,
+      offset: 20,
       selectionRange: {
         startDate: new Date(),
         endDate: new Date(),
@@ -90,12 +90,13 @@ class App extends React.Component {
   };
 
   sortBy = (param) => {
-    this.search(this.state.limit, param);
+    this.search(param);
   };
 
   handleChange = (event, newValue) => {
     this.setState({ ...this.state, value: newValue });
   };
+
   handleSelect = (ranges) => {
     this.setState({
       ...this.state,
@@ -106,169 +107,66 @@ class App extends React.Component {
     });
   };
 
-  search = async (limit = 10, param) => {
-    this.setState({ ...this.state, open: true });
-    if (param === undefined) param = 0;
-    let res = await API.getTrips(
+  getSortedCards = (cards, sort_type) => {
+    if (sort_type === SORT_TYPES.TITLE) {
+      return cards.sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+        return 0;
+      });
+    } else if (sort_type === SORT_TYPES.DURATION) {
+      return cards.sort((a, b) => {
+        let durationA = Math.abs(new Date(a.startDate) - new Date(a.endDate));
+        let durationB = Math.abs(new Date(b.startDate) - new Date(b.endDate));
+        return durationA - durationB;
+      });
+    } else if (sort_type === SORT_TYPES.LOW_PRICE) {
+      return cards.sort((a, b) => a.price - b.price);
+    } else if (sort_type === SORT_TYPES.HIGH_PRICE) {
+      return cards.sort((a, b) => b.price - a.price);
+    } else if (sort_type === SORT_TYPES.NEWEST) {
+      return cards.sort((a, b) => {
+        let A = new Date(a.startDate);
+        let B = new Date(b.startDate);
+        return A - B;
+      });
+    } else if (sort_type === SORT_TYPES.LATEST) {
+      return cards.sort((a, b) => {
+        let A = new Date(a.startDate);
+        let B = new Date(b.startDate);
+        return B - A;
+      });
+    } else {
+      return cards;
+    }
+  };
+
+  search = async (sort_type = SORT_TYPES.TITLE) => {
+    this.setState({ ...this.state, sort: sort_type, open: true });
+
+    const cards = await API.getTrips(
       this.state.selectedTags.map((e) => e.title),
       this.state.isAllTags,
       this.state.selectedCountries.map((e) => e.title),
-      this.state.isAllCountries,
-      limit
+      this.state.isAllCountries
     );
-    console.log(res);
-    let cards = [];
 
-    for (let i = 0; i < res.length; i++) {
-      // if (
-      //   res[i].price < this.state.value[0] ||
-      //   res[i].price > this.state.value[1]
-      // )
-      //   continue;
-
-      let start = new Date(res[i].startDate);
-      let end = new Date(res[i].endDate);
-      let needS = this.state.selectionRange.startDate;
-      let needE = this.state.selectionRange.endDate;
-      if (getDate(needE) !== getDate(needS)) {
-        if ((end > needS && end < needE) || (start > needS && start < needE)) {
-        } else continue;
-      }
-
-      cards.push(
-        <Card
-          className={"card"}
-          variant={"outlined"}
-          key={res[i].id}
-          json={res[i]}
-        >
-          <CardMedia
-            className={"image"}
-            image={res[i].imageLink}
-            title={res[i].name}
-          />
-          <CardContent>
-            <Typography variant={"h4"}>{res[i].name}</Typography>
-            {/*<Typography variant={'body2'}>text</Typography>*/}
-            <List component="nav" aria-label="contacts">
-              <ListItem>
-                <ListItemIcon>
-                  <Icon>attach_money</Icon>
-                </ListItemIcon>
-                <ListItemText primary={res[i].price} />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <Icon>history</Icon>
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    Math.floor(
-                      Math.abs(
-                        new Date(res[i].startDate) - new Date(res[i].endDate)
-                      ) /
-                        1000 /
-                        60 /
-                        60 /
-                        24
-                    ) + " days"
-                  }
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <Icon>calendar_today</Icon>
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    getDate(new Date(res[i].startDate)) +
-                    " - " +
-                    getDate(new Date(res[i].endDate))
-                  }
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <Icon>explore</Icon>
-                </ListItemIcon>
-                <ListItemText
-                  primary={res[i].countries.map((e) => e.name).join(", ")}
-                />
-              </ListItem>
-            </List>
-            <div className="chips">
-              {res[i].tags.map((e) => (
-                <Chip label={e.name} />
-              ))}
-            </div>
-          </CardContent>
-          <CardActions disableSpacing className={"actions"}>
-            <Button
-              variant={"outlined"}
-              className={"more-button"}
-              href={res[i].link}
-              color={"primary"}
-            >
-              More
-            </Button>
-          </CardActions>
-        </Card>
-      );
-    }
-    if (cards.length === 0) {
-      alert("No results");
-    }
-
-    if (param === 0) {
-      cards.sort((a, b) => {
-        let nameA = a.props.json.name.toLowerCase(),
-          nameB = b.props.json.name.toLowerCase();
-        if (nameA < nameB)
-          //sort string ascending
-          return -1;
-        if (nameA > nameB) return 1;
-        return 0; //default return value (no sorting)
-      });
-    } else if (param === 3) {
-      cards.sort((a, b) => {
-        return b.props.json.price - a.props.json.price;
-      });
-    } else if (param === 2) {
-      cards.sort((a, b) => {
-        return a.props.json.price - b.props.json.price;
-      });
-    } else if (param === 1) {
-      cards.sort((a, b) => {
-        let durationA = Math.abs(
-          new Date(a.props.json.startDate) - new Date(a.props.json.endDate)
-        );
-        let durationB = Math.abs(
-          new Date(b.props.json.startDate) - new Date(b.props.json.endDate)
-        );
-        return durationA - durationB;
-      });
-    } else if (param === 4) {
-      cards.sort((a, b) => {
-        let A = new Date(a.props.json.startDate);
-        let B = new Date(b.props.json.startDate);
-        return A - B;
-      });
-    } else if (param === 5) {
-      cards.sort((a, b) => {
-        let A = new Date(a.props.json.startDate);
-        let B = new Date(b.props.json.startDate);
-        return B - A;
-      });
-    }
-
-    console.log(cards);
-    this.setState({ ...this.state, cards: cards, sort: param, open: false });
+    this.setState({
+      ...this.state,
+      cards: this.getSortedCards(cards, sort_type),
+      resLength: cards.length,
+      open: false,
+    });
   };
 
   render() {
     function valuetext(value) {
       return `${value}$`;
     }
+
+    console.log(this.state.value);
 
     return (
       <div id="App">
@@ -383,7 +281,7 @@ class App extends React.Component {
             </Button>
           </div>
         </Paper>
-        {this.state.cards.length > 0 ? (
+        {this.state.cards.length > 0 && (
           <Paper className={"reminder"} variant={"outlined"} elevation={2}>
             <Typography variant={"h4"}>
               Do you want to subscribe to this filter?
@@ -398,69 +296,79 @@ class App extends React.Component {
               Subscribe
             </Button>
           </Paper>
-        ) : (
-          ""
         )}
         <Paper className={"result"} variant={"outlined"} elevation={2}>
           <Paper className={"panel"} variant={"outlined"} elevation={3}>
             <div className="button-group">
               <Button>Sort By:</Button>
               <Button
-                onClick={() => {
-                  this.sortBy(0);
-                }}
+                onClick={() => this.sortBy(SORT_TYPES.TITLE)}
                 disableElevation
-                variant={this.state.sort === 0 ? "contained" : "outlined"}
+                variant={
+                  this.state.sort === SORT_TYPES.TITLE
+                    ? "contained"
+                    : "outlined"
+                }
                 color={"primary"}
               >
                 Title
               </Button>
               <Button
-                onClick={() => {
-                  this.sortBy(1);
-                }}
+                onClick={() => this.sortBy(SORT_TYPES.DURATION)}
                 disableElevation
-                variant={this.state.sort === 1 ? "contained" : "outlined"}
+                variant={
+                  this.state.sort === SORT_TYPES.DURATION
+                    ? "contained"
+                    : "outlined"
+                }
                 color={"primary"}
               >
                 Duration
               </Button>
               <Button
-                onClick={() => {
-                  this.sortBy(2);
-                }}
+                onClick={() => this.sortBy(SORT_TYPES.LOW_PRICE)}
                 disableElevation
-                variant={this.state.sort === 2 ? "contained" : "outlined"}
+                variant={
+                  this.state.sort === SORT_TYPES.LOW_PRICE
+                    ? "contained"
+                    : "outlined"
+                }
                 color={"primary"}
               >
                 Low Price
               </Button>
               <Button
-                onClick={() => {
-                  this.sortBy(3);
-                }}
+                onClick={() => this.sortBy(SORT_TYPES.HIGH_PRICE)}
                 disableElevation
-                variant={this.state.sort === 3 ? "contained" : "outlined"}
+                variant={
+                  this.state.sort === SORT_TYPES.HIGH_PRICE
+                    ? "contained"
+                    : "outlined"
+                }
                 color={"primary"}
               >
                 High Price
               </Button>
               <Button
-                onClick={() => {
-                  this.sortBy(4);
-                }}
+                onClick={() => this.sortBy(SORT_TYPES.NEWEST)}
                 disableElevation
-                variant={this.state.sort === 4 ? "contained" : "outlined"}
+                variant={
+                  this.state.sort === SORT_TYPES.NEWEST
+                    ? "contained"
+                    : "outlined"
+                }
                 color={"primary"}
               >
                 Newest
               </Button>
               <Button
-                onClick={() => {
-                  this.sortBy(5);
-                }}
+                onClick={() => this.sortBy(SORT_TYPES.LATEST)}
                 disableElevation
-                variant={this.state.sort === 5 ? "contained" : "outlined"}
+                variant={
+                  this.state.sort === SORT_TYPES.LATEST
+                    ? "contained"
+                    : "outlined"
+                }
                 color={"primary"}
               >
                 Latest
@@ -468,16 +376,27 @@ class App extends React.Component {
             </div>
           </Paper>
           <Paper className={"res"} elevation={3} variant={"outlined"}>
-            <div className="resultText">{this.state.cards.length} results</div>
-            <PageCount
-              limit={this.state.limit}
-              handleLimit={this.handleLimit}
-            />
+            <div className="resultText">{this.state.resLength} results</div>
           </Paper>
           <Backdrop open={this.state.open} className={"loader"}>
             <CircularProgress color="inherit" />
           </Backdrop>
-          {this.state.cards}
+          {this.state.cards.slice(0, this.state.offset).map((card) => (
+            <CardItem key={card.id} card={card} />
+          ))}
+          {this.state.cards.length !== 0 && (
+            <div className="showMoreButton">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  this.setState({ offset: this.state.offset + 20 });
+                }}
+              >
+                Show more
+              </Button>
+            </div>
+          )}
         </Paper>
       </div>
     );

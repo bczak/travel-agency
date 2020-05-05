@@ -48,9 +48,7 @@ async function getTrips(tags, isAllTags, countries, isAllCountries, limit) {
       "&country=" +
       countries.join(",") +
       "&countryAny=" +
-      isAllCountries +
-      "&limit=" +
-      limit
+      isAllCountries
   );
   res = await res.json();
   return res;
