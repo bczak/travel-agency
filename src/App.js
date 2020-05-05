@@ -11,13 +11,14 @@ import {
 	Button,
 	Toolbar,
 	Slider,
-	TextField
+	TextField,
+	Switch
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import {Switch} from './components/Switch'
 import {CardItem} from './components/CardItem'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 export function getDate(date) {
 	const ye = new Intl.DateTimeFormat('en', {year: 'numeric'}).format(date)
@@ -36,11 +37,6 @@ const SORT_TYPES = {
 }
 
 class App extends React.Component {
-	state = {
-		tags: [],
-		isSearchClicked: false,
-		trips: []
-	}
 
 	getTrips = async (by = 'PRICE', order = 'ASCENDING') => {
 		try {
@@ -112,6 +108,14 @@ class App extends React.Component {
 	}
 
 	getSortedCards = (cards, sort_type) => {
+		//filter price
+		cards = cards.filter((a) => {
+			return a.price >= this.state.value[0] && a.price <= this.state.value[1]
+		})
+		//filter date
+		cards = cards.filter(a => {
+			return (new Date(a.startDate) >= this.state.selectionRange.startDate && new Date(a.endDate) <= this.state.selectionRange.endDate) || (this.state.selectionRange.endDate.toDateString() === this.state.selectionRange.startDate.toDateString());
+		})
 		if (sort_type === SORT_TYPES.TITLE) {
 			return cards.sort((a, b) => {
 				const nameA = a.name.toLowerCase()
@@ -155,8 +159,10 @@ class App extends React.Component {
 			this.state.isAllTags,
 			this.state.selectedCountries.map((e) => e.title),
 			this.state.isAllCountries,
-      this.state.duration//min and max
+			this.state.duration//min and max
 		)
+
+		if (cards.length === 0) alert('No results')
 
 		this.setState({
 			...this.state,
@@ -170,6 +176,7 @@ class App extends React.Component {
 		function valuetext(value) {
 			return `${value}$`
 		}
+
 		return (
 			<div id="App">
 				<AppBar className={'root'}>
@@ -208,13 +215,17 @@ class App extends React.Component {
 										/>
 									)}
 								/>
-								<Switch
+								<FormControlLabel
+									control={<Switch
+										onChange={(value) => {
+											this.setState({...this.state, isAllTags: !this.state.isAllTags})
+										}}
+										value={this.state.isAllTags}
+									/>
+									}
 									label={this.state.isAllTags ? 'Any match' : 'All match'}
-									onChange={(value) => {
-										this.setState({isAllTags: !this.state.isAllTags})
-									}}
-									value={this.state.isAllTags}
 								/>
+
 								<span className={'spacer'}/>
 								<Autocomplete
 									multiple
@@ -233,15 +244,21 @@ class App extends React.Component {
 										/>
 									)}
 								/>
-								<Switch
+								<FormControlLabel
+									control={
+										<Switch
+											onChange={(value) => {
+												this.setState({
+													...this.state,
+													isAllCountries: !this.state.isAllCountries
+												})
+											}}
+											value={this.state.isAllCountries}
+										/>}
 									label={this.state.isAllCountries ? 'Any match' : 'All match'}
-									onChange={(value) => {
-										this.setState({
-											isAllCountries: !this.state.isAllCountries
-										})
-									}}
-									value={this.state.isAllCountries}
+
 								/>
+
 								<span className="spacer"/>
 								<div>
 									<Typography id="range-slider" gutterBottom>
