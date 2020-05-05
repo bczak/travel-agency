@@ -166,8 +166,6 @@ class App extends React.Component {
       return `${value}$`;
     }
 
-    console.log(this.state.value);
-
     return (
       <div id="App">
         <AppBar className={"root"}>
@@ -275,129 +273,130 @@ class App extends React.Component {
               className={"button-search"}
               variant={"outlined"}
               color={"primary"}
-              onClick={() => this.search()}
+              onClick={this.search}
             >
               Search
             </Button>
           </div>
         </Paper>
         {this.state.cards.length > 0 && (
-          <Paper className={"reminder"} variant={"outlined"} elevation={2}>
-            <Typography variant={"h4"}>
-              Do you want to subscribe to this filter?
-            </Typography>
-            <TextField
-              variant={"outlined"}
-              className={"subs-input"}
-              placeholder={"Enter your email"}
-              type={"mail"}
-            />
-            <Button variant={"outlined"} color={"primary"} className={"subs"}>
-              Subscribe
-            </Button>
-          </Paper>
+          <>
+            <Paper className={"reminder"} variant={"outlined"} elevation={2}>
+              <Typography variant={"h4"}>
+                Do you want to subscribe to this filter?
+              </Typography>
+              <TextField
+                variant={"outlined"}
+                className={"subs-input"}
+                placeholder={"Enter your email"}
+                type={"mail"}
+              />
+              <Button variant={"outlined"} color={"primary"} className={"subs"}>
+                Subscribe
+              </Button>
+            </Paper>
+            <Paper className={"result"} variant={"outlined"} elevation={2}>
+              <Paper className={"panel"} variant={"outlined"} elevation={3}>
+                <div className="button-group">
+                  <Button>Sort By:</Button>
+                  <Button
+                    onClick={() => this.sortBy(SORT_TYPES.TITLE)}
+                    disableElevation
+                    variant={
+                      this.state.sort === SORT_TYPES.TITLE
+                        ? "contained"
+                        : "outlined"
+                    }
+                    color={"primary"}
+                  >
+                    Title
+                  </Button>
+                  <Button
+                    onClick={() => this.sortBy(SORT_TYPES.DURATION)}
+                    disableElevation
+                    variant={
+                      this.state.sort === SORT_TYPES.DURATION
+                        ? "contained"
+                        : "outlined"
+                    }
+                    color={"primary"}
+                  >
+                    Duration
+                  </Button>
+                  <Button
+                    onClick={() => this.sortBy(SORT_TYPES.LOW_PRICE)}
+                    disableElevation
+                    variant={
+                      this.state.sort === SORT_TYPES.LOW_PRICE
+                        ? "contained"
+                        : "outlined"
+                    }
+                    color={"primary"}
+                  >
+                    Low Price
+                  </Button>
+                  <Button
+                    onClick={() => this.sortBy(SORT_TYPES.HIGH_PRICE)}
+                    disableElevation
+                    variant={
+                      this.state.sort === SORT_TYPES.HIGH_PRICE
+                        ? "contained"
+                        : "outlined"
+                    }
+                    color={"primary"}
+                  >
+                    High Price
+                  </Button>
+                  <Button
+                    onClick={() => this.sortBy(SORT_TYPES.NEWEST)}
+                    disableElevation
+                    variant={
+                      this.state.sort === SORT_TYPES.NEWEST
+                        ? "contained"
+                        : "outlined"
+                    }
+                    color={"primary"}
+                  >
+                    Newest
+                  </Button>
+                  <Button
+                    onClick={() => this.sortBy(SORT_TYPES.LATEST)}
+                    disableElevation
+                    variant={
+                      this.state.sort === SORT_TYPES.LATEST
+                        ? "contained"
+                        : "outlined"
+                    }
+                    color={"primary"}
+                  >
+                    Latest
+                  </Button>
+                </div>
+              </Paper>
+              <Paper className={"res"} elevation={3} variant={"outlined"}>
+                <div className="resultText">{this.state.resLength} results</div>
+              </Paper>
+
+              {this.state.cards.slice(0, this.state.offset).map((card) => (
+                <CardItem key={card.id} card={card} />
+              ))}
+              <div className="showMoreButton">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    this.setState({ offset: this.state.offset + 20 });
+                  }}
+                >
+                  Show more
+                </Button>
+              </div>
+            </Paper>
+          </>
         )}
-        <Paper className={"result"} variant={"outlined"} elevation={2}>
-          <Paper className={"panel"} variant={"outlined"} elevation={3}>
-            <div className="button-group">
-              <Button>Sort By:</Button>
-              <Button
-                onClick={() => this.sortBy(SORT_TYPES.TITLE)}
-                disableElevation
-                variant={
-                  this.state.sort === SORT_TYPES.TITLE
-                    ? "contained"
-                    : "outlined"
-                }
-                color={"primary"}
-              >
-                Title
-              </Button>
-              <Button
-                onClick={() => this.sortBy(SORT_TYPES.DURATION)}
-                disableElevation
-                variant={
-                  this.state.sort === SORT_TYPES.DURATION
-                    ? "contained"
-                    : "outlined"
-                }
-                color={"primary"}
-              >
-                Duration
-              </Button>
-              <Button
-                onClick={() => this.sortBy(SORT_TYPES.LOW_PRICE)}
-                disableElevation
-                variant={
-                  this.state.sort === SORT_TYPES.LOW_PRICE
-                    ? "contained"
-                    : "outlined"
-                }
-                color={"primary"}
-              >
-                Low Price
-              </Button>
-              <Button
-                onClick={() => this.sortBy(SORT_TYPES.HIGH_PRICE)}
-                disableElevation
-                variant={
-                  this.state.sort === SORT_TYPES.HIGH_PRICE
-                    ? "contained"
-                    : "outlined"
-                }
-                color={"primary"}
-              >
-                High Price
-              </Button>
-              <Button
-                onClick={() => this.sortBy(SORT_TYPES.NEWEST)}
-                disableElevation
-                variant={
-                  this.state.sort === SORT_TYPES.NEWEST
-                    ? "contained"
-                    : "outlined"
-                }
-                color={"primary"}
-              >
-                Newest
-              </Button>
-              <Button
-                onClick={() => this.sortBy(SORT_TYPES.LATEST)}
-                disableElevation
-                variant={
-                  this.state.sort === SORT_TYPES.LATEST
-                    ? "contained"
-                    : "outlined"
-                }
-                color={"primary"}
-              >
-                Latest
-              </Button>
-            </div>
-          </Paper>
-          <Paper className={"res"} elevation={3} variant={"outlined"}>
-            <div className="resultText">{this.state.resLength} results</div>
-          </Paper>
-          <Backdrop open={this.state.open} className={"loader"}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-          {this.state.cards.slice(0, this.state.offset).map((card) => (
-            <CardItem key={card.id} card={card} />
-          ))}
-          {this.state.cards.length !== 0 && (
-            <div className="showMoreButton">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  this.setState({ offset: this.state.offset + 20 });
-                }}
-              >
-                Show more
-              </Button>
-            </div>
-          )}
-        </Paper>
+        <Backdrop open={this.state.open} className={"loader"}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </div>
     );
   }
