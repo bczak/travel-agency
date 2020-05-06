@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 con = DB()
 i = 0
-id = 1000
+id = 3000
 for item in os.listdir('json'):
     # if i < 5:
     #     i = i + 1
@@ -16,7 +16,6 @@ for item in os.listdir('json'):
     end = data[1]['days']
     date = datetime(int(dates[0][0][:4]), int(dates[0][0][5:7]), int(dates[0][0][8:]))
     date = date + timedelta(int(end))
-    print(item)
     trip = {
         'name': data[1]['title'],
         'description': data[1]['description'][:250] + '...',
@@ -37,6 +36,7 @@ for item in os.listdir('json'):
          trip['description'][:250] + '...', trip['link'], trip['image']))
     for tag in data[0].keys():
         t = con.select("select id from \"tag_table\" where name = '" + tag + "'")
+        if len(t) == 0: continue
         con.insert("insert  into \"trip_table_tags\" values (%s, %s)", (id, t[0][0]))
     for ctr in str(trip['location']).split(', '):
         t = con.select("select id from \"country_table\" where name = '" + ctr + "'")
