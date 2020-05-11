@@ -108,3 +108,27 @@ ENTITA USER
 4) POST /user/add - add new User to DB, attribute Role is Enum = ROLE_ADMIN, ROLE_USER
 
 5) DELET /user/remove/{userId} - delete user from DB where userId = user.getId
+
+
+ENTITY Recommendation
+
+1) GET /recommendations/undelivered - return array of all Recommendations
+       not yet marked as delivered
+
+2) DELETE /recommendations/{id}/undelivered - mark recommendation as delivered,
+          return 204 NO_CONTENT
+
+
+For debugging purposes:
+
+3) GET /recommendations - return array of all Recommendations
+
+4) GET /recommendations/{id} - return Recommendation with getId() = {id}
+
+5) POST /recommendations - add new Recommendation, request body must be JSON entity
+        Recommendation without id
+
+6) DELETE /recommendation/{id} - remove Recommendation with getId() = {id},
+          return 204 NO_CONTENT
+
+7) DELETE /recommendations - remove all Recommendations, return 204 NO_CONTENT
