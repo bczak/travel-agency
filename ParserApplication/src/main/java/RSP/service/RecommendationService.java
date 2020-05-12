@@ -17,10 +17,17 @@ import RSP.model.Recommendation;
 public class RecommendationService {
 
 	private RecommendationDao recommendationDao;
+	private TripService tripService;
+	private TripCriteriaService criteriaService;
 
 	@Autowired
-	public RecommendationService(RecommendationDao recommendationDao) {
+	public RecommendationService(
+			RecommendationDao recommendationDao,
+			TripService tripService,
+			TripCriteriaService criteriaService) {
 		this.recommendationDao = recommendationDao;
+		this.tripService = tripService;
+		this.criteriaService = criteriaService;
 	}
 
 	public Recommendation get(int id) throws RecommendationNotFoundException {
@@ -31,11 +38,20 @@ public class RecommendationService {
 		return recommendation;
 	}
 
-	public void add(Recommendation recommendation) {
+	public void add(Recommendation recommendation)
+			throws TripNotFoundException, TripCriteriaNotFoundException {
+
 		Objects.requireNonNull(recommendation);
+
+		recommendation.setTrip(tripService.get(
+			Objects.requireNonNull(recommendation.getTrip()).getId()));
+		recommendation.setCriteria(criteriaService.get(
+			Objects.requireNonNull(recommendation.getCriteria()).getId()));
+
 		if (recommendation.getDate() == null) {
 			recommendation.setDate(new Date());
 		}
+
 		recommendationDao.add(recommendation);
 	}
 

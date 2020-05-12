@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import RSP.model.Recommendation;
 import RSP.service.RecommendationNotFoundException;
 import RSP.service.RecommendationService;
+import RSP.service.TripCriteriaNotFoundException;
+import RSP.service.TripNotFoundException;
 
 
 @RestController
@@ -65,7 +67,8 @@ public class RecommendationController {
 	}
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	ResponseEntity<Recommendation> add(@RequestBody Recommendation recommendation) {
+	ResponseEntity<Recommendation> add(@RequestBody Recommendation recommendation)
+			throws TripNotFoundException, TripCriteriaNotFoundException {
 		log.info("REST POST /recommendations invoked");
 		recommendationService.add(recommendation);
 		int id = recommendation.getId();
@@ -99,7 +102,10 @@ public class RecommendationController {
 		log.info("REST DELETE /recommendations/{id}/undelivered returned NO_CONTENT");
 	}
 
-	@ExceptionHandler(RecommendationNotFoundException.class)
+	@ExceptionHandler({
+		RecommendationNotFoundException.class,
+		TripNotFoundException.class,
+		TripCriteriaNotFoundException.class})
 	void handleRecommendationNotFoundException(
 			HttpServletResponse response, Exception exception) throws IOException {
 		log.info("REST returned NOT_FOUND with error: " + exception.getMessage());
