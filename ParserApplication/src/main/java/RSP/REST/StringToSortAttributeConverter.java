@@ -10,8 +10,8 @@ import RSP.dto.SortAttribute;
 @Component
 public class StringToSortAttributeConverter implements Converter<String, SortAttribute> {
 
-	@Override
-	public SortAttribute convert(String string) {
-		return SortAttribute.valueOf(string.toUpperCase(Locale.ROOT));
-	}
+    @Override
+    public SortAttribute convert(String string) {
+        return SortAttribute.valueOf(string.toUpperCase(Locale.ROOT));
+    }
 }

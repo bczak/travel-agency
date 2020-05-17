@@ -10,8 +10,8 @@ import RSP.dto.SortOrder;
 @Component
 public class StringToSortOrderConverter implements Converter<String, SortOrder> {
 
-	@Override
-	public SortOrder convert(String source) {
-		return SortOrder.valueOf(source.toUpperCase(Locale.ROOT));
-	}
+    @Override
+    public SortOrder convert(String source) {
+        return SortOrder.valueOf(source.toUpperCase(Locale.ROOT));
+    }
 }

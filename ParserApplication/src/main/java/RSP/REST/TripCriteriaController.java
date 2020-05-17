@@ -28,60 +28,60 @@ import RSP.service.TripCriteriaService;
 @RequestMapping("/api/criterias")
 public class TripCriteriaController {
 
-	private static final Logger log = Logger.getLogger(TripCriteriaController.class.getName());
+    private static final Logger log = Logger.getLogger(TripCriteriaController.class.getName());
 
-	private final TripCriteriaService criteriaService;
+    private final TripCriteriaService criteriaService;
 
-	TripCriteriaController(TripCriteriaService criteriaService) {
-		this.criteriaService = criteriaService;
-	}
+    TripCriteriaController(TripCriteriaService criteriaService) {
+        this.criteriaService = criteriaService;
+    }
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	List<TripCriteria> getAll() {
-		log.info("REST GET /criterias invoked");
-		List<TripCriteria> results = criteriaService.getAll();
-		log.info(() -> "REST GET /criterias returned OK with " + results.size() + " criterias");
-		return results;
-	}
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    List<TripCriteria> getAll() {
+        log.info("REST GET /criterias invoked");
+        List<TripCriteria> results = criteriaService.getAll();
+        log.info(() -> "REST GET /criterias returned OK with " + results.size() + " criterias");
+        return results;
+    }
 
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	TripCriteria get(@PathVariable int id) throws TripCriteriaNotFoundException {
-		log.info(() -> "REST GET /criterias/{id} invoked with id = " + id);
-		TripCriteria result = criteriaService.get(id);
-		log.info("REST GET /criterias/{id} returned OK");
-		return result;
-	}
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    TripCriteria get(@PathVariable int id) throws TripCriteriaNotFoundException {
+        log.info(() -> "REST GET /criterias/{id} invoked with id = " + id);
+        TripCriteria result = criteriaService.get(id);
+        log.info("REST GET /criterias/{id} returned OK");
+        return result;
+    }
 
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	ResponseEntity<TripCriteria> add(@RequestBody TripCriteria criteria) {
-		log.info("REST POST /criterias invoked");
-		criteriaService.add(criteria);
-		log.info("REST POST /criterias returned CREATED");
-		return ResponseEntity
-				.created(URI.create("/api/criterias/" + criteria.getId()))
-				.body(criteria);
-	}
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<TripCriteria> add(@RequestBody TripCriteria criteria) {
+        log.info("REST POST /criterias invoked");
+        criteriaService.add(criteria);
+        log.info("REST POST /criterias returned CREATED");
+        return ResponseEntity
+                .created(URI.create("/api/criterias/" + criteria.getId()))
+                .body(criteria);
+    }
 
-	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	void remove(@PathVariable int id) throws TripCriteriaNotFoundException {
-		log.info(() -> "REST DELETE /criterias/{id} invoked with id = " + id);
-		criteriaService.remove(id);
-		log.info("REST DELETE /criterias/{id} returned NO_CONTENT");
-	}
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void remove(@PathVariable int id) throws TripCriteriaNotFoundException {
+        log.info(() -> "REST DELETE /criterias/{id} invoked with id = " + id);
+        criteriaService.remove(id);
+        log.info("REST DELETE /criterias/{id} returned NO_CONTENT");
+    }
 
-	@DeleteMapping
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	void removeAll() {
-		log.info("REST DELETE /criterias invoked");
-		criteriaService.removeAll();
-		log.info("REST DELETE /criterias returned NO_CONTENT");
-	}
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void removeAll() {
+        log.info("REST DELETE /criterias invoked");
+        criteriaService.removeAll();
+        log.info("REST DELETE /criterias returned NO_CONTENT");
+    }
 
-	@ExceptionHandler(TripCriteriaNotFoundException.class)
-	void handleTripCriteriaNotFound(HttpServletResponse response, Exception exception)
-			throws IOException {
-		log.info(() -> "REST returned NOT_FOUND wuth error: " + exception.getMessage());
-		response.sendError(HttpStatus.NOT_FOUND.value());
-	}
+    @ExceptionHandler(TripCriteriaNotFoundException.class)
+    void handleTripCriteriaNotFound(HttpServletResponse response, Exception exception)
+            throws IOException {
+        log.info(() -> "REST returned NOT_FOUND wuth error: " + exception.getMessage());
+        response.sendError(HttpStatus.NOT_FOUND.value());
+    }
 }
