@@ -44,7 +44,7 @@ class TripQueryBuilder {
         filterByJoin("countries", criteria.getCountry(), criteria.getCountryAny());
         filterByJoin("tags", criteria.getTag(), criteria.getTagAny());
 
-        Order order = sort(criteria.getSortBy(), criteria.getOrder());
+        List<Order> order = sort(criteria.getSortBy(), criteria.getOrder());
         return entityManager.createQuery(criteriaQuery
                 .select(trips)
                 .distinct(needsDeduplication)
@@ -88,12 +88,11 @@ class TripQueryBuilder {
 
     private void filterByJoin(String columnName, List<String> names, boolean conjunction) {
         if (names != null) {
-            if(!conjunction){
+            if (!conjunction) {
                 for (String name : names) {
                     filter(criteriaBuilder.equal(trips.join(columnName).get("name"), name));
                 }
-            }else{
-
+            } else {
                 Path<String> column = trips.join(columnName).get("name");
                 List<Predicate> choices = new ArrayList<>();
 
@@ -121,7 +120,16 @@ class TripQueryBuilder {
         predicates.add(predicate);
     }
 
-    private Order sort(SortAttribute attribute, SortOrder order) {
+    private List<Order> sort(SortAttribute attribute, SortOrder order) {
+        List<Order> orders = new ArrayList<>();
+        orders.add(makeOrder(attribute, order));
+        if (!attribute.isTotalOrdering()) {
+            orders.add(makeOrder(SortAttribute.NAME, order));
+        }
+        return orders;
+    }
+
+    private Order makeOrder(SortAttribute attribute, SortOrder order) {
         Path<?> orderByColumn = trips.get(attribute.getColumnName());
         return (SortOrder.ASCENDING == order)
                 ? criteriaBuilder.asc(orderByColumn) : criteriaBuilder.desc(orderByColumn);
