@@ -1,7 +1,6 @@
 package RSP.REST;
 
 import RSP.model.Tag;
-import RSP.model.Trip;
 import RSP.service.TagService;
 import RSP.service.TripNotFoundException;
 import org.springframework.http.HttpStatus;

@@ -82,8 +82,8 @@ public class CountryService {
 
     public List<Trip> getTrips(int id) {
         Country c = countryDao.get(id);
-        if(c == null){
-            throw new IllegalArgumentException("Not found country with id = " + id + " and name = " + c.getName());
+        if (c == null) {
+            throw new IllegalArgumentException("Not found country with id = " + id);
         }
         return c.getTrip();
     }
