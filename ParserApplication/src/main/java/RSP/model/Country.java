@@ -14,8 +14,7 @@ import java.util.List;
                 name = "Country.getByName",
                 query = "SELECT c FROM Country c WHERE c.name = :name")
 })
-
-public class Country extends AbstractEntity{
+public class Country extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @ManyToMany
@@ -41,18 +40,11 @@ public class Country extends AbstractEntity{
     @Override
     public boolean equals(Object object)
     {
-        Integer id = this.getId();
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Country))
-        {
+        if (!(object instanceof Country)) {
             return false;
         }
         Country other = (Country) object;
-        if ((id == null && (Integer)other.getId() != null) || (id != null && !id.equals(other.getId())))
-        {
-            return false;
-        }
-        return true;
+        return (getId() == other.getId());
     }
 
     @Override

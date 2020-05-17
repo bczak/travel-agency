@@ -68,9 +68,9 @@ public class CountryController {
     }
 
     @PostMapping(value = "/trip/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Trip> addTrip(@PathVariable int id, @RequestBody Trip trip) throws URISyntaxException, TripNotFoundException {
-        Country t = countryService.get(id);
-        if(!countryService.addTrip(trip, id)){
+    ResponseEntity<Trip> addTrip(@PathVariable int id, @RequestBody Trip trip)
+            throws URISyntaxException, TripNotFoundException {
+        if (!countryService.addTrip(trip, id)) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -83,7 +83,7 @@ public class CountryController {
         countryService.remove(id);
     }
 
-        @DeleteMapping(value = "/trip/{countryId}/{tripId}")
+    @DeleteMapping(value = "/trip/{countryId}/{tripId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     ResponseEntity<Void> removeTrip(@PathVariable int countryId, @PathVariable int tripId){
         if(countryService.removeTrip(countryId, tripId)){

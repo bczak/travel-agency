@@ -1,6 +1,5 @@
 package RSP.dao;
 
-import RSP.model.Trip;
 import RSP.model.User;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
