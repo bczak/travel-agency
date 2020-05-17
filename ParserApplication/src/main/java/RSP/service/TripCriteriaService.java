@@ -15,41 +15,41 @@ import RSP.model.TripCriteria;
 @Transactional
 public class TripCriteriaService {
 
-	private TripCriteriaDao criteriaDao;
+    private TripCriteriaDao criteriaDao;
 
-	@Autowired
-	public TripCriteriaService(TripCriteriaDao criteriaDao) {
-		this.criteriaDao = criteriaDao;
-	}
+    @Autowired
+    public TripCriteriaService(TripCriteriaDao criteriaDao) {
+        this.criteriaDao = criteriaDao;
+    }
 
-	public void add(TripCriteria criteria) {
-		Objects.requireNonNull(criteria, "trip criteria must not be null");
-		criteriaDao.add(criteria);
-	}
+    public void add(TripCriteria criteria) {
+        Objects.requireNonNull(criteria, "trip criteria must not be null");
+        criteriaDao.add(criteria);
+    }
 
-	public TripCriteria get(int id) throws TripCriteriaNotFoundException {
-		TripCriteria criteria = criteriaDao.get(id);
-		if (criteria == null) {
-			throw new TripCriteriaNotFoundException(id);
-		}
-		return criteria;
-	}
+    public TripCriteria get(int id) throws TripCriteriaNotFoundException {
+        TripCriteria criteria = criteriaDao.get(id);
+        if (criteria == null) {
+            throw new TripCriteriaNotFoundException(id);
+        }
+        return criteria;
+    }
 
-	public void remove(int id) throws TripCriteriaNotFoundException {
-		TripCriteria criteria = criteriaDao.get(id);
-		if (criteria == null) {
-			throw new TripCriteriaNotFoundException(id);
-		}
-		criteriaDao.remove(criteria);
-	}
+    public void remove(int id) throws TripCriteriaNotFoundException {
+        TripCriteria criteria = criteriaDao.get(id);
+        if (criteria == null) {
+            throw new TripCriteriaNotFoundException(id);
+        }
+        criteriaDao.remove(criteria);
+    }
 
-	// BULK OPERATIONS
+    // BULK OPERATIONS
 
-	public List<TripCriteria> getAll() {
-		return criteriaDao.getAll();
-	}
+    public List<TripCriteria> getAll() {
+        return criteriaDao.getAll();
+    }
 
-	public void removeAll() {
-		criteriaDao.removeAll();
-	}
+    public void removeAll() {
+        criteriaDao.removeAll();
+    }
 }
