@@ -72,6 +72,7 @@ class App extends React.Component {
 			open: false,
 			expanded: false,
 			offset: 10,
+			mail: 'test',
 			duration: [0, 90],
 			selectionRange: {
 				startDate: new Date(),
@@ -150,11 +151,18 @@ class App extends React.Component {
 			return cards
 		}
 	}
+	subscribe = async() => {
+		let mail = document.getElementById('mail').value
+		let rec = {tripCriteria: {notifactionEmail: mail}}
+		let res = await fetch('https://tash.wtf/api/recommendations', {method: 'POST', headers: {'Access-Control-Allow-Origin': '*'}, body: JSON.stringify(rec)})
+		console.log(res)
+
+	}
 
 	search = async (sort_type = SORT_TYPES.TITLE) => {
 		this.setState({...this.state, sort: sort_type, open: true})
 
-		const cards = await API.getTrips(
+		let cards = await API.getTrips(
 			this.state.selectedTags.map((e) => e.title),
 			this.state.isAllTags,
 			this.state.selectedCountries.map((e) => e.title),
@@ -164,15 +172,17 @@ class App extends React.Component {
 
 		if (cards.length === 0) alert('No results')
 
+		cards = this.getSortedCards(cards, sort_type)
 		this.setState({
 			...this.state,
-			cards: this.getSortedCards(cards, sort_type),
+			cards: cards,
 			resLength: cards.length,
 			open: false
 		})
 	}
 
 	render() {
+	
 		function valuetext(value) {
 			return `${value}$`
 		}
@@ -330,9 +340,11 @@ class App extends React.Component {
 								variant={'outlined'}
 								className={'subs-input'}
 								placeholder={'Enter your email'}
-								type={'mail'}
+								type={this.mail}
+								id="mail"
+							
 							/>
-							<Button variant={'outlined'} color={'primary'} className={'subs'}>
+							<Button variant={'outlined'} color={'primary'} className={'subs'} onClick={this.subscribe}>
 								Subscribe
 							</Button>
 						</Paper>
