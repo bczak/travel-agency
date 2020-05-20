@@ -108,7 +108,8 @@ public class RecommendationController {
         TripCriteriaNotFoundException.class})
     void handleRecommendationNotFoundException(
             HttpServletResponse response, Exception exception) throws IOException {
-        log.info("REST returned NOT_FOUND with error: " + exception.getMessage());
+        log.info("REST /recommendations... returned NOT_FOUND with error: "
+                + exception.getMessage());
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 }

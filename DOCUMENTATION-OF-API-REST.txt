@@ -1,8 +1,11 @@
-Documentation for API REST endpoints:
+Documentation for API REST endpoints
+====================================
 
 Base path: localhost:8080/api
 
-ENTITA TRIP
+
+ENTITY Trip
+-----------
 
 1) GET /trips - return JSON array of all trips where:
              ?minPrice=N ... price is >= N
@@ -39,65 +42,79 @@ ENTITA TRIP
        otherwise,
 	       return 409 CONFLICT with JSON entity Trip with conflicting NAME.
 
-7) DELETE /trips/{id} - delete Trip where trip.getId = {id}, return 204 NO_CONTENT
+7) POST /trips/tags/{tripid} - add one Tag for Trip where tripId = trip.getId(),
+       if Tag exists then add it to Trip, else create new Tag and add it to Trip.
+
+8) POST /trips/country/{tripid} - add one Country for Trip where tripId = trip.getId(),
+       if Country exists then add it to Trip, else create new Country and add it to Trip.
+
+9) DELETE /trips/{id} - delete Trip where id = trip.getId(), return 204 NO_CONTENT.
+
+10) DELETE /trips/tags/{tripId}/{tagId} - remove one Tag from Trip
+       where tripId = trip.getId() and tagId = tag.getId(),
+       Tag remains in DB.
+
+11) DELETE /country/{tripId}/{countryId} - remove one Country from Trip
+       where tripId = trip.getId() and countryId = country.getId(),
+       Country remains in DB.
 
 
 Bulk operations (mostly for debugging):
 
-8) GET /trips/bulk - return JSON array of all Trips, unsorted
+12) GET /trips/bulk - return JSON array of all Trips, unsorted
 
-9) POST /trips/bulk - add all Trips from JSON array as with POST /trips
+13) POST /trips/bulk - add all Trips from JSON array as with POST /trips
 
-10) PUT /trips/bulk - replace all Trips in DB with Trips from JSON array
+14) PUT /trips/bulk - replace all Trips in DB with Trips from JSON array
        like DELETE /trips/bulk and POST /trips/bulk
 
-11) PATCH /trips/bulk - add or replace all Trips from JSON array,
+15) PATCH /trips/bulk - add or replace all Trips from JSON array,
        Trips with same NAME are replaced, new NAMEs are added.
 
-12) DELETE /trips/bulk - delete all Trips from DB
+16) DELETE /trips/bulk - delete all Trips from DB
 
-13) POST /tags/{tripid} - add one tag for trip where tripId = trip.getId, if tag exists then existTag add to trip, else created new tag and add to trip
 
-14) DELETE /tags/{tripId}/{tagId} - delete one tag from trip where tripId = trip.getId and tagId = tag.getId, Tag is NOT DELETED from DB!
-
-15) POST /country/{tripid} - add one country for trip where tripId = trip.getId, if country exists then existCountry add to trip, else created new Country and add to trip
-
-16) DELETE /country/{tripId}/{countryId} - delete one country from trip where tripId = trip.getId and countryId = country.getId, Country is NOT DELETED from DB!
-
-ENTITA TAG
+ENTITY Tag
+----------
 
 1) GET /tags - retrurn all tags
 
 2) POST /tags - add one Tag to db
 
-3) DELETE /tags/{tagId} - delete one tag where tagId = tag.getId
+3) DELETE /tags/{tagId} - delete one tag where tagId = tag.getId()
 
-4) GET /tags/getByName/{name} - return one Tag where name = tag.name
+4) GET /tags/getByName/{name} - return one Tag where name = tag.getName()
 
-5) GET /tags/{tagId} - return one Tag where tagId = tag.getId
+5) GET /tags/{tagId} - return one Tag where tagId = tag.getId()
 
 6) POST /tags/addAll - add all Tags from JSON array
 
-ENTITA COUNTRY
 
-1) GET /countries - get all countries
+ENTITY Country
+--------------
 
-2) GET /countries/{name} - return Country where name = country.getName
+1) GET /countries - get all Countries
 
-3) POST /countries/addAll - add all Countries from JSON array
+2) GET /countries/{name} - return Country where name = Country.getName()
 
-4) POST /countries - add one Country to db
+3) GET /countries/tripGet/{countryId} - return all Trips from Country
+       where countryId = Country.getId()
 
-5) DELETE /countries/{id} - delete country where id = country.getId
+4) POST /countries/addAll - add all Countries from JSON array
 
-6) GET /countries/tripGet/{countryId} - retun all Trips from country where countryId = country.getId
+5) POST /countries - add one Country to DB
 
-7) POST /countries/trip/{countryId} - add trip to country where countryId = country.getId
+6) POST /countries/trip/{countryId} - add Trip to Country where countryId = Country.getId()
 
-8) DELETE /countries/trip/{countryId}/{tripId} - delete trip from country where countryId = country.getId and tripId = trip.getId Trip is NOT DELETED from DB!
+7) DELETE /countries/{id} - delete Country where id = Country.getId()
+
+8) DELETE /countries/trip/{countryId}/{tripId} - delete Trip from Country
+       where countryId = Country.getId() and tripId = Trip.getId(),
+       Trip remains in DB.
 
 
-ENTITA USER
+ENTITY User
+-----------
 
 1) GET /user - get all users
 
@@ -111,6 +128,7 @@ ENTITA USER
 
 
 ENTITY Recommendation
+---------------------
 
 1) GET /recommendations/undelivered - return array of all Recommendations
        not yet marked as delivered
@@ -132,3 +150,19 @@ For debugging purposes:
           return 204 NO_CONTENT
 
 7) DELETE /recommendations - remove all Recommendations, return 204 NO_CONTENT
+
+
+ENTITY TripCriteria
+-------------------
+
+1) GET /criterias - return array of all TripCriterias
+
+2) GET /criterias/{id} - return TripCriteria with getId() = {id}
+
+3) GET /criterias/{id}/trips - return array of Trips fitting TripCriteria with getId() = {id}
+
+4) POST /criterias - add new TripCriteria, request body must be JSON entity TripCriteria without {id}
+
+5) DELETE /criterias/{id} - remove TripCriteria with getId() = {id}, return 204 NO_CONTENT
+
+6) DELETE /criterias - remove all TripCriteria entities

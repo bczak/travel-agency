@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,7 +28,7 @@ public class TripController {
     TripService tripService;
     TagService tagService;
 
-    private final static Logger log = Logger.getLogger(TripController.class.getName());
+    private static final Logger log = Logger.getLogger(TripController.class.getName());
 
     TripController(TripService tripService, TagService tagService) {
         this.tripService = tripService;
@@ -48,38 +47,49 @@ public class TripController {
     @Deprecated
     @GetMapping(value = "/sort", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Trip> getAllSorted(@RequestParam SortAttribute by, @RequestParam SortOrder order) {
-        log.info("path: /trips/sort GET method getAllSorted is invoked by " + by + " order " + order);
-        return tripService.getAllSorted(by, order);
+        log.info(() -> "REST GET /trips/sort invoked with attribute = "
+                + by + " and order = " + order);
+        List<Trip> result = tripService.getAllSorted(by, order);
+        log.info(() -> "REST GET /trips/sort returned OK with " + result.size() + " trips");
+        return result;
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     Trip get(@PathVariable int id) throws TripNotFoundException {
-        log.info("path: /trips/{id} GET method get is invoked where id = " + id);
-        return tripService.get(id);
+        log.info(() -> "REST GET /trips/{id} invoked with id = " + id);
+        Trip result = tripService.get(id);
+        log.info("REST GET /trips/{id} returned OK");
+        return result;
     }
 
     @GetMapping(value = "/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     Trip get(@PathVariable String name) throws TripNotFoundException {
-        log.info("path: /trips/name/{name} GET method get is invoked where name = " + name);
-        return tripService.getByName(name);
+        log.info(() -> "REST GET /trips/name/{name} invoked with name = " + name);
+        Trip result = tripService.getByName(name);
+        log.info("REST GET /trips/name/{name} returned OK");
+        return result;
     }
 
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     List<User> getUsersOfTrip(@PathVariable int id) throws TripNotFoundException {
-        log.info("path: /trips/users/{id} GET method getUsersOfTrip is invoked where tasakId = " + id);
-        return tripService.getUsersFromTrip(id);
+        log.info(() -> "REST GET /trips/users/{id} invoked with id = " + id);
+        List<User> result = tripService.getUsersFromTrip(id);
+        log.info(() -> "REST GET /trips/users/{id} returned OK with "
+                + result.size() + " users");
+        return result;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Trip> add(@Valid @RequestBody Trip trip) throws URISyntaxException {
-        log.info("path: /trips POST method add is invoked");
+    ResponseEntity<Trip> add(@Valid @RequestBody Trip trip) {
+        log.info("REST POST /trips invoked");
         Trip old = tripService.add(trip);
         if (old == null) {
+            log.info("REST POST /trips returned CREATED");
             return ResponseEntity
-                    .created(new URI("/trips/" + trip.getId()))
+                    .created(URI.create("/trips/" + trip.getId()))
                     .body(trip);
         } else {
-            log.info("path: /trips POST method add is invoked with error CONFLICT");
+            log.info("REST POST /trips returned CONFLICT");
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .header("Content-Location", "/trips/" + old.getId())
@@ -89,54 +99,67 @@ public class TripController {
 
     @PostMapping(value = "/tags/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Trip> addTags(@PathVariable int id, @RequestBody Tag tag)
-            throws URISyntaxException, TripNotFoundException {
-        log.info("path: /trips/tags/{TripId} POST method addTags is invoked where tripId = " + id);
+            throws TripNotFoundException {
+        log.info(() -> "REST POST /trips/tags/{tripId} invoked with tripId = " + id);
         tripService.get(id);
         if (!tripService.addTags(tag, id)) {
+            log.info("REST POST /trips/tags/{tripId} returned CONFLICT");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            log.info("REST POST /trips/tags/{tripId} returned CREATED");
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/country/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Trip> addCountry(@PathVariable int id, @RequestBody Country country)
-            throws URISyntaxException, TripNotFoundException {
-        log.info("path: /trips/country/{TripId} POST method addCountry is invoked where tripId = " + id);
+            throws TripNotFoundException {
+        log.info(() -> "REST POST /trips/country/{tripId} invoked with tripId = " + id);
         tripService.get(id);
         if (!tripService.addCountry(country, id)) {
+            log.info("REST POST /trips/country/{tripId} returned CONFLICT");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            log.info("REST POST /trips/country/{tripID} returned CREATED");
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     void remove(@PathVariable int id) throws TripNotFoundException {
-        log.info("path: /trips DELETE method remove is invoked with id = " + id);
+        log.info(() -> "REST DELETE /trips/{id} invoked with id = " + id);
         tripService.remove(id);
+        log.info("REST DELETE /trips/{id} returned NO_CONTENT");
     }
 
     @DeleteMapping(value = "/tags/{tripId}/{tagId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     ResponseEntity<Void> removeTag(@PathVariable int tripId, @PathVariable int tagId)
             throws TripNotFoundException {
-        log.info("path: /trips/tags/{tripId}/{tagId} DELETE method removeTag is invoked with tagId = " + tagId);
-        if(tripService.removeTag(tagId, tripId)){
-            return new ResponseEntity<>(HttpStatus.OK);
+        log.info(() -> "REST DELETE /trips/tags/{tripId}/{tagId} invoked with tripId = "
+                + tripId + " and tagId = " + tagId);
+        if (tripService.removeTag(tagId, tripId)) {
+            log.info("REST DELETE /trips/tags/{tripId}/{tagId} returned NO_CONTENT");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            log.info("REST DELETE /trips/tags/{tripId}/{tagId} returned FORBIDDEN");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @DeleteMapping(value = "/country/{tripId}/{countryId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     ResponseEntity<Void> removeCountry(@PathVariable int tripId, @PathVariable int countryId)
             throws TripNotFoundException {
-        log.info("path: /trips/country/{tripId}/{countryId} DELETE method removeCountry is invoked with countryId = " + countryId);
-        if(tripService.removeCountry(tripId, countryId)){
-            return new ResponseEntity<>(HttpStatus.OK);
+        log.info(() -> "REST DELETE /trips/country/{tripId}/{countryId} invoked with tripId = "
+                + tripId + " and countryId = " + countryId);
+        if (tripService.removeCountry(tripId, countryId)) {
+            log.info("REST DELETE /trips/country/{tripId}/{countryId} returned NO_CONTENT");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            log.info("REST DELETE /trips/country/{tripOd}/{countryId} returned FORBIDDEN");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     // BULK OPERATIONS
@@ -236,14 +259,16 @@ public class TripController {
     @ExceptionHandler(TripNotFoundException.class)
     void handleTripNotFound(HttpServletResponse response, Exception exception)
             throws IOException {
-        log.info(() -> "REST returned NOT_FOUND with error: " + exception.getMessage());
+        log.info(() -> "REST /trips... returned NOT_FOUND with error: "
+                + exception.getMessage());
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 
     @ExceptionHandler({InconsistentQueryException.class, InvalidQueryException.class})
     void handleInvalidQuery(HttpServletResponse response, Exception exception)
             throws IOException {
-        log.info("REST returned UNPROCESSABLE_ENTITY with error: " + exception.getMessage());
+        log.info(() -> "REST /trips... returned UNPROCESSABLE_ENTITY with error: "
+                + exception.getMessage());
         response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 }
