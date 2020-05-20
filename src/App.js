@@ -176,7 +176,9 @@ class App extends React.Component {
         console.log(JSON.stringify(rec))
         let res = await fetch('https://tash.wtf/api/criterias', {
             method: 'POST',
-            headers: {'Access-Control-Allow-Origin': '*'},
+            headers: {'Access-Control-Allow-Origin': '*',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'},
             body: JSON.stringify(rec)
         })
         if(res.json().error === undefined) {
