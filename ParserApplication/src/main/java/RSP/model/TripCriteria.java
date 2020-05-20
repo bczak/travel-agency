@@ -61,8 +61,14 @@ public class TripCriteria extends AbstractEntity {
     @ManyToMany
     private List<Country> countries;
 
+    @Column
+    private Boolean anyCountry;
+
     @ManyToMany
     private List<Tag> tags;
+
+    @Column
+    private Boolean anyTag;
 
     public String getNotifactionEmail() {
         return notifactionEmail;
@@ -187,11 +193,27 @@ public class TripCriteria extends AbstractEntity {
         this.tags = tags;
     }
 
+    public Boolean getAnyTag() {
+        return anyTag;
+    }
+
+    public void setAnyTag(Boolean anyTag) {
+        this.anyTag = anyTag;
+    }
+
     public List<Country> getCountries() {
         return countries;
     }
 
     public void setCountries(List<Country> countries) {
         this.countries = countries;
+    }
+
+    public Boolean getAnyCountry() {
+        return anyCountry;
+    }
+
+    public void setAnyCountry(Boolean anyCountry) {
+        this.anyCountry = anyCountry;
     }
 }

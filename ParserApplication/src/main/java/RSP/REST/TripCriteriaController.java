@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import RSP.model.Trip;
 import RSP.model.TripCriteria;
+import RSP.service.InconsistentQueryException;
+import RSP.service.InvalidQueryException;
 import RSP.service.TripCriteriaNotFoundException;
 import RSP.service.TripCriteriaService;
 
@@ -28,9 +31,9 @@ import RSP.service.TripCriteriaService;
 @RequestMapping("/api/criterias")
 public class TripCriteriaController {
 
-    private static final Logger log = Logger.getLogger(TripCriteriaController.class.getName());
-
     private final TripCriteriaService criteriaService;
+
+    private static final Logger log = Logger.getLogger(TripCriteriaController.class.getName());
 
     TripCriteriaController(TripCriteriaService criteriaService) {
         this.criteriaService = criteriaService;
@@ -52,8 +55,21 @@ public class TripCriteriaController {
         return result;
     }
 
+    @GetMapping(value = "/{id}/trips", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Trip> getTrips(@PathVariable int id)
+            throws TripCriteriaNotFoundException,
+                    InvalidQueryException,
+                    InconsistentQueryException {
+        log.info(() -> "REST GET /criterias/{id}/trips invoked with id = " + id);
+        List<Trip> result = criteriaService.getSelectedTrips(id);
+        log.info(() ->
+                "REST GET /criterias/{id}/trips returned with " + result.size() + " trips");
+        return result;
+    }
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<TripCriteria> add(@RequestBody TripCriteria criteria) {
+    ResponseEntity<TripCriteria> add(@RequestBody TripCriteria criteria)
+            throws InvalidQueryException, InconsistentQueryException {
         log.info("REST POST /criterias invoked");
         criteriaService.add(criteria);
         log.info("REST POST /criterias returned CREATED");
@@ -78,10 +94,14 @@ public class TripCriteriaController {
         log.info("REST DELETE /criterias returned NO_CONTENT");
     }
 
-    @ExceptionHandler(TripCriteriaNotFoundException.class)
+    @ExceptionHandler({
+        TripCriteriaNotFoundException.class,
+        InvalidQueryException.class,
+        InconsistentQueryException.class})
     void handleTripCriteriaNotFound(HttpServletResponse response, Exception exception)
             throws IOException {
-        log.info(() -> "REST returned NOT_FOUND wuth error: " + exception.getMessage());
+        log.info(() ->
+                "REST /criterias... returned NOT_FOUND wuth error: " + exception.getMessage());
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 }
